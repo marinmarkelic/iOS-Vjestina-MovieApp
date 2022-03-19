@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MovieDetailsViewController.swift
 //  MovieApp
 //
 //  Created by Marin on 19.03.2022..
@@ -7,13 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MovieDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = .red
     }
 
 
 }
-
