@@ -1,42 +1,45 @@
-//
-//  personView.swift
-//  MovieApp
-//
-//  Created by Marin on 25.03.2022..
-//
-
 import UIKit
 import SnapKit
 
-class personView: UIView{
-    var personName: UILabel!
-    var personRole: UILabel!
-
-    weak var delegate: MovieDetailsViewController?
+class PersonView: UIView{
     
-    init(){
-        super.init(frame: CGRect.zero)
+    let name: UILabel!
+    let role: UILabel!
+    
+    init(name: String, role: String) {
         
-        personName = UILabel()
-        personRole = UILabel()
-        self.backgroundColor = .yellow
+        self.name = UILabel()
+        self.name.text = name
+        self.role = UILabel()
+        self.role.text = role
+        
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
+        buildViews()
+        addConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setInfo(name: String, role: String){
-        personName.text = name
-        personRole.text = role
+    func buildViews(){
+        name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
+        role.font = UIFont.systemFont(ofSize: 14)
         
-        personName.font = UIFont.systemFont(ofSize: 14, weight: .black)
-        personRole.font = UIFont.systemFont(ofSize: 14)
-        
-        self.setNeedsDisplay()
-    }  
-}
-
-protocol updatePersonView{
-    func setInfo(name: String, role: String)
+        self.addSubview(name)
+        self.addSubview(role)
+    }
+    
+    func addConstraints(){
+        name.snp.makeConstraints{
+            $0.width.equalTo(self)
+            $0.height.equalTo(self).dividedBy(2)
+        }
+        role.snp.makeConstraints{
+            $0.top.equalTo(name.snp.bottom)
+            $0.width.equalTo(self)
+            $0.height.equalTo(self).dividedBy(2)
+        }
+    }
 }

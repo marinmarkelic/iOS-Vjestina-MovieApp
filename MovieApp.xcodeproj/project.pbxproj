@@ -12,6 +12,8 @@
 		9C774E1C27E6850800F13677 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C774E1A27E6850800F13677 /* LaunchScreen.storyboard */; };
 		9C774E2827E6963A00F13677 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C774E2727E6963A00F13677 /* MovieDetailsViewController.swift */; };
 		9C840F5D27EF9EE8007452F3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9C840F5C27EF9EE8007452F3 /* SnapKit */; };
+		9C840F5F27EFBD5A007452F3 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F5E27EFBD5A007452F3 /* PersonView.swift */; };
+		9C840F6227EFC0D4007452F3 /* testController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6127EFC0D4007452F3 /* testController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		9C774E1B27E6850800F13677 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C774E1D27E6850800F13677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C774E2727E6963A00F13677 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		9C840F5E27EFBD5A007452F3 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		9C840F6127EFC0D4007452F3 /* testController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,7 @@
 		9C774E0327E6850700F13677 = {
 			isa = PBXGroup;
 			children = (
+				9C840F6027EFC0AA007452F3 /* test */,
 				9C774E0E27E6850700F13677 /* MovieApp */,
 				9C774E0D27E6850700F13677 /* Products */,
 			);
@@ -56,11 +61,20 @@
 			children = (
 				9C774E0F27E6850700F13677 /* AppDelegate.swift */,
 				9C774E2727E6963A00F13677 /* MovieDetailsViewController.swift */,
+				9C840F5E27EFBD5A007452F3 /* PersonView.swift */,
 				9C774E1827E6850800F13677 /* Assets.xcassets */,
 				9C774E1A27E6850800F13677 /* LaunchScreen.storyboard */,
 				9C774E1D27E6850800F13677 /* Info.plist */,
 			);
 			path = MovieApp;
+			sourceTree = "<group>";
+		};
+		9C840F6027EFC0AA007452F3 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				9C840F6127EFC0D4007452F3 /* testController.swift */,
+			);
+			path = test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +153,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C840F5F27EFBD5A007452F3 /* PersonView.swift in Sources */,
 				9C774E1027E6850700F13677 /* AppDelegate.swift in Sources */,
 				9C774E2827E6963A00F13677 /* MovieDetailsViewController.swift in Sources */,
+				9C840F6227EFC0D4007452F3 /* testController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

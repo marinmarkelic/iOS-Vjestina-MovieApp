@@ -10,7 +10,6 @@ class MovieDetailsViewController: UIViewController {
     var mainInfoText: UIView
     
     var mainInfoBgImage: UIImageView
-    var mainInfoBgImageGradient: UIView
     
     var mainInfoScorePercentage: UILabel
     var mainInfoScoreText: UILabel
@@ -57,7 +56,6 @@ class MovieDetailsViewController: UIViewController {
         self.backgroundColor = backgroundColor
         self.mainInfoView = UIView()
         self.mainInfoBgImage = UIImageView(image: UIImage(named: "avatar.jpeg"))
-        self.mainInfoBgImageGradient = UIView()
         self.mainInfoScore = UIView()
         self.mainInfoText = UIView()
         self.mainInfoScorePercentage = UILabel()
@@ -112,7 +110,6 @@ class MovieDetailsViewController: UIViewController {
         
         buildViews()
         addConstraints()
-        mainInfoBgImageGradient.addBlackGradientLayerInForeground(frame: mainInfoView.bounds, colors: [.clear, .yellow])
     }
     
     private func buildViews(){
@@ -127,7 +124,6 @@ class MovieDetailsViewController: UIViewController {
         mainInfoBgImage.contentMode = .scaleAspectFill
         mainInfoBgImage.clipsToBounds = true
         mainInfoView.addSubview(mainInfoBgImage)
-        mainInfoView.addSubview(mainInfoBgImageGradient)
         
         mainInfoView.addSubview(mainInfoScore)
         mainInfoView.addSubview(mainInfoText)
@@ -451,16 +447,5 @@ class MovieDetailsViewController: UIViewController {
                 $0.width.equalTo(overviewPerson6)
                 $0.top.equalTo(person6Name.snp.bottom)
             }
-        }
-    
+        }    
     }
-
-extension UIView{
-    // For insert layer in Foreground
-       func addBlackGradientLayerInForeground(frame: CGRect, colors:[UIColor]){
-        let gradient = CAGradientLayer()
-        gradient.frame = frame
-        gradient.colors = colors.map{$0.cgColor}
-        self.layer.addSublayer(gradient)
-       }
-}
