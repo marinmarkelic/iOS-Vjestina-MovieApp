@@ -15,6 +15,7 @@
 		9C840F5F27EFBD5A007452F3 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F5E27EFBD5A007452F3 /* PersonView.swift */; };
 		9C840F6227EFC0D4007452F3 /* testController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6127EFC0D4007452F3 /* testController.swift */; };
 		9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6527EFCE2A007452F3 /* OverviewView.swift */; };
+		9C840F6827EFD3F5007452F3 /* MainInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6727EFD3F5007452F3 /* MainInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		9C840F5E27EFBD5A007452F3 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		9C840F6127EFC0D4007452F3 /* testController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testController.swift; sourceTree = "<group>"; };
 		9C840F6527EFCE2A007452F3 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
+		9C840F6727EFD3F5007452F3 /* MainInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				9C774E1A27E6850800F13677 /* LaunchScreen.storyboard */,
 				9C774E1D27E6850800F13677 /* Info.plist */,
 				9C840F6527EFCE2A007452F3 /* OverviewView.swift */,
+				9C840F6727EFD3F5007452F3 /* MainInfoView.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				9C840F5F27EFBD5A007452F3 /* PersonView.swift in Sources */,
 				9C774E1027E6850700F13677 /* AppDelegate.swift in Sources */,
 				9C774E2827E6963A00F13677 /* MovieDetailsViewController.swift in Sources */,
+				9C840F6827EFD3F5007452F3 /* MainInfoView.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
 				9C840F6227EFC0D4007452F3 /* testController.swift in Sources */,
 			);
