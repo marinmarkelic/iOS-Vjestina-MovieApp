@@ -21,25 +21,8 @@ class MovieDetailsViewController: UIViewController {
     var mainInfoTextDuration: UILabel
     
     var mainInfoStar: UIImageView
-    
-    //var scoreLabel: UILabel
-    
-    var overviewView: UIView
-    var overviewMainText: UIView
-    var overviewPersons: UIView
-    
-    var overviewMainTextTitle: UILabel
-    var overviewMainTextText: UILabel
-    
-    var overviewPersonsContainer: UIView
-    var overviewPerson1: PersonView
-    var overviewPerson2: PersonView
-    var overviewPerson3: PersonView
-    var overviewPerson4: PersonView
-    var overviewPerson5: PersonView
-    var overviewPerson6: PersonView
-    
-   
+        
+    var overview: OverviewView
     
     init(backgroundColor: UIColor){
         self.backgroundColor = backgroundColor
@@ -57,19 +40,7 @@ class MovieDetailsViewController: UIViewController {
         self.mainInfoTextDuration = UILabel()
         self.mainInfoStar = UIImageView(image: UIImage(named: "star"))
         
-        self.overviewView = UIView()
-        self.overviewMainText = UIView()
-        self.overviewPersons = UIView()
-        self.overviewPersonsContainer = UIView()
-        self.overviewPerson1 = PersonView(name: "Jon Landau", role: "Producer")
-        self.overviewPerson2 = PersonView(name: "Mauro Fiore", role: "Cinematographer")
-        self.overviewPerson3 = PersonView(name: "James Cameron", role: "Director")
-        self.overviewPerson4 = PersonView(name: "James Horner", role: "Composer")
-        self.overviewPerson5 = PersonView(name: "John Refoua", role: "Editor")
-        self.overviewPerson6 = PersonView(name: "James Cameron", role: "Producer")
-        
-        self.overviewMainTextTitle = UILabel()
-        self.overviewMainTextText = UILabel()
+        self.overview = OverviewView()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -95,7 +66,7 @@ class MovieDetailsViewController: UIViewController {
         
         
         self.view.addSubview(mainInfoView)
-        self.view.addSubview(overviewView)
+        self.view.addSubview(overview)
         
         //  Main info
         mainInfoBgImage.contentMode = .scaleAspectFill
@@ -139,36 +110,6 @@ class MovieDetailsViewController: UIViewController {
         mainInfoText.addSubview(mainInfoTextDuration)
         
         mainInfoText.addSubview(mainInfoStar)
-
-        //  Overview
-        overviewView.addSubview(overviewMainText)
-        overviewView.addSubview(overviewPersons)
-        
-        overviewMainTextTitle.text = "Overview"
-        overviewMainTextTitle.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
-        
-        overviewMainTextText.text = "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home."
-        overviewMainTextText.font = UIFont.systemFont(ofSize: 15)
-        overviewMainTextText.lineBreakMode = .byWordWrapping
-        overviewMainTextText.numberOfLines = 0
-        
-        overviewMainText.addSubview(overviewMainTextTitle)
-        overviewMainText.addSubview(overviewMainTextText)
-        
-        buildViewsPersons()
-        
-    }
-    
-
-    
-    private func buildViewsPersons(){
-        overviewPersons.addSubview(overviewPersonsContainer)
-        overviewPersonsContainer.addSubview(overviewPerson1)
-        overviewPersonsContainer.addSubview(overviewPerson2)
-        overviewPersonsContainer.addSubview(overviewPerson3)
-        overviewPersonsContainer.addSubview(overviewPerson4)
-        overviewPersonsContainer.addSubview(overviewPerson5)
-        overviewPersonsContainer.addSubview(overviewPerson6)
     }
     
     private func addConstraints(){
@@ -181,8 +122,6 @@ class MovieDetailsViewController: UIViewController {
         
         mainInfoBgImage.snp.makeConstraints{
             $0.top.bottom.trailing.leading.equalTo(mainInfoView)
-            
-
         }
         
         mainInfoScore.snp.makeConstraints{
@@ -243,89 +182,10 @@ class MovieDetailsViewController: UIViewController {
         
         
         //  Overview
-        overviewView.snp.makeConstraints{
+        overview.snp.makeConstraints{
             $0.top.equalTo(mainInfoView.snp.bottom)
             $0.width.equalTo(self.view)
             $0.height.equalTo(self.view.safeAreaLayoutGuide).dividedBy(2)
         }
-        
-        overviewMainText.snp.makeConstraints{
-            //$0.height.equalTo(overviewView).dividedBy(2)
-            $0.width.equalTo(overviewView)
-        }
-        
-        overviewPersons.snp.makeConstraints{
-            $0.height.equalTo(overviewView).dividedBy(2)
-            $0.width.equalTo(overviewView)
-            $0.top.equalTo(overviewMainText.snp.bottom)
-        }
-        
-        overviewMainTextTitle.snp.makeConstraints{
-            $0.top.equalTo(overviewMainText).offset(20)
-            $0.leading.equalTo(overviewMainText).offset(20)
-            $0.trailing.equalTo(overviewMainText.snp.trailing).offset(-10)
-            $0.height.equalTo(overviewMainText).dividedBy(6)
-        }
-        
-        overviewMainTextText.snp.makeConstraints{
-            $0.top.equalTo(overviewMainTextTitle.snp.bottom).offset(10)
-            $0.leading.equalTo(overviewMainText).offset(20)
-            $0.trailing.equalTo(overviewMainText.snp.trailing).offset(-10)
-        }
-        
-        
-        addConstraintsForPersons()
-         
     }
-    
-    private func addConstraintsForPersons(){
-            overviewPersonsContainer.snp.makeConstraints{
-                $0.top.equalTo(overviewPersons.snp.top).offset(10)
-                $0.height.equalTo(overviewPersons)
-                $0.leading.equalTo(overviewPersons.snp.leading).offset(20)
-                $0.trailing.equalTo(overviewPersons.snp.trailing).offset(-20)
-            }
-            
-            overviewPerson1.snp.makeConstraints{
-                $0.top.equalTo(overviewPersonsContainer.snp.top)
-                $0.leading.equalTo(overviewPersonsContainer.snp.leading)
-                $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
-                $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            
-            overviewPerson2.snp.makeConstraints{
-                $0.top.equalTo(overviewPersonsContainer.snp.top)
-                $0.leading.equalTo(overviewPerson1.snp.trailing)
-                $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
-                $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            
-            overviewPerson3.snp.makeConstraints{
-                $0.top.equalTo(overviewPersonsContainer.snp.top)
-                $0.leading.equalTo(overviewPerson2.snp.trailing)
-                $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
-                $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            
-            overviewPerson4.snp.makeConstraints{
-                $0.top.equalTo(overviewPerson1.snp.bottom)
-                $0.leading.equalTo(overviewPersonsContainer.snp.leading)
-                $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
-                $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            
-            overviewPerson5.snp.makeConstraints{
-                $0.top.equalTo(overviewPerson1.snp.bottom)
-                $0.leading.equalTo(overviewPerson4.snp.trailing)
-                $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
-                $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            
-            overviewPerson6.snp.makeConstraints{
-                $0.top.equalTo(overviewPerson1.snp.bottom)
-                $0.leading.equalTo(overviewPerson5.snp.trailing)
-                $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
-                $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-        }    
-    }
+}

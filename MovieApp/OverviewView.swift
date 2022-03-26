@@ -66,7 +66,8 @@ class OverviewView: UIView{
     
     func addConstraints(){
         mainText.snp.makeConstraints{
-            //$0.height.equalTo(overviewView).dividedBy(2)
+            $0.top.equalTo(self)
+            $0.height.equalTo(self).dividedBy(3)
             $0.width.equalTo(self)
         }
                 
