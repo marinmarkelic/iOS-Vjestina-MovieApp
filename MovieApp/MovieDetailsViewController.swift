@@ -32,25 +32,14 @@ class MovieDetailsViewController: UIViewController {
     var overviewMainTextText: UILabel
     
     var overviewPersonsContainer: UIView
-    var overviewPerson1: UIView
-    var overviewPerson2: UIView
-    var overviewPerson3: UIView
-    var overviewPerson4: UIView
-    var overviewPerson5: UIView
-    var overviewPerson6: UIView
+    var overviewPerson1: PersonView
+    var overviewPerson2: PersonView
+    var overviewPerson3: PersonView
+    var overviewPerson4: PersonView
+    var overviewPerson5: PersonView
+    var overviewPerson6: PersonView
     
-    var person1Name: UILabel
-    var person1Role: UILabel
-    var person2Name: UILabel
-    var person2Role: UILabel
-    var person3Name: UILabel
-    var person3Role: UILabel
-    var person4Name: UILabel
-    var person4Role: UILabel
-    var person5Name: UILabel
-    var person5Role: UILabel
-    var person6Name: UILabel
-    var person6Role: UILabel
+   
     
     init(backgroundColor: UIColor){
         self.backgroundColor = backgroundColor
@@ -72,27 +61,15 @@ class MovieDetailsViewController: UIViewController {
         self.overviewMainText = UIView()
         self.overviewPersons = UIView()
         self.overviewPersonsContainer = UIView()
-        self.overviewPerson1 = UIView()
-        self.overviewPerson2 = UIView()
-        self.overviewPerson3 = UIView()
-        self.overviewPerson4 = UIView()
-        self.overviewPerson5 = UIView()
-        self.overviewPerson6 = UIView()
+        self.overviewPerson1 = PersonView(name: "Jon Landau", role: "Producer")
+        self.overviewPerson2 = PersonView(name: "Mauro Fiore", role: "Cinematographer")
+        self.overviewPerson3 = PersonView(name: "James Cameron", role: "Director")
+        self.overviewPerson4 = PersonView(name: "James Horner", role: "Composer")
+        self.overviewPerson5 = PersonView(name: "John Refoua", role: "Editor")
+        self.overviewPerson6 = PersonView(name: "James Cameron", role: "Producer")
         
         self.overviewMainTextTitle = UILabel()
         self.overviewMainTextText = UILabel()
-        self.person1Name = UILabel()
-        self.person2Name = UILabel()
-        self.person3Name = UILabel()
-        self.person4Name = UILabel()
-        self.person5Name = UILabel()
-        self.person6Name = UILabel()
-        self.person1Role = UILabel()
-        self.person2Role = UILabel()
-        self.person3Role = UILabel()
-        self.person4Role = UILabel()
-        self.person5Role = UILabel()
-        self.person6Role = UILabel()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -128,7 +105,7 @@ class MovieDetailsViewController: UIViewController {
         mainInfoView.addSubview(mainInfoScore)
         mainInfoView.addSubview(mainInfoText)
                 
-        mainInfoScorePercentage.text = "76%"
+        mainInfoScorePercentage.text = "86%"
         mainInfoScorePercentage.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         mainInfoScoreText.text = "User Score"
         mainInfoScoreText.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
@@ -192,49 +169,6 @@ class MovieDetailsViewController: UIViewController {
         overviewPersonsContainer.addSubview(overviewPerson4)
         overviewPersonsContainer.addSubview(overviewPerson5)
         overviewPersonsContainer.addSubview(overviewPerson6)
-        
-        person1Name.text = "Jon Landau"
-        person1Role.text = "Producer"
-        person2Name.text = "Mauro Fiore"
-        person2Role.text = "Cinematographer"
-        person3Name.text = "James Cameron"
-        person3Role.text = "Director"
-        
-        person4Name.text = "James Horner"
-        person4Role.text = "Composer"
-        person5Name.text = "John Refoua"
-        person5Role.text = "Editor"
-        person6Name.text = "James Cameron"
-        person6Role.text = "Producer"
-        
-        
-        
-        person1Name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        person2Name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        person3Name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        person4Name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        person5Name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        person6Name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        
-        person1Role.font = UIFont.systemFont(ofSize: 14)
-        person2Role.font = UIFont.systemFont(ofSize: 14)
-        person3Role.font = UIFont.systemFont(ofSize: 14)
-        person4Role.font = UIFont.systemFont(ofSize: 14)
-        person5Role.font = UIFont.systemFont(ofSize: 14)
-        person6Role.font = UIFont.systemFont(ofSize: 14)
-                
-        overviewPerson1.addSubview(person1Name)
-        overviewPerson1.addSubview(person1Role)
-        overviewPerson2.addSubview(person2Name)
-        overviewPerson2.addSubview(person2Role)
-        overviewPerson3.addSubview(person3Name)
-        overviewPerson3.addSubview(person3Role)
-        overviewPerson4.addSubview(person4Name)
-        overviewPerson4.addSubview(person4Role)
-        overviewPerson5.addSubview(person5Name)
-        overviewPerson5.addSubview(person5Role)
-        overviewPerson6.addSubview(person6Name)
-        overviewPerson6.addSubview(person6Role)
     }
     
     private func addConstraints(){
@@ -358,30 +292,12 @@ class MovieDetailsViewController: UIViewController {
                 $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
                 $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
             }
-            person1Name.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson1).dividedBy(3)
-                $0.width.equalTo(overviewPerson1)
-            }
-            person1Role.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson1).dividedBy(3)
-                $0.width.equalTo(overviewPerson1)
-                $0.top.equalTo(person1Name.snp.bottom)
-            }
             
             overviewPerson2.snp.makeConstraints{
                 $0.top.equalTo(overviewPersonsContainer.snp.top)
                 $0.leading.equalTo(overviewPerson1.snp.trailing)
                 $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
                 $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            person2Name.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson2).dividedBy(3)
-                $0.width.equalTo(overviewPerson2)
-            }
-            person2Role.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson2).dividedBy(3)
-                $0.width.equalTo(overviewPerson2)
-                $0.top.equalTo(person2Name.snp.bottom)
             }
             
             overviewPerson3.snp.makeConstraints{
@@ -390,30 +306,12 @@ class MovieDetailsViewController: UIViewController {
                 $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
                 $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
             }
-            person3Name.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson3).dividedBy(3)
-                $0.width.equalTo(overviewPerson3)
-            }
-            person3Role.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson3).dividedBy(3)
-                $0.width.equalTo(overviewPerson3)
-                $0.top.equalTo(person3Name.snp.bottom)
-            }
             
             overviewPerson4.snp.makeConstraints{
                 $0.top.equalTo(overviewPerson1.snp.bottom)
                 $0.leading.equalTo(overviewPersonsContainer.snp.leading)
                 $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
                 $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            person4Name.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson4).dividedBy(3)
-                $0.width.equalTo(overviewPerson4)
-            }
-            person4Role.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson4).dividedBy(3)
-                $0.width.equalTo(overviewPerson4)
-                $0.top.equalTo(person4Name.snp.bottom)
             }
             
             overviewPerson5.snp.makeConstraints{
@@ -422,30 +320,12 @@ class MovieDetailsViewController: UIViewController {
                 $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
                 $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
             }
-            person5Name.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson5).dividedBy(3)
-                $0.width.equalTo(overviewPerson5)
-            }
-            person5Role.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson5).dividedBy(3)
-                $0.width.equalTo(overviewPerson5)
-                $0.top.equalTo(person5Name.snp.bottom)
-            }
             
             overviewPerson6.snp.makeConstraints{
                 $0.top.equalTo(overviewPerson1.snp.bottom)
                 $0.leading.equalTo(overviewPerson5.snp.trailing)
                 $0.width.equalTo(overviewPersonsContainer).dividedBy(3)
                 $0.height.equalTo(overviewPersonsContainer).dividedBy(3)
-            }
-            person6Name.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson6).dividedBy(3)
-                $0.width.equalTo(overviewPerson6)
-            }
-            person6Role.snp.makeConstraints{
-                $0.height.equalTo(overviewPerson6).dividedBy(3)
-                $0.width.equalTo(overviewPerson6)
-                $0.top.equalTo(person6Name.snp.bottom)
             }
         }    
     }

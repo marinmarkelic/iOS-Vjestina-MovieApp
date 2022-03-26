@@ -32,14 +32,17 @@ class PersonView: UIView{
     }
     
     func addConstraints(){
+//        name.backgroundColor = .red
+//        role.backgroundColor = .brown
+        
         name.snp.makeConstraints{
             $0.width.equalTo(self)
-            $0.height.equalTo(self).dividedBy(2)
+            $0.height.equalTo(self).dividedBy(3)
         }
         role.snp.makeConstraints{
             $0.top.equalTo(name.snp.bottom)
             $0.width.equalTo(self)
-            $0.height.equalTo(self).dividedBy(2)
+            $0.height.equalTo(self).dividedBy(3)
         }
     }
 }
