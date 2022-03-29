@@ -3,11 +3,10 @@ import SnapKit
 
 class MovieDetailsViewController: UIViewController {
 
-    var mainInfo: MainInfoView!
-    var overview: OverviewView!
+    var mainInfo: MainInfoView
+    var overview: OverviewView
     
     init(){
-        
         mainInfo = MainInfoView()
         overview = OverviewView()
         
@@ -28,13 +27,8 @@ class MovieDetailsViewController: UIViewController {
     private func buildViews(){
         self.view.backgroundColor = .white
 
-        
-        
         self.view.addSubview(mainInfo)
         self.view.addSubview(overview)
-        
-        //  Main info
-        
     }
     
     private func addConstraints(){
@@ -45,7 +39,6 @@ class MovieDetailsViewController: UIViewController {
 
         }
 
-                //  Overview
         overview.snp.makeConstraints{
             $0.top.equalTo(mainInfo.snp.bottom)
             $0.width.equalTo(self.view)

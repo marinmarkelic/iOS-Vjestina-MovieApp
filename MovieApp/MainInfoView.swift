@@ -110,13 +110,13 @@ class MainInfoView: UIView{
         //
         textView.snp.makeConstraints{
             $0.width.equalTo(self.snp.width)
-            $0.height.equalTo(self.snp.height).dividedBy(2)
+//            $0.height.equalTo(self.snp.height).dividedBy(2)
             $0.top.equalTo(scoreView.snp.bottom)
         }
         
         textTitle.snp.makeConstraints{
-            $0.top.equalTo(textView.snp.top).offset(25)
-            $0.left.equalTo(textView.snp.left).offset(20)
+            $0.bottom.equalTo(textGenre.snp.top).offset(-25)
+            $0.leading.equalTo(textView.snp.leading).offset(20)
         }
         
         textTitleYear.snp.makeConstraints{
@@ -125,13 +125,14 @@ class MainInfoView: UIView{
         }
         
         textDate.snp.makeConstraints{
-            $0.top.equalTo(textTitle.snp.bottom).offset(10)
+            $0.bottom.equalTo(starImage.snp.top).offset(-40)
             $0.leading.equalTo(textTitle.snp.leading)
         }
         
         textGenre.snp.makeConstraints{
             $0.top.equalTo(textDate.snp.bottom).offset(5)
             $0.leading.equalTo(textTitle.snp.leading)
+            //$0.bottom.equalTo(starImage.snp.top).offset(30)
         }
         
         textDuration.snp.makeConstraints{
@@ -140,7 +141,7 @@ class MainInfoView: UIView{
         }
         
         starImage.snp.makeConstraints{
-            $0.top.equalTo(textGenre.snp.bottom).offset(30)
+            $0.bottom.equalTo(self).offset(-25)
             $0.leading.equalTo(textGenre.snp.leading)
             $0.width.equalTo(35)
             $0.height.equalTo(35)
@@ -148,3 +149,65 @@ class MainInfoView: UIView{
     }
     
 }
+
+//func addConstraints() {
+//    bgImage.snp.makeConstraints{
+//        $0.top.bottom.trailing.leading.equalTo(self)
+//    }
+//
+//    scoreView.snp.makeConstraints{
+//        $0.top.equalTo(self.snp.top)
+//        $0.width.equalTo(self.snp.width)
+//        $0.height.equalTo(self.snp.height).dividedBy(2)
+//    }
+//
+//    scorePercentage.snp.makeConstraints{
+//        $0.leading.equalTo(scoreView.snp.leading).offset(30)
+//        $0.bottom.equalTo(scoreView.snp.bottom)
+//    }
+//
+//    scoreText.snp.makeConstraints{
+//        $0.bottom.equalTo(scorePercentage.snp.bottom).offset(-2)
+//        $0.leading.equalTo(scorePercentage.snp.trailing).offset(20)
+//    }
+//
+//    //
+//    textView.snp.makeConstraints{
+//        $0.width.equalTo(self.snp.width)
+//        $0.height.equalTo(self.snp.height).dividedBy(2)
+//        $0.top.equalTo(scoreView.snp.bottom)
+//    }
+//
+//    textTitle.snp.makeConstraints{
+//        $0.top.equalTo(textView.snp.top).offset(25)
+//        $0.leading.equalTo(textView.snp.leading).offset(20)
+//    }
+//
+//    textTitleYear.snp.makeConstraints{
+//        $0.top.equalTo(textTitle.snp.top)
+//        $0.leading.equalTo(textTitle.snp.trailing).offset(10)
+//    }
+//
+//    textDate.snp.makeConstraints{
+//        $0.top.equalTo(textTitle.snp.bottom).offset(10)
+//        $0.leading.equalTo(textTitle.snp.leading)
+//    }
+//
+//    textGenre.snp.makeConstraints{
+//        $0.top.equalTo(textDate.snp.bottom).offset(5)
+//        $0.leading.equalTo(textTitle.snp.leading)
+//        //$0.bottom.equalTo(starImage.snp.top).offset(30)
+//    }
+//
+//    textDuration.snp.makeConstraints{
+//        $0.top.equalTo(textGenre.snp.top)
+//        $0.leading.equalTo(textGenre.snp.trailing).offset(10)
+//    }
+//
+//    starImage.snp.makeConstraints{
+//        $0.bottom.equalTo(self).offset(-25)
+//        $0.leading.equalTo(textGenre.snp.leading)
+//        $0.width.equalTo(35)
+//        $0.height.equalTo(35)
+//    }
+

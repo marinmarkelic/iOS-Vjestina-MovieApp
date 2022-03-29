@@ -67,19 +67,19 @@ class OverviewView: UIView{
     func addConstraints(){
         mainText.snp.makeConstraints{
             $0.top.equalTo(self)
-            $0.height.equalTo(self).dividedBy(3)
             $0.width.equalTo(self)
         }
                 
         persons.snp.makeConstraints{
-            $0.height.equalTo(self).dividedBy(2)
+            //mainText.backgroundColor = .yellow
+            //persons.backgroundColor = .blue
             $0.width.equalTo(self)
             $0.top.equalTo(mainText.snp.bottom)
         }
         
         mainTextTitle.snp.makeConstraints{
             $0.top.equalTo(mainText).offset(20)
-            $0.leading.equalTo(mainText).offset(20)
+            $0.leading.equalTo(mainText).offset(23)
             $0.trailing.equalTo(mainText.snp.trailing).offset(-10)
             $0.height.equalTo(mainText).dividedBy(6)
         }

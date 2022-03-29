@@ -3,8 +3,8 @@ import SnapKit
 
 class PersonView: UIView{
     
-    let name: UILabel!
-    let role: UILabel!
+    let name: UILabel
+    let role: UILabel
     
     init(name: String, role: String) {
         
@@ -40,7 +40,7 @@ class PersonView: UIView{
             $0.height.equalTo(self).dividedBy(3)
         }
         role.snp.makeConstraints{
-            $0.top.equalTo(name.snp.bottom)
+            $0.top.equalTo(name.snp.bottom).offset(3)
             $0.width.equalTo(self)
             $0.height.equalTo(self).dividedBy(3)
         }
