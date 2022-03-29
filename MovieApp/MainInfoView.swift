@@ -106,7 +106,7 @@ class MainInfoView: UIView{
         
         textTitleYear.snp.makeConstraints{
             $0.top.equalTo(textTitle.snp.top)
-            $0.leading.equalTo(textTitle.snp.trailing).offset(10)
+            $0.leading.equalTo(textTitle.snp.trailing).offset(8)
         }
         
         textDate.snp.makeConstraints{
