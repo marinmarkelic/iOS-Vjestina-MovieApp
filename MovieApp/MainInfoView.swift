@@ -3,9 +3,6 @@ import SnapKit
 
 class MainInfoView: UIView{
     
-    var scoreView: UIView
-    var textView: UIView
-    
     var bgImage: UIImageView
     
     var scorePercentage: UILabel
@@ -21,8 +18,6 @@ class MainInfoView: UIView{
     
     init(){
         bgImage = UIImageView(image: UIImage(named: "avatar.jpeg"))
-        scoreView = UIView()
-        textView = UIView()
         scorePercentage = UILabel()
         scoreText = UILabel()
         textTitle = UILabel()
@@ -47,8 +42,7 @@ class MainInfoView: UIView{
         bgImage.clipsToBounds = true
         addSubview(bgImage)
         
-        addSubview(scoreView)
-        addSubview(textView)
+        
                 
         scorePercentage.text = "86%"
         scorePercentage.font = UIFont.systemFont(ofSize: 18, weight: .regular)
@@ -74,16 +68,16 @@ class MainInfoView: UIView{
         textGenre.textColor = .white
         textDuration.textColor = .white
         
-        scoreView.addSubview(scorePercentage)
-        scoreView.addSubview(scoreText)
+        addSubview(scorePercentage)
+        addSubview(scoreText)
         
-        textView.addSubview(textTitle)
-        textView.addSubview(textTitleYear)
-        textView.addSubview(textDate)
-        textView.addSubview(textGenre)
-        textView.addSubview(textDuration)
+        addSubview(textTitle)
+        addSubview(textTitleYear)
+        addSubview(textDate)
+        addSubview(textGenre)
+        addSubview(textDuration)
         
-        textView.addSubview(starImage)
+        addSubview(starImage)
     }
     
     func addConstraints() {
@@ -91,15 +85,10 @@ class MainInfoView: UIView{
             $0.top.bottom.trailing.leading.equalTo(self)
         }
         
-        scoreView.snp.makeConstraints{
-            $0.top.equalTo(self.snp.top)
-            $0.width.equalTo(self.snp.width)
-            $0.height.equalTo(self.snp.height).dividedBy(2)
-        }
         
         scorePercentage.snp.makeConstraints{
-            $0.leading.equalTo(scoreView.snp.leading).offset(30)
-            $0.bottom.equalTo(scoreView.snp.bottom)
+            $0.leading.equalTo(self.snp.leading).offset(30)
+            $0.bottom.equalTo(textTitle.snp.top).offset(-20)
         }
         
         scoreText.snp.makeConstraints{
@@ -108,15 +97,11 @@ class MainInfoView: UIView{
         }
         
         //
-        textView.snp.makeConstraints{
-            $0.width.equalTo(self.snp.width)
-//            $0.height.equalTo(self.snp.height).dividedBy(2)
-            $0.top.equalTo(scoreView.snp.bottom)
-        }
+
         
         textTitle.snp.makeConstraints{
-            $0.bottom.equalTo(textGenre.snp.top).offset(-25)
-            $0.leading.equalTo(textView.snp.leading).offset(20)
+            $0.bottom.equalTo(textGenre.snp.top).offset(-35)
+            $0.leading.equalTo(self.snp.leading).offset(20)
         }
         
         textTitleYear.snp.makeConstraints{
