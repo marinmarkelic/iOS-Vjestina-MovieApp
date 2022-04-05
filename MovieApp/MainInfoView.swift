@@ -3,30 +3,20 @@ import SnapKit
 
 class MainInfoView: UIView{
     
-    var bgImage: UIImageView
+    var bgImage: UIImageView!
     
-    var scorePercentage: UILabel
-    var scoreText: UILabel
+    var scorePercentage: UILabel!
+    var scoreText: UILabel!
     
-    var textTitle: UILabel
-    var textTitleYear: UILabel
-    var textDate: UILabel
-    var textGenre: UILabel
-    var textDuration: UILabel
+    var textTitle: UILabel!
+    var textTitleYear: UILabel!
+    var textDate: UILabel!
+    var textGenre: UILabel!
+    var textDuration: UILabel!
     
-    var starImage: UIImageView
+    var starImage: UIImageView!
     
     init(){
-        bgImage = UIImageView(image: UIImage(named: "avatar.jpeg"))
-        scorePercentage = UILabel()
-        scoreText = UILabel()
-        textTitle = UILabel()
-        textTitleYear = UILabel()
-        textDate = UILabel()
-        textGenre = UILabel()
-        textDuration = UILabel()
-        starImage = UIImageView(image: UIImage(named: "star"))
-        
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
         buildViews()
@@ -38,11 +28,19 @@ class MainInfoView: UIView{
     }
     
     func buildViews(){
+        bgImage = UIImageView(image: UIImage(named: "avatar.jpeg"))
+        scorePercentage = UILabel()
+        scoreText = UILabel()
+        textTitle = UILabel()
+        textTitleYear = UILabel()
+        textDate = UILabel()
+        textGenre = UILabel()
+        textDuration = UILabel()
+        starImage = UIImageView(image: UIImage(named: "star"))
+        
         bgImage.contentMode = .scaleAspectFill
         bgImage.clipsToBounds = true
         addSubview(bgImage)
-        
-        
                 
         scorePercentage.text = "86%"
         scorePercentage.font = UIFont.systemFont(ofSize: 18, weight: .regular)
@@ -82,12 +80,12 @@ class MainInfoView: UIView{
     
     func addConstraints() {
         bgImage.snp.makeConstraints{
-            $0.top.bottom.trailing.leading.equalTo(self)
+            $0.top.bottom.trailing.leading.equalToSuperview()
         }
         
         
         scorePercentage.snp.makeConstraints{
-            $0.leading.equalTo(self.snp.leading).offset(30)
+            $0.leading.equalToSuperview().offset(30)
             $0.bottom.equalTo(textTitle.snp.top).offset(-20)
         }
         
@@ -101,7 +99,7 @@ class MainInfoView: UIView{
         
         textTitle.snp.makeConstraints{
             $0.bottom.equalTo(textGenre.snp.top).offset(-35)
-            $0.leading.equalTo(self.snp.leading).offset(20)
+            $0.leading.equalToSuperview().offset(20)
         }
         
         textTitleYear.snp.makeConstraints{
@@ -126,7 +124,7 @@ class MainInfoView: UIView{
         }
         
         starImage.snp.makeConstraints{
-            $0.bottom.equalTo(self).offset(-25)
+            $0.bottom.equalToSuperview().offset(-25)
             $0.leading.equalTo(textGenre.snp.leading)
             $0.width.equalTo(35)
             $0.height.equalTo(35)

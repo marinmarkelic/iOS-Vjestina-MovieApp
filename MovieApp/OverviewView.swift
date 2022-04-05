@@ -3,33 +3,24 @@ import SnapKit
 
 class OverviewView: UIView{
     
-    var mainText: UIView
-    var persons: UIView
+    var mainText: UIView!
+    var persons: UIView!
     
-    var mainTextTitle: UILabel
-    var mainTextText: UILabel
+    var mainTextTitle: UILabel!
+    var mainTextText: UILabel!
     
-    var personsContainer: UIView
-    var person1: PersonView
-    var person2: PersonView
-    var person3: PersonView
-    var person4: PersonView
-    var person5: PersonView
-    var person6: PersonView
+    var personsStackView: UIStackView!
+    var personsRow1: UIStackView!
+    var personsRow2: UIStackView!
+    
+    var person1: PersonView!
+    var person2: PersonView!
+    var person3: PersonView!
+    var person4: PersonView!
+    var person5: PersonView!
+    var person6: PersonView!
     
     init(){
-        mainText = UIView()
-        persons = UIView()
-        mainTextTitle = UILabel()
-        mainTextText = UILabel()
-        personsContainer = UIView()
-        person1 = PersonView(name: "Jon Landau", role: "Producer")
-        person2 = PersonView(name: "Mauro Fiore", role: "Cinematographer")
-        person3 = PersonView(name: "James Cameron", role: "Director")
-        person4 = PersonView(name: "James Horner", role: "Composer")
-        person5 = PersonView(name: "John Refoua", role: "Editor")
-        person6 = PersonView(name: "James Cameron", role: "Producer")
-        
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
         buildViews()
@@ -41,8 +32,10 @@ class OverviewView: UIView{
     }
     
     func buildViews(){
-        addSubview(mainText)
-        addSubview(persons)
+        mainText = UIView()
+        persons = UIView()
+        mainTextTitle = UILabel()
+        mainTextText = UILabel()
         
         mainTextTitle.text = "Overview"
         mainTextTitle.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
@@ -52,28 +45,58 @@ class OverviewView: UIView{
         mainTextText.lineBreakMode = .byWordWrapping
         mainTextText.numberOfLines = 0
         
+        addSubview(mainText)
+        addSubview(persons)
         mainText.addSubview(mainTextTitle)
         mainText.addSubview(mainTextText)
         
-        persons.addSubview(personsContainer)
-        personsContainer.addSubview(person1)
-        personsContainer.addSubview(person2)
-        personsContainer.addSubview(person3)
-        personsContainer.addSubview(person4)
-        personsContainer.addSubview(person5)
-        personsContainer.addSubview(person6)
+        personsStackView = UIStackView()
+        personsStackView.axis = .vertical
+        personsStackView.spacing = 10
+        
+        person1 = PersonView(name: "Jon Landau", role: "Producer")
+        person2 = PersonView(name: "Mauro Fiore", role: "Cinematographer")
+        person3 = PersonView(name: "James Cameron", role: "Director")
+        person4 = PersonView(name: "James Horner", role: "Composer")
+        person5 = PersonView(name: "John Refoua", role: "Editor")
+        person6 = PersonView(name: "James Cameron", role: "Producer")
+        
+        
+        personsRow1 = UIStackView()
+        personsRow1.axis = .horizontal
+        personsRow1.alignment = .fill
+        personsRow1.distribution = .fillEqually
+        personsRow1.spacing = 5
+        personsRow1.addArrangedSubview(person1)
+        personsRow1.addArrangedSubview(person2)
+        personsRow1.addArrangedSubview(person3)
+        
+        personsRow2 = UIStackView()
+        personsRow2.axis = .horizontal
+        personsRow2.alignment = .fill
+        personsRow2.distribution = .fillEqually
+        personsRow2.spacing = 5
+        personsRow2.addArrangedSubview(person4)
+        personsRow2.addArrangedSubview(person5)
+        personsRow2.addArrangedSubview(person6)
+        
+        personsStackView.addArrangedSubview(personsRow1)
+        personsStackView.addArrangedSubview(personsRow2)
+        
+        persons.addSubview(personsStackView)
+
     }
     
     func addConstraints(){
         mainText.snp.makeConstraints{
-            $0.top.equalTo(self)
-            $0.width.equalTo(self)
+            $0.top.equalToSuperview()
+            $0.width.equalToSuperview()
         }
-                
+        
         persons.snp.makeConstraints{
             //mainText.backgroundColor = .yellow
             //persons.backgroundColor = .blue
-            $0.width.equalTo(self)
+            $0.width.equalToSuperview()
             $0.top.equalTo(mainText.snp.bottom)
         }
         
@@ -90,57 +113,18 @@ class OverviewView: UIView{
             $0.trailing.equalTo(mainText.snp.trailing).offset(-10)
         }
         
-        addConstraintsForPersons()
-    }
-    
-    private func addConstraintsForPersons(){
-            personsContainer.snp.makeConstraints{
-                $0.top.equalTo(persons.snp.top).offset(10)
-                $0.height.equalTo(persons)
-                $0.leading.equalTo(persons.snp.leading).offset(20)
-                $0.trailing.equalTo(persons.snp.trailing).offset(-20)
-            }
-            
-            person1.snp.makeConstraints{
-                $0.top.equalTo(personsContainer.snp.top)
-                $0.leading.equalTo(personsContainer.snp.leading)
-                $0.width.equalTo(personsContainer).dividedBy(3)
-                $0.height.equalTo(personsContainer).dividedBy(3)
-            }
-            
-            person2.snp.makeConstraints{
-                $0.top.equalTo(personsContainer.snp.top)
-                $0.leading.equalTo(person1.snp.trailing)
-                $0.width.equalTo(personsContainer).dividedBy(3)
-                $0.height.equalTo(personsContainer).dividedBy(3)
-            }
-            
-            person3.snp.makeConstraints{
-                $0.top.equalTo(personsContainer.snp.top)
-                $0.leading.equalTo(person2.snp.trailing)
-                $0.width.equalTo(personsContainer).dividedBy(3)
-                $0.height.equalTo(personsContainer).dividedBy(3)
-            }
-            
-            person4.snp.makeConstraints{
-                $0.top.equalTo(person1.snp.bottom)
-                $0.leading.equalTo(personsContainer.snp.leading)
-                $0.width.equalTo(personsContainer).dividedBy(3)
-                $0.height.equalTo(personsContainer).dividedBy(3)
-            }
-            
-            person5.snp.makeConstraints{
-                $0.top.equalTo(person1.snp.bottom)
-                $0.leading.equalTo(person4.snp.trailing)
-                $0.width.equalTo(personsContainer).dividedBy(3)
-                $0.height.equalTo(personsContainer).dividedBy(3)
-            }
-            
-            person6.snp.makeConstraints{
-                $0.top.equalTo(person1.snp.bottom)
-                $0.leading.equalTo(person5.snp.trailing)
-                $0.width.equalTo(personsContainer).dividedBy(3)
-                $0.height.equalTo(personsContainer).dividedBy(3)
-            }
+        personsStackView.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
+        
+        
+        personsRow1.snp.makeConstraints{
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        personsRow2.snp.makeConstraints{
+            $0.leading.trailing.equalToSuperview()
+        }
+    }
 }

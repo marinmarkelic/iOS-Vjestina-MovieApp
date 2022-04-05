@@ -7,7 +7,6 @@ class PersonView: UIView{
     let role: UILabel
     
     init(name: String, role: String) {
-        
         self.name = UILabel()
         self.name.text = name
         self.role = UILabel()
@@ -24,25 +23,27 @@ class PersonView: UIView{
     }
     
     func buildViews(){
+        
+        
         name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
+//        name.numberOfLines = 0
+        name.adjustsFontSizeToFitWidth = true
+
         role.font = UIFont.systemFont(ofSize: 14)
+//        role.numberOfLines = 0
+        role.adjustsFontSizeToFitWidth = true
         
         self.addSubview(name)
         self.addSubview(role)
     }
     
     func addConstraints(){
-//        name.backgroundColor = .red
-//        role.backgroundColor = .brown
-        
         name.snp.makeConstraints{
-            $0.width.equalTo(self)
-            $0.height.equalTo(self).dividedBy(3)
+            $0.leading.top.trailing.equalToSuperview()
         }
         role.snp.makeConstraints{
             $0.top.equalTo(name.snp.bottom).offset(3)
-            $0.width.equalTo(self)
-            $0.height.equalTo(self).dividedBy(3)
+            $0.leading.bottom.trailing.equalToSuperview()
         }
     }
 }
