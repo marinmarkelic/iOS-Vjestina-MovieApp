@@ -47,6 +47,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C3A026227FE033000BDFD10 /* MovieDetails */ = {
+			isa = PBXGroup;
+			children = (
+				9C840F5E27EFBD5A007452F3 /* PersonView.swift */,
+				9C840F6727EFD3F5007452F3 /* MainInfoView.swift */,
+				9C840F6527EFCE2A007452F3 /* OverviewView.swift */,
+				9C774E2727E6963A00F13677 /* MovieDetailsViewController.swift */,
+			);
+			path = MovieDetails;
+			sourceTree = "<group>";
+		};
+		9C3A026327FE036000BDFD10 /* MovieList */ = {
+			isa = PBXGroup;
+			children = (
+				9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */,
+				9C3A026027FD963300BDFD10 /* SearchBarView.swift */,
+			);
+			path = MovieList;
+			sourceTree = "<group>";
+		};
 		9C774E0327E6850700F13677 = {
 			isa = PBXGroup;
 			children = (
@@ -67,16 +87,12 @@
 		9C774E0E27E6850700F13677 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				9C3A026327FE036000BDFD10 /* MovieList */,
+				9C3A026227FE033000BDFD10 /* MovieDetails */,
 				9C774E0F27E6850700F13677 /* AppDelegate.swift */,
-				9C774E2727E6963A00F13677 /* MovieDetailsViewController.swift */,
-				9C840F5E27EFBD5A007452F3 /* PersonView.swift */,
 				9C774E1827E6850800F13677 /* Assets.xcassets */,
 				9C774E1A27E6850800F13677 /* LaunchScreen.storyboard */,
 				9C774E1D27E6850800F13677 /* Info.plist */,
-				9C840F6527EFCE2A007452F3 /* OverviewView.swift */,
-				9C840F6727EFD3F5007452F3 /* MainInfoView.swift */,
-				9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */,
-				9C3A026027FD963300BDFD10 /* SearchBarView.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
