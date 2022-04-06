@@ -3,6 +3,8 @@ import SnapKit
 
 class SearchBarView: UIView{
     
+    var delegate: SearchBarDelegate!
+    
     var mainView: UIStackView!
     var grayView: UIView!
     
@@ -63,6 +65,8 @@ class SearchBarView: UIView{
         deleteButton.isHidden = true
         textField.text = ""
         textField.endEditing(true)
+        
+        delegate?.replaceViewControllers()
     }
     
     @objc
@@ -101,6 +105,7 @@ class SearchBarView: UIView{
         cancelButton.snp.makeConstraints{
             $0.trailing.equalToSuperview()
         }
+        
     }
 }
 
@@ -109,6 +114,8 @@ extension SearchBarView: UITextFieldDelegate{
         print("Begin typing")
         
         cancelButton.isHidden = false
+        
+        delegate?.replaceViewControllers()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -123,7 +130,10 @@ extension SearchBarView: UITextFieldDelegate{
             deleteButton.isHidden = true
         }
         
-        
         return true
     }
+}
+
+protocol SearchBarDelegate{
+    func replaceViewControllers()
 }
