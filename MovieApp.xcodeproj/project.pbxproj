@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */; };
+		9C3A026127FD963300BDFD10 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A026027FD963300BDFD10 /* SearchBarView.swift */; };
 		9C774E1027E6850700F13677 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C774E0F27E6850700F13677 /* AppDelegate.swift */; };
 		9C774E1927E6850800F13677 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C774E1827E6850800F13677 /* Assets.xcassets */; };
 		9C774E1C27E6850800F13677 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C774E1A27E6850800F13677 /* LaunchScreen.storyboard */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
+		9C3A026027FD963300BDFD10 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		9C774E0C27E6850700F13677 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C774E0F27E6850700F13677 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C774E1827E6850800F13677 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 				9C774E1D27E6850800F13677 /* Info.plist */,
 				9C840F6527EFCE2A007452F3 /* OverviewView.swift */,
 				9C840F6727EFD3F5007452F3 /* MainInfoView.swift */,
+				9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */,
+				9C3A026027FD963300BDFD10 /* SearchBarView.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -163,6 +169,8 @@
 				9C774E1027E6850700F13677 /* AppDelegate.swift in Sources */,
 				9C774E2827E6963A00F13677 /* MovieDetailsViewController.swift in Sources */,
 				9C840F6827EFD3F5007452F3 /* MainInfoView.swift in Sources */,
+				9C3A026127FD963300BDFD10 /* SearchBarView.swift in Sources */,
+				9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
 				9C840F6227EFC0D4007452F3 /* testController.swift in Sources */,
 			);
