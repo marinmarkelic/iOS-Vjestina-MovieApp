@@ -45,10 +45,6 @@ class OverviewView: UIView{
         mainTextText.lineBreakMode = .byWordWrapping
         mainTextText.numberOfLines = 0
         
-        addSubview(mainText)
-        addSubview(persons)
-        mainText.addSubview(mainTextTitle)
-        mainText.addSubview(mainTextText)
         
         personsStackView = UIStackView()
         personsStackView.axis = .vertical
@@ -83,22 +79,20 @@ class OverviewView: UIView{
         personsStackView.addArrangedSubview(personsRow1)
         personsStackView.addArrangedSubview(personsRow2)
         
-        persons.addSubview(personsStackView)
-
+        addSubview(mainText)
+        addSubview(personsStackView)
+        mainText.addSubview(mainTextTitle)
+        mainText.addSubview(mainTextText)
+        
     }
     
     func addConstraints(){
         mainText.snp.makeConstraints{
-            $0.top.equalToSuperview()
+            $0.top.leading.equalToSuperview()
             $0.width.equalToSuperview()
         }
         
-        persons.snp.makeConstraints{
-            //mainText.backgroundColor = .yellow
-            //persons.backgroundColor = .blue
-            $0.width.equalToSuperview()
-            $0.top.equalTo(mainText.snp.bottom)
-        }
+
         
         mainTextTitle.snp.makeConstraints{
             $0.top.equalTo(mainText).offset(20)
@@ -109,11 +103,12 @@ class OverviewView: UIView{
         
         mainTextText.snp.makeConstraints{
             $0.top.equalTo(mainTextTitle.snp.bottom).offset(10)
-            $0.leading.equalTo(mainText).offset(20)
-            $0.trailing.equalTo(mainText.snp.trailing).offset(-10)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-10)
         }
         
         personsStackView.snp.makeConstraints{
+            $0.top.equalTo(mainText.snp.bottom)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
         }
