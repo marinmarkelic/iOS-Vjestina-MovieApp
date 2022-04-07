@@ -88,11 +88,11 @@ class MovieListViewController: UIViewController{
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        movieListAllViewController.mainView.snp.makeConstraints{
+        movieListAllViewController.view.snp.makeConstraints{
             $0.edges.equalTo(controllerContainer)
         }
         
-        movieListSearchingViewController.mainView.snp.makeConstraints{
+        movieListSearchingViewController.view.snp.makeConstraints{
             $0.edges.equalTo(controllerContainer)
         }
     }    

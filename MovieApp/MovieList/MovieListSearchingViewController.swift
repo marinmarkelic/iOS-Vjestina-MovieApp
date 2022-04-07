@@ -27,8 +27,8 @@ class MovieListSearchingViewController: UIViewController{
     }
     
     func addConstraints(){
-//        mainView.snp.makeConstraints{
-//            $0.edges.equalToSuperview()
-//        }
+        mainView.snp.makeConstraints{
+            $0.edges.equalToSuperview()
+        }
     }
 }

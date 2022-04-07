@@ -126,7 +126,7 @@ extension SearchBarView: UITextFieldDelegate{
         deleteButton.isHidden = false
         
         //  Hides the X button if we deleted all characteres
-        if(NSEqualRanges(range, NSMakeRange(0, 1))){
+        if(range.lowerBound == 0 && range.upperBound > 0){
             deleteButton.isHidden = true
         }
         
