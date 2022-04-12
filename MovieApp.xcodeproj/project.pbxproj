@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C335BAC280561F6003B1E42 /* MovieAppData in Frameworks */ = {isa = PBXBuildFile; productRef = 9C335BAB280561F6003B1E42 /* MovieAppData */; };
+		9C335BAE280568B5003B1E42 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C335BAD280568B5003B1E42 /* TopicCollectionViewCell.swift */; };
+		9C335BB02805B294003B1E42 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C335BAF2805B294003B1E42 /* MovieCell.swift */; };
+		9C335BB22805C9E9003B1E42 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C335BB12805C9E9003B1E42 /* ButtonCell.swift */; };
 		9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */; };
 		9C3A026127FD963300BDFD10 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A026027FD963300BDFD10 /* SearchBarView.swift */; };
 		9C3A026527FE043400BDFD10 /* MovieListAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A026427FE043400BDFD10 /* MovieListAllViewController.swift */; };
@@ -23,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C335BAD280568B5003B1E42 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
+		9C335BAF2805B294003B1E42 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		9C335BB12805C9E9003B1E42 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		9C3A025E27FD950100BDFD10 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		9C3A026027FD963300BDFD10 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		9C3A026427FE043400BDFD10 /* MovieListAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListAllViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +52,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C840F5D27EF9EE8007452F3 /* SnapKit in Frameworks */,
+				9C335BAC280561F6003B1E42 /* MovieAppData in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +77,9 @@
 				9C3A026027FD963300BDFD10 /* SearchBarView.swift */,
 				9C3A026427FE043400BDFD10 /* MovieListAllViewController.swift */,
 				9C3A026627FE08F800BDFD10 /* MovieListSearchingViewController.swift */,
+				9C335BAD280568B5003B1E42 /* TopicCollectionViewCell.swift */,
+				9C335BAF2805B294003B1E42 /* MovieCell.swift */,
+				9C335BB12805C9E9003B1E42 /* ButtonCell.swift */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -129,6 +140,7 @@
 			name = MovieApp;
 			packageProductDependencies = (
 				9C840F5C27EF9EE8007452F3 /* SnapKit */,
+				9C335BAB280561F6003B1E42 /* MovieAppData */,
 			);
 			productName = MovieApp;
 			productReference = 9C774E0C27E6850700F13677 /* MovieApp.app */;
@@ -160,6 +172,7 @@
 			mainGroup = 9C774E0327E6850700F13677;
 			packageReferences = (
 				9C840F5B27EF9EE8007452F3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				9C335BAA280561F6003B1E42 /* XCRemoteSwiftPackageReference "MovieAppData" */,
 			);
 			productRefGroup = 9C774E0D27E6850700F13677 /* Products */;
 			projectDirPath = "";
@@ -188,7 +201,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C840F5F27EFBD5A007452F3 /* PersonView.swift in Sources */,
+				9C335BB22805C9E9003B1E42 /* ButtonCell.swift in Sources */,
 				9C774E1027E6850700F13677 /* AppDelegate.swift in Sources */,
+				9C335BB02805B294003B1E42 /* MovieCell.swift in Sources */,
 				9C3A026527FE043400BDFD10 /* MovieListAllViewController.swift in Sources */,
 				9C774E2827E6963A00F13677 /* MovieDetailsViewController.swift in Sources */,
 				9C840F6827EFD3F5007452F3 /* MainInfoView.swift in Sources */,
@@ -196,6 +211,7 @@
 				9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
 				9C3A026727FE08F800BDFD10 /* MovieListSearchingViewController.swift in Sources */,
+				9C335BAE280568B5003B1E42 /* TopicCollectionViewCell.swift in Sources */,
 				9C840F6227EFC0D4007452F3 /* testController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,6 +422,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9C335BAA280561F6003B1E42 /* XCRemoteSwiftPackageReference "MovieAppData" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fiveagency/MovieAppData.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		9C840F5B27EF9EE8007452F3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -417,6 +441,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9C335BAB280561F6003B1E42 /* MovieAppData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C335BAA280561F6003B1E42 /* XCRemoteSwiftPackageReference "MovieAppData" */;
+			productName = MovieAppData;
+		};
 		9C840F5C27EF9EE8007452F3 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9C840F5B27EF9EE8007452F3 /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MovieAppData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = MovieListViewController()
         window.makeKeyAndVisible()
         self.window = window
+        
+        
         return true
     }
 }

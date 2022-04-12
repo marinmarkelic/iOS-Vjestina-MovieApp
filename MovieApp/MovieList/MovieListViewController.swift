@@ -82,7 +82,6 @@ class MovieListViewController: UIViewController{
         }
         
         controllerContainer.snp.makeConstraints{
-            controllerContainer.backgroundColor = .yellow
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(searchBar.snp.bottom)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)

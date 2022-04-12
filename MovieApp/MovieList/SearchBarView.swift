@@ -30,7 +30,7 @@ class SearchBarView: UIView{
         mainView.spacing = 10
         
         grayView = UIView()
-        grayView.backgroundColor = .lightGray
+        grayView.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 0.8)
         grayView.layer.cornerRadius = 10
 
         searchIcon = UIImageView(image: UIImage(named: "magnifyingGlass.jpeg"))
