@@ -70,9 +70,9 @@ extension MovieListAllViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         let itemWidth = collectionView.frame.width
         //        let itemDimension = (collectionViewWidth - 2 * 10) / 3
-        let itemHeigth = CGFloat(250)
+        let itemHeight = CGFloat(view.frame.height / 2.2)
         
-        return CGSize(width: itemWidth, height: itemHeigth)
+        return CGSize(width: itemWidth, height: itemHeight)
     }
 }
 

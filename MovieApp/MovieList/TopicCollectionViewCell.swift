@@ -44,13 +44,15 @@ class TopicCollectionViewCell: UICollectionViewCell{
         collectionViewsContainer = UIView()
         
         buttonStackViewScrollView = UIScrollView()
+        buttonStackViewScrollView.showsHorizontalScrollIndicator = false
+        
         buttonContentView = UIView()
         
         buttonStackView = UIStackView()
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .fill
         buttonStackView.distribution = .equalSpacing
-        buttonStackView.spacing = 5
+        buttonStackView.spacing = 10
 
         movieCollectionViewLayout = UICollectionViewFlowLayout()
         movieCollectionViewLayout.scrollDirection = .horizontal
@@ -109,23 +111,23 @@ class TopicCollectionViewCell: UICollectionViewCell{
         }
         
         buttonStackViewScrollView.snp.makeConstraints{
-            buttonStackViewScrollView.backgroundColor = .blue
+            buttonStackViewScrollView.backgroundColor = .green
             $0.leading.top.trailing.equalToSuperview()
             $0.bottom.equalTo(movieCollectionView.snp.top)
         }
         
         buttonContentView.snp.makeConstraints{
-            $0.edges.equalToSuperview()
+            $0.leading.top.bottom.trailing.equalToSuperview()
         }
         
         buttonStackView.snp.makeConstraints{
-            $0.leading.top.equalToSuperview()
-
+            $0.edges.equalToSuperview()
         }
 
         
         movieCollectionView.snp.makeConstraints{
-            $0.top.equalTo(buttonStackView.snp.bottom).offset(10)
+            movieCollectionView.backgroundColor = .red
+            $0.top.equalTo(buttonStackView.snp.bottom).offset(50)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
@@ -148,7 +150,7 @@ extension TopicCollectionViewCell: UICollectionViewDelegateFlowLayout {
 
         let collectionViewWidth = collectionView.frame.width
         let itemWidth = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(collectionViewsContainer.frame.height)
+        let itemHeight = CGFloat(collectionViewsContainer.frame.height / 1.8)
 
         return CGSize(width: itemWidth, height: itemHeight)
     }
@@ -167,7 +169,9 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         for e in titleList {
             let cell = ButtonCell()
-            cell.set(filter: e)
+            //  highlight only first cell at the beginning
+            cell.set(filter: e, isSelected: titleList.firstIndex(of: e) == 0)
+            cell.delegate = self
             buttonStackView.addArrangedSubview(cell)
         }
         
@@ -189,8 +193,29 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         let movies = Movies.all()
         
         cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
-        
 
         return cell
+    }
+}
+
+extension TopicCollectionViewCell: ButtonCellDelegate{
+    
+    func changeButtonStates(clickedButton: MovieFilter) {
+        for view in buttonStackView.subviews {
+            view.removeFromSuperview()
+//            buttonStackView.removeArrangedSubview(view)
+        }
+        
+        let titleList = cellMovieGroup.filters
+
+        
+        for e in titleList {
+            let cell = ButtonCell()
+            //  highlight only first cell at the beginning
+            cell.set(filter: e, isSelected: e == clickedButton ? true : false)
+            cell.delegate = self
+            buttonStackView.addArrangedSubview(cell)
+        }
+
     }
 }

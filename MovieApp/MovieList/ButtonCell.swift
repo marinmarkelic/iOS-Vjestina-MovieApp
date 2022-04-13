@@ -5,6 +5,8 @@ import MovieAppData
 class ButtonCell: UIView{
     
     var filter: MovieFilter!
+    
+    var delegate: ButtonCellDelegate!
         
     var mainView: UIView!
     var button: UIButton!
@@ -24,16 +26,30 @@ class ButtonCell: UIView{
         mainView = UIView()
         
         button = UIButton()
-        
-        backgroundColor = .red
-        
+        button.setTitleColor(.lightGray, for: .normal)
+        button.setTitleColor(.black, for: .selected)
+        button.addTarget(self, action: #selector(buttonPress), for: .touchUpInside)
+                
         addSubview(mainView)
         mainView.addSubview(button)
     }
     
-    func set(filter: MovieFilter){
+    func set(filter: MovieFilter, isSelected: Bool){        
         self.filter = filter
+        button.setTitle(filterToString(filter: filter), for: .selected)
         button.setTitle(filterToString(filter: filter), for: .normal)
+
+        if isSelected{
+            button.isSelected = true
+        }
+    }
+    
+    @objc
+    func buttonPress(){
+
+        if button.state.rawValue == 1{
+            delegate?.changeButtonStates(clickedButton: filter)
+        }
     }
     
     func addConstraints(){
@@ -95,4 +111,10 @@ class ButtonCell: UIView{
     }
 }
 
+protocol ButtonCellDelegate{
+    
+    func changeButtonStates(clickedButton: MovieFilter)
+    
+    
+}
 
