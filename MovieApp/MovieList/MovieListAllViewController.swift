@@ -34,7 +34,6 @@ class MovieListAllViewController: UIViewController{
         collectionView.dataSource = self
         
         
-        
         view.addSubview(collectionView)
     }
     
@@ -107,9 +106,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
         let groupArray = [MovieGroup.popular, MovieGroup.freeToWatch, MovieGroup.trending, MovieGroup.topRated, MovieGroup.upcoming]
         
         cell.set(movieGroup: groupArray[indexPath.row])
-        
-        print(indexPath)
-        
+                
         return cell
     }
 }

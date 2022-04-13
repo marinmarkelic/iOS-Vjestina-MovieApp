@@ -26,9 +26,7 @@ class MovieCell: UICollectionViewCell{
     func buildViews(){
         
         imageView = UIImageView(image: nil)
-        imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
-        
+        imageView.layer.cornerRadius = 10        
         
         
         addSubview(imageView)
