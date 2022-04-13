@@ -4,6 +4,7 @@ import SnapKit
 class SearchBarView: UIView{
     
     var delegate: SearchBarDelegate!
+    var inputDelegate: SearchBarInputDelegate!
     
     var mainView: UIStackView!
     var grayView: UIView!
@@ -38,6 +39,7 @@ class SearchBarView: UIView{
         textField = UITextField()
         textField.placeholder = "Search"
         textField.delegate = self
+        textField.addTarget(self, action: #selector(handleTyping), for: .editingChanged)
         
         deleteButton = UIButton()
         deleteButton.setImage(UIImage(named: "close"), for: .normal)
@@ -49,7 +51,6 @@ class SearchBarView: UIView{
         cancelButton.setTitleColor(.black, for: .normal)
         cancelButton.isHidden = true
         cancelButton.addTarget(self, action: #selector(clickedCancelButton), for: .touchUpInside)
-//        cancelButton.isHidden = true
         
         addSubview(mainView)
         mainView.addArrangedSubview(grayView)
@@ -57,6 +58,15 @@ class SearchBarView: UIView{
         grayView.addSubview(textField)
         grayView.addSubview(deleteButton)
         mainView.addArrangedSubview(cancelButton)
+    }
+    
+    @objc
+    func handleTyping(textField: UITextField){
+        guard let text = textField.text else {
+            fatalError()
+        }
+        
+        inputDelegate?.inputChanged(newInput: text)
     }
     
     @objc
@@ -124,7 +134,6 @@ extension SearchBarView: UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         deleteButton.isHidden = false
-        
         //  Hides the X button if we deleted all characteres
         if(range.lowerBound == 0 && range.upperBound > 0){
             deleteButton.isHidden = true
@@ -132,6 +141,12 @@ extension SearchBarView: UITextFieldDelegate{
         
         return true
     }
+    
+    
+}
+
+protocol SearchBarInputDelegate{
+    func inputChanged(newInput: String)
 }
 
 protocol SearchBarDelegate{

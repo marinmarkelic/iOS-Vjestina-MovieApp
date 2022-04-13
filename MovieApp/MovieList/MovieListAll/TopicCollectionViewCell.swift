@@ -111,13 +111,12 @@ class TopicCollectionViewCell: UICollectionViewCell{
         }
         
         buttonStackViewScrollView.snp.makeConstraints{
-            buttonStackViewScrollView.backgroundColor = .green
             $0.leading.top.trailing.equalToSuperview()
             $0.bottom.equalTo(movieCollectionView.snp.top)
         }
         
         buttonContentView.snp.makeConstraints{
-            $0.leading.top.bottom.trailing.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
         
         buttonStackView.snp.makeConstraints{
@@ -126,8 +125,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
 
         
         movieCollectionView.snp.makeConstraints{
-            movieCollectionView.backgroundColor = .red
-            $0.top.equalTo(buttonStackView.snp.bottom).offset(50)
+            $0.top.equalTo(buttonStackView.snp.bottom).offset(10)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
@@ -150,7 +148,7 @@ extension TopicCollectionViewCell: UICollectionViewDelegateFlowLayout {
 
         let collectionViewWidth = collectionView.frame.width
         let itemWidth = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(collectionViewsContainer.frame.height / 1.8)
+        let itemHeight = CGFloat(collectionViewsContainer.frame.height / 1.5)
 
         return CGSize(width: itemWidth, height: itemHeight)
     }

@@ -46,6 +46,7 @@ class MovieListViewController: UIViewController{
         mainView = UIView()
         searchBar = SearchBarView()
         searchBar.delegate = self
+        searchBar.inputDelegate = movieListSearchingViewController
         
         mainView.backgroundColor = .white
         

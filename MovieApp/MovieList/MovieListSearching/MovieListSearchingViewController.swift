@@ -2,10 +2,12 @@ import UIKit
 import SnapKit
 import MovieAppData
 
-class MovieListAllViewController: UIViewController{
+class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate{
     
     var collectionViewLayout: UICollectionViewFlowLayout!
-    public var collectionView: UICollectionView!
+    var collectionView: UICollectionView!
+    
+    var searchBarText = ""
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -24,43 +26,42 @@ class MovieListAllViewController: UIViewController{
     }
     
     func buildViews(){
-        
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.showsVerticalScrollIndicator = false
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
         
         
         view.addSubview(collectionView)
     }
     
     func addConstraints(){
-        
         collectionView.snp.makeConstraints{
-            $0.top.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.edges.equalToSuperview()
         }
-        
-        
     }
     
     func configureCollectionView() {
         //ExampleCollectionViewCell, String
-        collectionView.register(TopicCollectionViewCell.self, forCellWithReuseIdentifier: TopicCollectionViewCell.reuseIdentifier)
-        collectionView.dataSource = self
+        collectionView.register(MovieListSearchingCell.self, forCellWithReuseIdentifier: MovieListSearchingCell.reuseIdentifier)
         collectionView.delegate = self
+        collectionView.dataSource = self
+
+    }
+    
+    
+    func inputChanged(newInput: String){
+        searchBarText = newInput
+        
+        collectionView.reloadData()
     }
 }
 
-extension MovieListAllViewController: UICollectionViewDelegate{
+extension MovieListSearchingViewController: UICollectionViewDelegate{
     
 }
 
-extension MovieListAllViewController: UICollectionViewDelegateFlowLayout {
+extension MovieListSearchingViewController: UICollectionViewDelegateFlowLayout {
     
     //postavlja dimenziju celija
     func collectionView(
@@ -70,43 +71,52 @@ extension MovieListAllViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         let itemWidth = collectionView.frame.width
         //        let itemDimension = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(view.frame.height / 2.2)
+        let itemHeight = CGFloat(view.frame.height / 3)
         
         return CGSize(width: itemWidth, height: itemHeight)
     }
 }
 
-extension MovieListAllViewController: UICollectionViewDataSource {
+extension MovieListSearchingViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var groupSet = Set<MovieGroup>()
         let movies = Movies.all()
         
-        movies
-            .map { $0.group }
-            .flatMap { $0 }
-            .forEach {
-                groupSet.insert($0)
+        return movies.filter({
+            if searchBarText.isEmpty{
+                return true
             }
-        
-        return groupSet.count
+            
+            return $0.title.lowercased().contains(searchBarText.lowercased())
+        }).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.reuseIdentifier, for: indexPath) as? TopicCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListSearchingCell.reuseIdentifier, for: indexPath) as? MovieListSearchingCell
         else {
             fatalError()
         }
+        let movies = Movies.all()
+
+        let movie = movies.filter({
+            if searchBarText.isEmpty{
+                return true
+            }
+            
+            return $0.title.lowercased().contains(searchBarText.lowercased())
+        }).sorted(by: {$0.title > $1.title})[indexPath.row]
         
-        let groupArray = [MovieGroup.popular, MovieGroup.freeToWatch, MovieGroup.trending, MovieGroup.topRated, MovieGroup.upcoming]
-        
-        cell.set(movieGroup: groupArray[indexPath.row])
+        cell.set(movie: movie)
                 
         return cell
     }
 }
+
+//extension SearchBarInputDelegate{
+//
+//}
