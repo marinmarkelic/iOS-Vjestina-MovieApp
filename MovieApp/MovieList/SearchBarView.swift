@@ -77,12 +77,15 @@ class SearchBarView: UIView{
         textField.endEditing(true)
         
         delegate?.replaceViewControllers()
+        inputDelegate?.inputChanged(newInput: "")
     }
     
     @objc
     func clickedDeleteButton(){
         deleteButton.isHidden = true
         textField.text = ""
+        
+        inputDelegate?.inputChanged(newInput: "")
     }
     
     func addConstraints(){
