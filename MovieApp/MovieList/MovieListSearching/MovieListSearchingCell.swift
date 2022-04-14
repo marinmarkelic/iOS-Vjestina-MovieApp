@@ -28,21 +28,22 @@ class MovieListSearchingCell: UICollectionViewCell{
     }
     
     func buildViews(){
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+        layer.shadowRadius = 5
+        layer.shadowOpacity = 0.2
         
         mainView = UIView()
         mainView.layer.cornerRadius = 20
         mainView.layer.masksToBounds = true
         mainView.backgroundColor = .white
-        layer.shadowOffset = CGSize(width: 10, height: 5)
-        layer.shadowRadius = 5
-        layer.shadowOpacity = 0.2
-        
         
         imageView = UIImageView(image: nil)
         textView = UIView()
         
         title = UILabel()
         title.numberOfLines = 0
+        title.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        
         movieDescription = UILabel()
         movieDescription.numberOfLines = 0
         movieDescription.adjustsFontSizeToFitWidth = true
@@ -72,13 +73,13 @@ class MovieListSearchingCell: UICollectionViewCell{
         }
         
         title.snp.makeConstraints{
-            $0.leading.top.equalToSuperview().offset(10)
+            $0.leading.top.equalToSuperview().offset(15)
             $0.trailing.equalToSuperview()
         }
 
         movieDescription.snp.makeConstraints{
             $0.trailing.equalToSuperview()
-            $0.leading.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(15)
             $0.top.equalTo(title.snp.bottom).offset(10)
         }
     }

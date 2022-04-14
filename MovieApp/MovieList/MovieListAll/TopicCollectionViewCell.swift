@@ -52,7 +52,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .fill
         buttonStackView.distribution = .equalSpacing
-        buttonStackView.spacing = 10
+        buttonStackView.spacing = 15
 
         movieCollectionViewLayout = UICollectionViewFlowLayout()
         movieCollectionViewLayout.scrollDirection = .horizontal
@@ -106,7 +106,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         
         collectionViewsContainer.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(title.snp.bottom).offset(15)
+            $0.top.equalTo(title.snp.bottom).offset(10)
             $0.bottom.equalToSuperview()
         }
         
@@ -148,7 +148,7 @@ extension TopicCollectionViewCell: UICollectionViewDelegateFlowLayout {
 
         let collectionViewWidth = collectionView.frame.width
         let itemWidth = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(collectionViewsContainer.frame.height / 1.5)
+        let itemHeight = CGFloat(collectionViewsContainer.frame.height / 1.4)
 
         return CGSize(width: itemWidth, height: itemHeight)
     }
@@ -190,7 +190,9 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         let movies = Movies.all()
         
-        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
+        let count = movies.filter({$0.group.contains(cellMovieGroup)}).count
+        
+        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row % count])
 
         return cell
     }

@@ -11,6 +11,8 @@ class ButtonCell: UIView{
     var mainView: UIView!
     var button: UIButton!
     
+    var buttonUnderLine: UIView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -29,9 +31,14 @@ class ButtonCell: UIView{
         button.setTitleColor(.lightGray, for: .normal)
         button.setTitleColor(.black, for: .selected)
         button.addTarget(self, action: #selector(buttonPress), for: .touchUpInside)
+        
+        buttonUnderLine = UIView()
+        buttonUnderLine.backgroundColor = UIColor(red: 30.0/255.0, green: 54.0/255.0, blue: 110.0/255.0, alpha: 1.0)
+        buttonUnderLine.isHidden = true
                 
         addSubview(mainView)
         mainView.addSubview(button)
+        button.addSubview(buttonUnderLine)
     }
     
     func set(filter: MovieFilter, isSelected: Bool){        
@@ -41,6 +48,7 @@ class ButtonCell: UIView{
 
         if isSelected{
             button.isSelected = true
+            buttonUnderLine.isHidden = false
         }
     }
     
@@ -60,6 +68,12 @@ class ButtonCell: UIView{
         
         button.snp.makeConstraints{
             $0.edges.equalToSuperview()
+        }
+        
+        buttonUnderLine.snp.makeConstraints{
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(button.snp.bottom)
+            $0.bottom.equalToSuperview().offset(3)
         }
     }
     

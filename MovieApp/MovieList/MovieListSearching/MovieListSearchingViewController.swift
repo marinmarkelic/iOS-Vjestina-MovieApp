@@ -4,6 +4,7 @@ import MovieAppData
 
 class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate{
     
+    
     var collectionViewLayout: UICollectionViewFlowLayout!
     var collectionView: UICollectionView!
     

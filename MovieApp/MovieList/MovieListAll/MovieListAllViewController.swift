@@ -27,6 +27,7 @@ class MovieListAllViewController: UIViewController{
         
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .vertical
+        collectionViewLayout.minimumLineSpacing = 25
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.showsVerticalScrollIndicator = false
         
@@ -34,14 +35,11 @@ class MovieListAllViewController: UIViewController{
     }
     
     func addConstraints(){
-        
         collectionView.snp.makeConstraints{
-            $0.top.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().offset(10)
+            $0.bottom.equalToSuperview()
+            $0.leading.top.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
         }
-        
-        
     }
     
     func configureCollectionView() {
@@ -102,7 +100,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
         let groupArray = [MovieGroup.popular, MovieGroup.freeToWatch, MovieGroup.trending, MovieGroup.topRated, MovieGroup.upcoming]
         
         cell.set(movieGroup: groupArray[indexPath.row])
-                
+        
         return cell
     }
 }
