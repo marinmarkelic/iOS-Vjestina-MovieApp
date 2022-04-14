@@ -37,7 +37,8 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
     
     func addConstraints(){
         collectionView.snp.makeConstraints{
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview().offset(20)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -52,6 +53,7 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
     
     func inputChanged(newInput: String){
         searchBarText = newInput
+        
         
         collectionView.reloadData()
     }
@@ -69,7 +71,7 @@ extension MovieListSearchingViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let itemWidth = collectionView.frame.width
+        let itemWidth = collectionView.frame.width - 20
         //        let itemDimension = (collectionViewWidth - 2 * 10) / 3
         let itemHeight = CGFloat(view.frame.height / 3)
         
