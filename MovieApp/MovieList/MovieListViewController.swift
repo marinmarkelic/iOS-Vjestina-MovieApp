@@ -3,8 +3,8 @@ import SnapKit
 
 class MovieListViewController: UIViewController{
     
-//    var scrollView: UIScrollView!
-//    var contentView: UIView!
+    //    var scrollView: UIScrollView!
+    //    var contentView: UIView!
     var mainView: UIView!
     var searchBar: SearchBarView!
     
@@ -23,7 +23,7 @@ class MovieListViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         buildViewControllers()
         buildViews()
         addConstraints()
@@ -41,8 +41,8 @@ class MovieListViewController: UIViewController{
     }
     
     func buildViews(){
-//        scrollView = UIScrollView()
-//        contentView = UIView()
+        //        scrollView = UIScrollView()
+        //        contentView = UIView()
         mainView = UIView()
         searchBar = SearchBarView()
         searchBar.delegate = self
@@ -50,9 +50,9 @@ class MovieListViewController: UIViewController{
         
         mainView.backgroundColor = .white
         
-//        view.addSubview(scrollView)
-//        scrollView.addSubview(contentView)
-//        contentView.addSubview(searchBarView)
+        //        view.addSubview(scrollView)
+        //        scrollView.addSubview(contentView)
+        //        contentView.addSubview(searchBarView)
         
         controllerContainer = UIView()
         
@@ -64,13 +64,13 @@ class MovieListViewController: UIViewController{
     }
     
     func addConstraints(){
-//        scrollView.snp.makeConstraints{
-//            $0.edges.equalTo(view.safeAreaLayoutGuide)
-//        }
-//        contentView.snp.makeConstraints{
-//            $0.edges.equalToSuperview()
-//            $0.width.equalTo(view)
-//        }
+        //        scrollView.snp.makeConstraints{
+        //            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        //        }
+        //        contentView.snp.makeConstraints{
+        //            $0.edges.equalToSuperview()
+        //            $0.width.equalTo(view)
+        //        }
         
         mainView.snp.makeConstraints{
             $0.edges.equalTo(view.safeAreaLayoutGuide)

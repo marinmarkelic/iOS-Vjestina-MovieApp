@@ -7,7 +7,7 @@ class ButtonCell: UIView{
     var filter: MovieFilter!
     
     var delegate: ButtonCellDelegate!
-        
+    
     var mainView: UIView!
     var button: UIButton!
     
@@ -31,11 +31,13 @@ class ButtonCell: UIView{
         button.setTitleColor(.lightGray, for: .normal)
         button.setTitleColor(.black, for: .selected)
         button.addTarget(self, action: #selector(buttonPress), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        
         
         buttonUnderLine = UIView()
-        buttonUnderLine.backgroundColor = UIColor(red: 30.0/255.0, green: 54.0/255.0, blue: 110.0/255.0, alpha: 1.0)
+        buttonUnderLine.backgroundColor = UIColor(red: 11.0/255.0, green: 37.0/255.0, blue: 63.0/255.0, alpha: 1.0)
         buttonUnderLine.isHidden = true
-                
+        
         addSubview(mainView)
         mainView.addSubview(button)
         button.addSubview(buttonUnderLine)
@@ -45,16 +47,17 @@ class ButtonCell: UIView{
         self.filter = filter
         button.setTitle(filterToString(filter: filter), for: .selected)
         button.setTitle(filterToString(filter: filter), for: .normal)
-
+        
         if isSelected{
             button.isSelected = true
             buttonUnderLine.isHidden = false
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         }
     }
     
     @objc
     func buttonPress(){
-
+        
         if button.state.rawValue == 1{
             delegate?.changeButtonStates(clickedButton: filter)
         }
@@ -88,8 +91,8 @@ class ButtonCell: UIView{
             return "For Rent"
         case .inTheaters:
             return "In theaters"
-
-        // genre
+            
+            // genre
         case .thriller:
             return "Thriller"
         case .horror:
@@ -108,8 +111,8 @@ class ButtonCell: UIView{
             return "War"
         case .drama:
             return "Drama"
-
-        // time filters
+            
+            // time filters
         case .day:
             return "Day"
         case .week:

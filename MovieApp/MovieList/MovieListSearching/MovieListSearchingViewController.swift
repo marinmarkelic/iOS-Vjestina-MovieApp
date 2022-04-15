@@ -27,18 +27,20 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
     }
     
     func buildViews(){
+        
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .vertical
+        collectionViewLayout.minimumLineSpacing = 15
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.showsVerticalScrollIndicator = false
-        
         
         view.addSubview(collectionView)
     }
     
     func addConstraints(){
         collectionView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(20)
+            $0.top.equalToSuperview().offset(15)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -48,7 +50,7 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
         collectionView.register(MovieListSearchingCell.self, forCellWithReuseIdentifier: MovieListSearchingCell.reuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
-
+        
     }
     
     
@@ -105,7 +107,7 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
             fatalError()
         }
         let movies = Movies.all()
-
+        
         let movie = movies.filter({
             if searchBarText.isEmpty{
                 return true
@@ -115,7 +117,7 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
         }).sorted(by: {$0.title > $1.title})[indexPath.row]
         
         cell.set(movie: movie)
-                
+        
         return cell
     }
 }

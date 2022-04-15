@@ -6,7 +6,8 @@ class MovieCell: UICollectionViewCell{
     
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
     
-    
+    var heartViewHolder: UIView!
+    var heartView: UIImageView!
     var imageView: UIImageView!
     
     
@@ -24,13 +25,24 @@ class MovieCell: UICollectionViewCell{
     }
     
     func buildViews(){
+        let heart = UIImage(named: "heart")
+        
+        heartViewHolder = UIView()
+        heartViewHolder.backgroundColor = UIColor(red: 11.0/255.0, green: 37.0/255.0, blue: 63.0/255.0, alpha: 0.6)
+        heartViewHolder.layer.masksToBounds = true
+        heartViewHolder.layer.cornerRadius = 32/2
+        
+        
+        heartView = UIImageView(image: heart)
+        heartView.contentMode = .scaleToFill
         
         imageView = UIImageView(image: nil)
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-                
         
         addSubview(imageView)
+        addSubview(heartViewHolder)
+        heartViewHolder.addSubview(heartView)
     }
     
     func load(url: URL) {
@@ -48,7 +60,7 @@ class MovieCell: UICollectionViewCell{
     func set(movie: MovieModel){
         self.movie = movie
         
-//        title.text = movie.title
+        //        title.text = movie.title
         let url = URL(string: movie.imageUrl)
         guard let url=url else {
             fatalError()
@@ -57,6 +69,16 @@ class MovieCell: UICollectionViewCell{
     }
     
     func addConstraints(){
+        heartViewHolder.snp.makeConstraints{
+            $0.leading.top.equalToSuperview().offset(5)
+            $0.width.height.equalTo(32)
+        }
+        
+        heartView.snp.makeConstraints{
+            $0.leading.top.equalToSuperview().offset(32/2 - 8)
+            $0.height.width.equalTo(16)
+        }
+        
         imageView.snp.makeConstraints{
             $0.edges.equalToSuperview()
         }

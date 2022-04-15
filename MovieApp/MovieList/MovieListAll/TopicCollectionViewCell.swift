@@ -10,7 +10,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     var mainView: UIView!
     var title: UILabel!
     
-//    var buttonCollectionView: UICollectionView!
+    //    var buttonCollectionView: UICollectionView!
     var collectionViewsContainer: UIView!
     
     var buttonStackViewScrollView: UIScrollView!
@@ -23,7 +23,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         buildViews()
         addConstraints()
         configureCollectionView()
@@ -38,7 +38,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         
         title = UILabel()
         title.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
-        title.textColor = UIColor(red: 30.0/255.0, green: 54.0/255.0, blue: 110.0/255.0, alpha: 1.0)
+        title.textColor = UIColor(red: 11.0/255.0, green: 37.0/255.0, blue: 63.0/255.0, alpha: 1.0)
         
         
         collectionViewsContainer = UIView()
@@ -51,9 +51,9 @@ class TopicCollectionViewCell: UICollectionViewCell{
         buttonStackView = UIStackView()
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .fill
-        buttonStackView.distribution = .equalSpacing
+        buttonStackView.distribution = .fillProportionally
         buttonStackView.spacing = 15
-
+        
         movieCollectionViewLayout = UICollectionViewFlowLayout()
         movieCollectionViewLayout.scrollDirection = .horizontal
         movieCollectionView = UICollectionView(frame: .zero, collectionViewLayout: movieCollectionViewLayout)
@@ -75,7 +75,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseIdentifier)
         movieCollectionView.dataSource = self
         movieCollectionView.delegate = self
-        }
+    }
     
     func set(movieGroup: MovieGroup) {
         cellMovieGroup = movieGroup
@@ -122,7 +122,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         buttonStackView.snp.makeConstraints{
             $0.edges.equalToSuperview()
         }
-
+        
         
         movieCollectionView.snp.makeConstraints{
             $0.top.equalTo(buttonStackView.snp.bottom).offset(10)
@@ -138,32 +138,32 @@ extension TopicCollectionViewCell: UICollectionViewDelegate{
 }
 
 extension TopicCollectionViewCell: UICollectionViewDelegateFlowLayout {
-
+    
     //postavlja dimenziju celija
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-
+        
         let collectionViewWidth = collectionView.frame.width
         let itemWidth = (collectionViewWidth - 2 * 10) / 3
         let itemHeight = CGFloat(collectionViewsContainer.frame.height / 1.4)
-
+        
         return CGSize(width: itemWidth, height: itemHeight)
     }
 }
 
 extension TopicCollectionViewCell: UICollectionViewDataSource {
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         let titleList = cellMovieGroup.filters
-
+        
         
         for e in titleList {
             let cell = ButtonCell()
@@ -174,12 +174,12 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         }
         
         let movies = Movies.all()
-                
+        
         return movies.filter({$0.group.contains(cellMovieGroup)}).count
         
-//        return cellMovieGroup.filters[0]
+        //        return cellMovieGroup.filters[0]
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard
@@ -190,10 +190,10 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         let movies = Movies.all()
         
-        let count = movies.filter({$0.group.contains(cellMovieGroup)}).count
+        //        let count = movies.filter({$0.group.contains(cellMovieGroup)}).count
         
-        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row % count])
-
+        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
+        
         return cell
     }
 }
@@ -203,11 +203,11 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
     func changeButtonStates(clickedButton: MovieFilter) {
         for view in buttonStackView.subviews {
             view.removeFromSuperview()
-//            buttonStackView.removeArrangedSubview(view)
+            //            buttonStackView.removeArrangedSubview(view)
         }
         
         let titleList = cellMovieGroup.filters
-
+        
         
         for e in titleList {
             let cell = ButtonCell()
@@ -216,6 +216,6 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
             cell.delegate = self
             buttonStackView.addArrangedSubview(cell)
         }
-
+        
     }
 }

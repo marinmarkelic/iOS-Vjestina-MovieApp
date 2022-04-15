@@ -46,8 +46,6 @@ class MovieListSearchingCell: UICollectionViewCell{
         
         movieDescription = UILabel()
         movieDescription.numberOfLines = 0
-        movieDescription.adjustsFontSizeToFitWidth = true
-        
         addSubview(mainView)
         
         mainView.addSubview(imageView)
@@ -66,7 +64,7 @@ class MovieListSearchingCell: UICollectionViewCell{
             $0.leading.top.bottom.equalToSuperview()
             $0.width.equalToSuperview().dividedBy(3)
         }
-
+        
         textView.snp.makeConstraints{
             $0.trailing.top.bottom.equalToSuperview()
             $0.leading.equalTo(imageView.snp.trailing)
@@ -76,7 +74,7 @@ class MovieListSearchingCell: UICollectionViewCell{
             $0.leading.top.equalToSuperview().offset(15)
             $0.trailing.equalToSuperview()
         }
-
+        
         movieDescription.snp.makeConstraints{
             $0.trailing.equalToSuperview()
             $0.leading.equalToSuperview().offset(15)
