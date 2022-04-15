@@ -48,6 +48,15 @@ class MovieListAllViewController: UIViewController{
         collectionView.delegate = self
         collectionView.dataSource = self
     }
+    
+    //  Resizes collection view cells on rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(
+            alongsideTransition: { _ in self.collectionView.collectionViewLayout.invalidateLayout() },
+            completion: { _ in }
+        )
+    }
 }
 
 extension MovieListAllViewController: UICollectionViewDelegate{
@@ -62,11 +71,20 @@ extension MovieListAllViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let itemWidth = collectionView.frame.width
-        //        let itemDimension = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(view.frame.height / 2.2)
+        if UIDevice.current.orientation.isPortrait{
+            let itemWidth = collectionView.frame.width
+            let itemHeight = CGFloat(view.frame.height / 2.2)
+            
+            return CGSize(width: itemWidth, height: itemHeight)
+            
+        }
+        else{
+            let itemWidth = collectionView.frame.width - 80
+            let itemHeight = CGFloat(view.frame.height - 40)
+            
+            return CGSize(width: itemWidth, height: itemHeight)
+        }
         
-        return CGSize(width: itemWidth, height: itemHeight)
     }
 }
 

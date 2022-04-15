@@ -128,8 +128,6 @@ class TopicCollectionViewCell: UICollectionViewCell{
             $0.top.equalTo(buttonStackView.snp.bottom).offset(10)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        
-        
     }
 }
 
@@ -190,7 +188,6 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         let movies = Movies.all()
         
-        //        let count = movies.filter({$0.group.contains(cellMovieGroup)}).count
         
         cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
         

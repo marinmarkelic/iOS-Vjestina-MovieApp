@@ -60,6 +60,15 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
         
         collectionView.reloadData()
     }
+    
+    //  Resizes collection view cells on rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(
+            alongsideTransition: { _ in self.collectionView.collectionViewLayout.invalidateLayout() },
+            completion: { _ in }
+        )
+    }
 }
 
 extension MovieListSearchingViewController: UICollectionViewDelegate{
@@ -74,11 +83,20 @@ extension MovieListSearchingViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let itemWidth = collectionView.frame.width - 20
-        //        let itemDimension = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(view.frame.height / 3)
         
-        return CGSize(width: itemWidth, height: itemHeight)
+        if UIDevice.current.orientation.isPortrait{
+            let itemWidth = collectionView.frame.width - 20
+            //        let itemDimension = (collectionViewWidth - 2 * 10) / 3
+            let itemHeight = CGFloat(view.frame.height / 3)
+            
+            return CGSize(width: itemWidth, height: itemHeight)
+        }
+        else{
+            let itemWidth = collectionView.frame.width - 20
+            let itemHeight = CGFloat(view.frame.height - 40)
+            
+            return CGSize(width: itemWidth, height: itemHeight)
+        }
     }
 }
 

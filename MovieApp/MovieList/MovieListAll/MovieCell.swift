@@ -25,6 +25,9 @@ class MovieCell: UICollectionViewCell{
     }
     
     func buildViews(){
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        
         let heart = UIImage(named: "heart")
         
         heartViewHolder = UIView()
@@ -37,8 +40,6 @@ class MovieCell: UICollectionViewCell{
         heartView.contentMode = .scaleToFill
         
         imageView = UIImageView(image: nil)
-        imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
         
         addSubview(imageView)
         addSubview(heartViewHolder)
