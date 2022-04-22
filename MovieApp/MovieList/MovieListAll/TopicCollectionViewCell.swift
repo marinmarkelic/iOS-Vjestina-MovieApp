@@ -80,6 +80,18 @@ class TopicCollectionViewCell: UICollectionViewCell{
     func set(movieGroup: MovieGroup) {
         cellMovieGroup = movieGroup
         
+        let titleList = cellMovieGroup.filters
+        
+        if buttonStackView.subviews.count != titleList.count{
+            for e in titleList {
+                let cell = ButtonCell()
+                //  highlight only first cell at the beginning
+                cell.set(filter: e, isSelected: titleList.firstIndex(of: e) == 0)
+                cell.delegate = self
+                buttonStackView.addArrangedSubview(cell)
+            }
+        }
+        
         switch movieGroup {
         case .popular:
             title.text = "What's popular"
@@ -160,16 +172,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        let titleList = cellMovieGroup.filters
         
-        
-        for e in titleList {
-            let cell = ButtonCell()
-            //  highlight only first cell at the beginning
-            cell.set(filter: e, isSelected: titleList.firstIndex(of: e) == 0)
-            cell.delegate = self
-            buttonStackView.addArrangedSubview(cell)
-        }
         
         let movies = Movies.all()
         

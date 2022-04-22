@@ -64,7 +64,10 @@ class MovieCell: UICollectionViewCell{
         //        title.text = movie.title
         let url = URL(string: movie.imageUrl)
         guard let url=url else {
-            fatalError()
+//            fatalError()
+            backgroundColor = .lightGray
+            print("movie cell image failed to load")
+            return
         }
         load(url: url)
     }
