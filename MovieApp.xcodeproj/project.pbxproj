@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C2EF86F281C4BBC00F9E379 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */; };
 		9C335BAC280561F6003B1E42 /* MovieAppData in Frameworks */ = {isa = PBXBuildFile; productRef = 9C335BAB280561F6003B1E42 /* MovieAppData */; };
 		9C335BAE280568B5003B1E42 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C335BAD280568B5003B1E42 /* TopicCollectionViewCell.swift */; };
 		9C335BB02805B294003B1E42 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C335BAF2805B294003B1E42 /* MovieCell.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		9C335BAD280568B5003B1E42 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C335BAF2805B294003B1E42 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		9C335BB12805C9E9003B1E42 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				9C3A026327FE036000BDFD10 /* MovieList */,
 				9C3A026227FE033000BDFD10 /* MovieDetails */,
 				9C774E0F27E6850700F13677 /* AppDelegate.swift */,
+				9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */,
 				9C774E1827E6850800F13677 /* Assets.xcassets */,
 				9C774E1A27E6850800F13677 /* LaunchScreen.storyboard */,
 				9C774E1D27E6850800F13677 /* Info.plist */,
@@ -227,6 +230,7 @@
 				9C335BB628070D1D003B1E42 /* MovieListSearchingCell.swift in Sources */,
 				9C774E2827E6963A00F13677 /* MovieDetailsViewController.swift in Sources */,
 				9C840F6827EFD3F5007452F3 /* MainInfoView.swift in Sources */,
+				9C2EF86F281C4BBC00F9E379 /* AppRouter.swift in Sources */,
 				9C3A026127FD963300BDFD10 /* SearchBarView.swift in Sources */,
 				9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
