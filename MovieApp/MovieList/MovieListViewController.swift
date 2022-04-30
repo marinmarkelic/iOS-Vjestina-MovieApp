@@ -2,9 +2,7 @@ import UIKit
 import SnapKit
 
 class MovieListViewController: UIViewController{
-    
-    //    var scrollView: UIScrollView!
-    //    var contentView: UIView!
+
     var mainView: UIView!
     var searchBar: SearchBarView!
     
@@ -41,19 +39,12 @@ class MovieListViewController: UIViewController{
     }
     
     func buildViews(){
-        //        scrollView = UIScrollView()
-        //        contentView = UIView()
         mainView = UIView()
         searchBar = SearchBarView()
         searchBar.delegate = self
         searchBar.inputDelegate = movieListSearchingViewController
         
         mainView.backgroundColor = .white
-        
-        //        view.addSubview(scrollView)
-        //        scrollView.addSubview(contentView)
-        //        contentView.addSubview(searchBarView)
-        
         controllerContainer = UIView()
         
         view.addSubview(mainView)
@@ -64,13 +55,6 @@ class MovieListViewController: UIViewController{
     }
     
     func addConstraints(){
-        //        scrollView.snp.makeConstraints{
-        //            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        //        }
-        //        contentView.snp.makeConstraints{
-        //            $0.edges.equalToSuperview()
-        //            $0.width.equalTo(view)
-        //        }
         
         mainView.snp.makeConstraints{
             $0.edges.equalTo(view.safeAreaLayoutGuide)
