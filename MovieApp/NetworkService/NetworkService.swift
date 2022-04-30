@@ -2,12 +2,12 @@
 
 import Foundation
 class NetworkService{
-    func executeUrlRequest(_ request: URLRequest, completionHandler: @escaping (Page?, RequestError?) -> Void){
+    func executeUrlRequest<T: Decodable>(_ request: URLRequest, completionHandler: @escaping (Result<T, RequestError>) -> Void){
         
         let dataTask = URLSession.shared.dataTask(with: request, completionHandler: {data, response, err in
             guard err == nil else{
                 DispatchQueue.main.async {
-                    completionHandler(nil, .clientError)
+                    completionHandler(.failure(.clientError))
                 }
                 
                 return
@@ -15,7 +15,7 @@ class NetworkService{
             
             guard let httpRes = response as? HTTPURLResponse, (200...299).contains(httpRes.statusCode) else{
                 DispatchQueue.main.async {
-                    completionHandler(nil, .serverError)
+                    completionHandler(.failure(.serverError))
                 }
                 
                 return
@@ -23,22 +23,22 @@ class NetworkService{
             
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completionHandler(nil, .noData)
+                    completionHandler(.failure(.noData))
                 }
                 
                 return
             }
             
-            guard let decoded = try? JSONDecoder().decode(Page.self, from: data) else{
+            guard let decoded = try? JSONDecoder().decode(T.self, from: data) else{
                 DispatchQueue.main.async {
-                    completionHandler(nil, .dataEncodingError)
+                    completionHandler(.failure(.dataEncodingError))
                 }
                 
                 return
             }
             
             DispatchQueue.main.async {
-                completionHandler(decoded, nil)
+                completionHandler(.success(decoded))
             }
         })
         

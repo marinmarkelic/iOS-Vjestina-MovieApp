@@ -19,24 +19,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         router.setStartScreen(in: window)
         
-//        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=b6430e3b7d34547084b0acc97fe5b8a5") else { return false }
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        NetworkService().executeUrlRequest(request){ value, error in
-//            if let error = error{
-//                RequestErrorHandle(error)
-//                return
-//            }
-//
-//            guard let value = value else{
-//                return
-//            }
-//
-//            print(value)
-//        }
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=b6430e3b7d34547084b0acc97fe5b8a5") else { return false }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        NetworkService().executeUrlRequest(request){ (result: Result<Page, RequestError>) in
+            
+            switch result {
+            case .success(let value):
+                print(value)
+            case .failure(let error):
+                RequestErrorHandle(error)
+            }
+
+            
+        }
         
         return true
     }

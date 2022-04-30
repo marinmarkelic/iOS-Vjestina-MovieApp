@@ -8,14 +8,16 @@ enum RequestError: Error{
 func RequestErrorHandle(_ error: RequestError){
     switch error {
     case .clientError:
-        print("client error")
+        print("client error:")
     case .serverError:
-        print("server error")
+        print("server error:")
     case .noData:
-        print("no data")
+        print("no data:")
     case .dataEncodingError:
-        print("enc error")
+        print("enc error:")
     default:
-        print("something else")
+        print("something else:")
     }
+    
+    print("\t" + error.localizedDescription)
 }
