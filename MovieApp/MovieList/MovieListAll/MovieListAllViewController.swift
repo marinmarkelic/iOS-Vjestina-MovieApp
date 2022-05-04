@@ -7,6 +7,7 @@ class MovieListAllViewController: UIViewController{
     var collectionViewLayout: UICollectionViewFlowLayout!
     public var collectionView: UICollectionView!
     var networkService: NetworkService!
+    var genres: [Genre]!
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -23,6 +24,7 @@ class MovieListAllViewController: UIViewController{
         
         buildViews()
         addConstraints()
+        fetchGenres()
         configureCollectionView()
     }
     
@@ -43,6 +45,33 @@ class MovieListAllViewController: UIViewController{
             $0.leading.top.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
         }
+    }
+    
+//    fetches all genres and then creates collection view cells
+    func fetchGenres(){
+        
+        genres = []
+        
+        guard let url = URL(string: "https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=b6430e3b7d34547084b0acc97fe5b8a5") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        NetworkService().executeUrlRequest(request){ (result: Result<Genres, RequestError>) in
+            
+            switch result {
+            case .success(let value):
+                print("success")
+                self.genres = value.genres
+                
+                self.collectionView.reloadData()
+            case .failure(let error):
+                RequestErrorHandle(error)
+            }
+        }
+        
+        
     }
     
     func configureCollectionView() {
@@ -124,7 +153,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
         
         let groupArray = [MovieGroup.popular, MovieGroup.freeToWatch, MovieGroup.trending, MovieGroup.topRated, MovieGroup.upcoming]
         
-        cell.set(movieGroup: groupArray[indexPath.row])
+        cell.set(movieGroup: allCategories()[indexPath.row], genres: genres)
         
         return cell
     }

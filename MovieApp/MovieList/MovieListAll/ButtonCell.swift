@@ -4,7 +4,7 @@ import MovieAppData
 
 class ButtonCell: UIView{
     
-    var filter: MovieFilter!
+    var genre: Genre!
     
     var delegate: ButtonCellDelegate!
     
@@ -43,10 +43,10 @@ class ButtonCell: UIView{
         button.addSubview(buttonUnderLine)
     }
     
-    func set(filter: MovieFilter, isSelected: Bool){        
-        self.filter = filter
-        button.setTitle(filterToString(filter: filter), for: .selected)
-        button.setTitle(filterToString(filter: filter), for: .normal)
+    func set(genre: Genre, isSelected: Bool){
+        self.genre = genre
+        button.setTitle(genre.name, for: .selected)
+        button.setTitle(genre.name, for: .normal)
         
         if isSelected{
             button.isSelected = true
@@ -59,7 +59,7 @@ class ButtonCell: UIView{
     func buttonPress(){
         
         if button.state.rawValue == 1{
-            delegate?.changeButtonStates(clickedButton: filter)
+            delegate?.changeButtonStates(clickedButton: genre)
         }
     }
     
@@ -130,7 +130,7 @@ class ButtonCell: UIView{
 
 protocol ButtonCellDelegate{
     
-    func changeButtonStates(clickedButton: MovieFilter)
+    func changeButtonStates(clickedButton: Genre)
     
     
 }

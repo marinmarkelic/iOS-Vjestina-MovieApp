@@ -2,10 +2,15 @@ import UIKit
 import SnapKit
 import MovieAppData
 
+
+//  Rename movieGroup to cellCategory
+
+
 class TopicCollectionViewCell: UICollectionViewCell{
     
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
-    var cellMovieGroup: MovieGroup!
+    var cellMovieGroup: Category!
+    var genres: [Genre]!
     
     var mainView: UIView!
     var title: UILabel!
@@ -77,34 +82,39 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.delegate = self
     }
     
-    func set(movieGroup: MovieGroup) {
+    func set(movieGroup: Category, genres: [Genre]) {
         cellMovieGroup = movieGroup
+        self.genres = genres
         
-        let titleList = cellMovieGroup.filters
+        title.text = categoryToString(cellMovieGroup)
         
-        if buttonStackView.subviews.count != titleList.count{
-            for e in titleList {
+        print(genres)
+//        let titleList = cellMovieGroup.filters
+        
+//        if buttonStackView.subviews.count != titleList.count{
+            for g in genres {
                 let cell = ButtonCell()
                 //  highlight only first cell at the beginning
-                cell.set(filter: e, isSelected: titleList.firstIndex(of: e) == 0)
+                cell.set(genre: g, isSelected: genres[0].name == g.name)
                 cell.delegate = self
                 buttonStackView.addArrangedSubview(cell)
             }
-        }
+//        }
         
-        switch movieGroup {
-        case .popular:
-            title.text = "What's popular"
-        case .freeToWatch:
-            title.text = "Free to Watch"
-        case .trending:
-            title.text = "Trending"
-        case .topRated:
-            title.text = "Top rated"
-        case .upcoming:
-            title.text = "Upcoming"
-        }
+//        switch movieGroup {
+//        case .popular:
+//            title.text = "What's popular"
+//        case .freeToWatch:
+//            title.text = "Free to Watch"
+//        case .trending:
+//            title.text = "Trending"
+//        case .topRated:
+//            title.text = "Top rated"
+//        case .upcoming:
+//            title.text = "Upcoming"
+//        }
     }
+    
     
     func addConstraints() {
         mainView.snp.makeConstraints{
@@ -172,11 +182,11 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
+        1
         
-        
-        let movies = Movies.all()
-        
-        return movies.filter({$0.group.contains(cellMovieGroup)}).count
+//        let movies = Movies.all()
+//
+//        return movies.filter({$0.group.contains(cellMovieGroup)}).count
         
         //        return cellMovieGroup.filters[0]
     }
@@ -192,7 +202,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         let movies = Movies.all()
         
         
-        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
+//        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
         
         return cell
     }
@@ -200,19 +210,19 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
 
 extension TopicCollectionViewCell: ButtonCellDelegate{
     
-    func changeButtonStates(clickedButton: MovieFilter) {
+    func changeButtonStates(clickedButton: Genre) {
         for view in buttonStackView.subviews {
             view.removeFromSuperview()
             //            buttonStackView.removeArrangedSubview(view)
         }
         
-        let titleList = cellMovieGroup.filters
+//        let titleList = cellMovieGroup.filters
         
         
-        for e in titleList {
+        for g in genres {
             let cell = ButtonCell()
             //  highlight only first cell at the beginning
-            cell.set(filter: e, isSelected: e == clickedButton ? true : false)
+            cell.set(genre: g, isSelected: g.name == clickedButton.name ? true : false)
             cell.delegate = self
             buttonStackView.addArrangedSubview(cell)
         }
