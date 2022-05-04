@@ -1,7 +1,7 @@
 //b6430e3b7d34547084b0acc97fe5b8a5
 
 import Foundation
-class NetworkService{
+class NetworkService: NetworkServiceProtocol{
     func executeUrlRequest<T: Decodable>(_ request: URLRequest, completionHandler: @escaping (Result<T, RequestError>) -> Void){
         
         let dataTask = URLSession.shared.dataTask(with: request, completionHandler: {data, response, err in
@@ -44,4 +44,8 @@ class NetworkService{
         
         dataTask.resume()
     }
+}
+
+protocol NetworkServiceProtocol{
+    func executeUrlRequest<T: Decodable>(_ request: URLRequest, completionHandler: @escaping (Result<T, RequestError>) -> Void)
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C21CF952822B94C00DBA707 /* FavouritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF942822B94C00DBA707 /* FavouritesController.swift */; };
 		9C2EF86F281C4BBC00F9E379 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */; };
 		9C2EF874281C5D7400F9E379 /* MovieTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF873281C5D7400F9E379 /* MovieTabBarController.swift */; };
 		9C2EF876281D17E100F9E379 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF875281D17E100F9E379 /* NetworkService.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C21CF942822B94C00DBA707 /* FavouritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesController.swift; sourceTree = "<group>"; };
 		9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		9C2EF873281C5D7400F9E379 /* MovieTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTabBarController.swift; sourceTree = "<group>"; };
 		9C2EF875281D17E100F9E379 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -75,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C21CF932822B93A00DBA707 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				9C21CF942822B94C00DBA707 /* FavouritesController.swift */,
+			);
+			path = Favourites;
+			sourceTree = "<group>";
+		};
 		9C2EF872281C5D1F00F9E379 /* MovieTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +166,7 @@
 		9C774E0E27E6850700F13677 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				9C21CF932822B93A00DBA707 /* Favourites */,
 				9C2EF879281D1B1400F9E379 /* NetworkService */,
 				9C2EF872281C5D1F00F9E379 /* MovieTabBar */,
 				9C3A026327FE036000BDFD10 /* MovieList */,
@@ -271,6 +282,7 @@
 				9C2EF86F281C4BBC00F9E379 /* AppRouter.swift in Sources */,
 				9C3A026127FD963300BDFD10 /* SearchBarView.swift in Sources */,
 				9C2EF881281D33FB00F9E379 /* MovieCategories.swift in Sources */,
+				9C21CF952822B94C00DBA707 /* FavouritesController.swift in Sources */,
 				9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
 				9C3A026727FE08F800BDFD10 /* MovieListSearchingViewController.swift in Sources */,
