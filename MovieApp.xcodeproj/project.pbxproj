@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C21CF952822B94C00DBA707 /* FavouritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF942822B94C00DBA707 /* FavouritesController.swift */; };
+		9C21CF972822D57900DBA707 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF962822D57900DBA707 /* Categories.swift */; };
 		9C2EF86F281C4BBC00F9E379 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */; };
 		9C2EF874281C5D7400F9E379 /* MovieTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF873281C5D7400F9E379 /* MovieTabBarController.swift */; };
 		9C2EF876281D17E100F9E379 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF875281D17E100F9E379 /* NetworkService.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		9C21CF942822B94C00DBA707 /* FavouritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesController.swift; sourceTree = "<group>"; };
+		9C21CF962822D57900DBA707 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		9C2EF873281C5D7400F9E379 /* MovieTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTabBarController.swift; sourceTree = "<group>"; };
 		9C2EF875281D17E100F9E379 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				9C2EF877281D183700F9E379 /* RequestError.swift */,
 				9C2EF87E281D314C00F9E379 /* Codables.swift */,
 				9C2EF882281D45E800F9E379 /* Result.swift */,
+				9C21CF962822D57900DBA707 /* Categories.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				9C2EF881281D33FB00F9E379 /* MovieCategories.swift in Sources */,
 				9C21CF952822B94C00DBA707 /* FavouritesController.swift in Sources */,
 				9C3A025F27FD950100BDFD10 /* MovieListViewController.swift in Sources */,
+				9C21CF972822D57900DBA707 /* Categories.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
 				9C3A026727FE08F800BDFD10 /* MovieListSearchingViewController.swift in Sources */,
 				9C2EF883281D45E800F9E379 /* Result.swift in Sources */,

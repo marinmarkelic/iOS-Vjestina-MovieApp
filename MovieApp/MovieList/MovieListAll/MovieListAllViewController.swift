@@ -6,6 +6,7 @@ class MovieListAllViewController: UIViewController{
     
     var collectionViewLayout: UICollectionViewFlowLayout!
     public var collectionView: UICollectionView!
+    var networkService: NetworkService!
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -17,6 +18,8 @@ class MovieListAllViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        networkService = NetworkService()
         
         buildViews()
         addConstraints()
@@ -48,7 +51,7 @@ class MovieListAllViewController: UIViewController{
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
+        
     //  Resizes collection view cells on rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -95,17 +98,21 @@ extension MovieListAllViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var groupSet = Set<MovieGroup>()
-        let movies = Movies.all()
+//        var groupSet = Set<MovieGroup>()
+//        let movies = Movies.all()
+//
+//        movies
+//            .map { $0.group }
+//            .flatMap { $0 }
+//            .forEach {
+//                groupSet.insert($0)
+//            }
+//
+//
+//
+//        return groupSet.count
         
-        movies
-            .map { $0.group }
-            .flatMap { $0 }
-            .forEach {
-                groupSet.insert($0)
-            }
-        
-        return groupSet.count
+        return allCategories().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
