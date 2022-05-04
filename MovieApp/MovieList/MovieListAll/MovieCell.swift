@@ -11,7 +11,7 @@ class MovieCell: UICollectionViewCell{
     var imageView: UIImageView!
     
     
-    var movie: MovieModel!
+    var movie: MovieResult!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,11 +58,11 @@ class MovieCell: UICollectionViewCell{
         }
     }
     
-    func set(movie: MovieModel){
+    func set(movie: MovieResult){
         self.movie = movie
         
         //        title.text = movie.title
-        let url = URL(string: movie.imageUrl)
+        let url = URL(string: "https://image.tmdb.org/t/p/original" + movie.poster_path)
         guard let url=url else {
 //            fatalError()
             backgroundColor = .lightGray

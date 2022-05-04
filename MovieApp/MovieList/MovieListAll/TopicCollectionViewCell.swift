@@ -11,6 +11,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
     var cellMovieGroup: Category!
     var genres: [Genre]!
+    var movies: [MovieResult] = []
     
     var mainView: UIView!
     var title: UILabel!
@@ -113,6 +114,32 @@ class TopicCollectionViewCell: UICollectionViewCell{
 //        case .upcoming:
 //            title.text = "Upcoming"
 //        }
+        
+        fetchMovies()
+    }
+    
+    func fetchMovies(){
+        
+        guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/week?api_key=b6430e3b7d34547084b0acc97fe5b8a5") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        NetworkService().executeUrlRequest(request){ (result: Result<Page, RequestError>) in
+            
+            switch result {
+            case .success(let value):
+                print("success")
+                self.movies = value.results
+                
+                self.movieCollectionView.reloadData()
+            case .failure(let error):
+                RequestErrorHandle(error)
+            }
+        }
+        
+        movieCollectionView.reloadData()
     }
     
     
@@ -182,7 +209,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        1
+        movies.count
         
 //        let movies = Movies.all()
 //
@@ -199,8 +226,10 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             fatalError()
         }
         
-        let movies = Movies.all()
+//        let movies = Movies.all()
         
+        
+        cell.set(movie: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row])
         
 //        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
         

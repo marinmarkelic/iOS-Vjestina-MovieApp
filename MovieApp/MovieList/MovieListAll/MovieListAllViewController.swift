@@ -47,7 +47,7 @@ class MovieListAllViewController: UIViewController{
         }
     }
     
-//    fetches all genres and then creates collection view cells
+    //    fetches all genres and then creates collection view cells
     func fetchGenres(){
         
         genres = []
@@ -70,8 +70,6 @@ class MovieListAllViewController: UIViewController{
                 RequestErrorHandle(error)
             }
         }
-        
-        
     }
     
     func configureCollectionView() {
@@ -80,7 +78,7 @@ class MovieListAllViewController: UIViewController{
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-        
+    
     //  Resizes collection view cells on rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -127,19 +125,19 @@ extension MovieListAllViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        var groupSet = Set<MovieGroup>()
-//        let movies = Movies.all()
-//
-//        movies
-//            .map { $0.group }
-//            .flatMap { $0 }
-//            .forEach {
-//                groupSet.insert($0)
-//            }
-//
-//
-//
-//        return groupSet.count
+        //        var groupSet = Set<MovieGroup>()
+        //        let movies = Movies.all()
+        //
+        //        movies
+        //            .map { $0.group }
+        //            .flatMap { $0 }
+        //            .forEach {
+        //                groupSet.insert($0)
+        //            }
+        //
+        //
+        //
+        //        return groupSet.count
         
         return allCategories().count
     }
