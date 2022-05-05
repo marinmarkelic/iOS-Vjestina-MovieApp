@@ -13,6 +13,10 @@ class TopicCollectionViewCell: UICollectionViewCell{
     var genres: [Genre]!
     var movies: [MovieResult] = []
     
+    var dataLoader: DataLoaderProtocol!
+    
+    var delegate: TopicCollectionViewDelegate!
+        
     var mainView: UIView!
     var title: UILabel!
     
@@ -29,7 +33,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+                
         buildViews()
         addConstraints()
         configureCollectionView()
@@ -83,16 +87,25 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.delegate = self
     }
     
-    func set(movieGroup: Category, genres: [Genre]) {
+    func set(movieGroup: Category, dataLoader: DataLoaderProtocol) {
         cellMovieGroup = movieGroup
-        self.genres = genres
+        
+        genres = dataLoader.genres
+        
+        switch movieGroup {
+        case .popular:
+            movies = dataLoader.popularMovies
+        case .trending:
+            movies = dataLoader.trendingMovies
+        case .topRated:
+            movies = dataLoader.topRatedMovies
+        case .recommended:
+            movies = dataLoader.recommendedMovies
+        }
         
         title.text = categoryToString(cellMovieGroup)
         
-        print(genres)
-//        let titleList = cellMovieGroup.filters
-        
-//        if buttonStackView.subviews.count != titleList.count{
+
             for g in genres {
                 let cell = ButtonCell()
                 //  highlight only first cell at the beginning
@@ -100,47 +113,11 @@ class TopicCollectionViewCell: UICollectionViewCell{
                 cell.delegate = self
                 buttonStackView.addArrangedSubview(cell)
             }
-//        }
-        
-//        switch movieGroup {
-//        case .popular:
-//            title.text = "What's popular"
-//        case .freeToWatch:
-//            title.text = "Free to Watch"
-//        case .trending:
-//            title.text = "Trending"
-//        case .topRated:
-//            title.text = "Top rated"
-//        case .upcoming:
-//            title.text = "Upcoming"
-//        }
-        
-        fetchMovies()
-    }
-    
-    func fetchMovies(){
-        
-        guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/week?api_key=b6430e3b7d34547084b0acc97fe5b8a5") else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        NetworkService().executeUrlRequest(request){ (result: Result<Page, RequestError>) in
-            
-            switch result {
-            case .success(let value):
-                print("success")
-                self.movies = value.results
-                
-                self.movieCollectionView.reloadData()
-            case .failure(let error):
-                RequestErrorHandle(error)
-            }
-        }
-        
+
+        print("topic cell view reload")
         movieCollectionView.reloadData()
     }
+
     
     
     func addConstraints() {
@@ -203,19 +180,23 @@ extension TopicCollectionViewCell: UICollectionViewDelegateFlowLayout {
 
 extension TopicCollectionViewCell: UICollectionViewDataSource {
     
+//  onClick for collection view cells
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
+        
+        guard let delegate = delegate else{
+            return
+        }
+        
+        delegate.movieSelected(movie: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row])
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         movies.count
-        
-//        let movies = Movies.all()
-//
-//        return movies.filter({$0.group.contains(cellMovieGroup)}).count
-        
-        //        return cellMovieGroup.filters[0]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -226,13 +207,8 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             fatalError()
         }
         
-//        let movies = Movies.all()
-        
-        
         cell.set(movie: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row])
-        
-//        cell.set(movie: movies.filter{$0.group.contains(cellMovieGroup)}.sorted(by: {$0.title > $1.title})[indexPath.row])
-        
+                
         return cell
     }
 }
@@ -257,4 +233,8 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
         }
         
     }
+}
+
+protocol TopicCollectionViewDelegate{
+    func movieSelected(movie: MovieResult)
 }

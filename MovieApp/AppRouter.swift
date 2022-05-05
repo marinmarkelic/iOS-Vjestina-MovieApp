@@ -10,9 +10,10 @@ class AppRouter: AppRouterProtocol{
     
     func setStartScreen(in window: UIWindow?){
 //        let vc = MovieListViewController()
-        let controller = MovieTabBarController()
+        let movieTabBarController = MovieTabBarController()
         
-        navigationController.pushViewController(controller, animated: false)
+
+        navigationController.pushViewController(movieTabBarController, animated: false)
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
@@ -20,8 +21,15 @@ class AppRouter: AppRouterProtocol{
     
     func setupNavigationController(){
         navigationController?.navigationBar.backgroundColor = .lightGray
-        
-//        navigationController.pushViewController(MovieTabBarController(), animated: false)
+    }
+    
+    func pushMovieDetails(){
+        let movieDetailsViewController = MovieDetailsViewController()
+        navigationController.pushViewController(movieDetailsViewController, animated: false)
+    }
+    
+    func removeMovieDetails(){
+        navigationController.popViewController(animated: false)
     }
 }
 

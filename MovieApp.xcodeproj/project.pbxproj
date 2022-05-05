@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9C21CF952822B94C00DBA707 /* FavouritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF942822B94C00DBA707 /* FavouritesController.swift */; };
 		9C21CF972822D57900DBA707 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF962822D57900DBA707 /* Categories.swift */; };
+		9C21CF9D282403E900DBA707 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF9C282403E900DBA707 /* Constants.swift */; };
+		9C21CF9F282406AB00DBA707 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C21CF9E282406AB00DBA707 /* DataLoader.swift */; };
 		9C2EF86F281C4BBC00F9E379 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */; };
 		9C2EF874281C5D7400F9E379 /* MovieTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF873281C5D7400F9E379 /* MovieTabBarController.swift */; };
 		9C2EF876281D17E100F9E379 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EF875281D17E100F9E379 /* NetworkService.swift */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		9C21CF942822B94C00DBA707 /* FavouritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesController.swift; sourceTree = "<group>"; };
 		9C21CF962822D57900DBA707 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		9C21CF9C282403E900DBA707 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9C21CF9E282406AB00DBA707 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		9C2EF86E281C4BBC00F9E379 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		9C2EF873281C5D7400F9E379 /* MovieTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTabBarController.swift; sourceTree = "<group>"; };
 		9C2EF875281D17E100F9E379 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 				9C2EF87E281D314C00F9E379 /* Codables.swift */,
 				9C2EF882281D45E800F9E379 /* Result.swift */,
 				9C21CF962822D57900DBA707 /* Categories.swift */,
+				9C21CF9C282403E900DBA707 /* Constants.swift */,
+				9C21CF9E282406AB00DBA707 /* DataLoader.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -290,9 +296,11 @@
 				9C21CF972822D57900DBA707 /* Categories.swift in Sources */,
 				9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */,
 				9C3A026727FE08F800BDFD10 /* MovieListSearchingViewController.swift in Sources */,
+				9C21CF9F282406AB00DBA707 /* DataLoader.swift in Sources */,
 				9C2EF883281D45E800F9E379 /* Result.swift in Sources */,
 				9C335BAE280568B5003B1E42 /* TopicCollectionViewCell.swift in Sources */,
 				9C840F6227EFC0D4007452F3 /* testController.swift in Sources */,
+				9C21CF9D282403E900DBA707 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

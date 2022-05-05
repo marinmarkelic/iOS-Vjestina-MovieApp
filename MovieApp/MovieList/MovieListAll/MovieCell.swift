@@ -28,6 +28,8 @@ class MovieCell: UICollectionViewCell{
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
+        
+        
         let heart = UIImage(named: "heart")
         
         heartViewHolder = UIView()

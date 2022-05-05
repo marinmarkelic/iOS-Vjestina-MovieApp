@@ -5,12 +5,14 @@ import MovieAppData
 class MovieListAllViewController: UIViewController{
     
     var collectionViewLayout: UICollectionViewFlowLayout!
-    public var collectionView: UICollectionView!
+    var collectionView: UICollectionView!
     var networkService: NetworkService!
-    var genres: [Genre]!
+    var dataLoader: DataLoaderProtocol!
     
-    init() {
+    init(dataLoader: DataLoaderProtocol) {
         super.init(nibName: nil, bundle: nil)
+        
+        self.dataLoader = dataLoader
     }
     
     required init?(coder: NSCoder) {
@@ -21,11 +23,23 @@ class MovieListAllViewController: UIViewController{
         super.viewDidLoad()
         
         networkService = NetworkService()
-        
+                
         buildViews()
         addConstraints()
-        fetchGenres()
+//        fetchGenres()
         configureCollectionView()
+        loadData()
+    }
+    
+    func loadData(){
+        let group = DispatchGroup()
+        
+        group.enter()
+        dataLoader.loadData(superGroup: group)
+        
+        group.notify(queue: .main) {
+            self.collectionView.reloadData()
+        }
     }
     
     func buildViews(){
@@ -48,29 +62,6 @@ class MovieListAllViewController: UIViewController{
     }
     
     //    fetches all genres and then creates collection view cells
-    func fetchGenres(){
-        
-        genres = []
-        
-        guard let url = URL(string: "https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=b6430e3b7d34547084b0acc97fe5b8a5") else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        NetworkService().executeUrlRequest(request){ (result: Result<Genres, RequestError>) in
-            
-            switch result {
-            case .success(let value):
-                print("success")
-                self.genres = value.genres
-                
-                self.collectionView.reloadData()
-            case .failure(let error):
-                RequestErrorHandle(error)
-            }
-        }
-    }
     
     func configureCollectionView() {
         //ExampleCollectionViewCell, String
@@ -125,20 +116,6 @@ extension MovieListAllViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        var groupSet = Set<MovieGroup>()
-        //        let movies = Movies.all()
-        //
-        //        movies
-        //            .map { $0.group }
-        //            .flatMap { $0 }
-        //            .forEach {
-        //                groupSet.insert($0)
-        //            }
-        //
-        //
-        //
-        //        return groupSet.count
-        
         return allCategories().count
     }
     
@@ -148,11 +125,10 @@ extension MovieListAllViewController: UICollectionViewDataSource {
         else {
             fatalError()
         }
-        
-        let groupArray = [MovieGroup.popular, MovieGroup.freeToWatch, MovieGroup.trending, MovieGroup.topRated, MovieGroup.upcoming]
-        
-        cell.set(movieGroup: allCategories()[indexPath.row], genres: genres)
+                
+        cell.set(movieGroup: allCategories()[indexPath.row], dataLoader: dataLoader)
         
         return cell
     }
 }
+

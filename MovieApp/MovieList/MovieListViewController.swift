@@ -3,6 +3,8 @@ import SnapKit
 
 class MovieListViewController: UIViewController{
 
+    var dataLoader: DataLoader!
+    
     var mainView: UIView!
     var searchBar: SearchBarView!
     
@@ -22,13 +24,17 @@ class MovieListViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataLoader = DataLoader()
+        
         buildViewControllers()
         buildViews()
         addConstraints()
     }
     
+    
+    
     func buildViewControllers(){
-        movieListAllViewController = MovieListAllViewController()
+        movieListAllViewController = MovieListAllViewController(dataLoader: dataLoader)
         movieListSearchingViewController = MovieListSearchingViewController()
         
         movieListSearchingViewController.view.isHidden = true
