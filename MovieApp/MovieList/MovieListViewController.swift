@@ -2,6 +2,8 @@ import UIKit
 import SnapKit
 
 class MovieListViewController: UIViewController{
+    
+    var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
 
     var dataLoader: DataLoader!
     
@@ -13,7 +15,9 @@ class MovieListViewController: UIViewController{
     var movieListSearchingViewController: MovieListSearchingViewController!
     
     
-    init() {
+    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+        self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,7 +38,7 @@ class MovieListViewController: UIViewController{
     
     
     func buildViewControllers(){
-        movieListAllViewController = MovieListAllViewController(dataLoader: dataLoader)
+        movieListAllViewController = MovieListAllViewController(dataLoader: dataLoader, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         movieListSearchingViewController = MovieListSearchingViewController()
         
         movieListSearchingViewController.view.isHidden = true

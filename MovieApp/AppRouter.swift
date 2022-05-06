@@ -1,6 +1,7 @@
 import UIKit
-class AppRouter: AppRouterProtocol{
+class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     private let navigationController: UINavigationController!
+    private var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
@@ -10,11 +11,14 @@ class AppRouter: AppRouterProtocol{
     
     func setStartScreen(in window: UIWindow?){
 //        let vc = MovieListViewController()
-        let movieTabBarController = MovieTabBarController()
+        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self)
+        
+        
+//        movieTabBarController.movieTabBardelegate = self
         
 
         navigationController.pushViewController(movieTabBarController, animated: false)
-        
+                
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
@@ -23,14 +27,15 @@ class AppRouter: AppRouterProtocol{
         navigationController?.navigationBar.backgroundColor = .lightGray
     }
     
-    func pushMovieDetails(){
-        let movieDetailsViewController = MovieDetailsViewController()
-        navigationController.pushViewController(movieDetailsViewController, animated: false)
+    func pushMovieDetails(movieId: Int){
+        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId)
+        navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
     
-    func removeMovieDetails(){
-        navigationController.popViewController(animated: false)
+    func movieSelected(movieId: Int) {
+        pushMovieDetails(movieId: movieId)
     }
+    
 }
 
 protocol AppRouterProtocol{

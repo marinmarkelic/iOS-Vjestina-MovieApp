@@ -3,13 +3,21 @@ import SnapKit
 
 class MovieDetailsViewController: UIViewController {
     
+    var movieId: Int
+    
+    var dataLoader: DataLoader!
+    
     var scrollView: UIScrollView!
     var contentView: UIView!
     var mainInfo: MainInfoView!
     var overview: OverviewView!
     
     
-    init(){
+    init(movieId: Int){
+        self.movieId = movieId
+        
+        dataLoader = DataLoader()
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -19,6 +27,18 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+        dataLoader.loadMovieDetail(movieId: movieId, group: group)
+        
+        group.notify(queue: .main) {
+            guard let movieDetails = self.dataLoader.movieDetails else { return }
+            
+            self.overview.reloadData(movie: movieDetails)
+            self.mainInfo.reloadData(movie: movieDetails)
+        }
         
         buildViews()
         addConstraints()

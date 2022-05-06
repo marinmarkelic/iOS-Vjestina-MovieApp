@@ -9,6 +9,8 @@ class DataLoader: DataLoaderProtocol{
     
     public var genres: [Genre]!
     
+    public var movieDetails: MovieDetails? = nil
+    
     init() {
         popularMovies = []
         trendingMovies = []
@@ -16,7 +18,6 @@ class DataLoader: DataLoaderProtocol{
         recommendedMovies = []
         
         genres = []
-        
     }
     
     func loadData(superGroup: DispatchGroup){
@@ -102,8 +103,28 @@ class DataLoader: DataLoaderProtocol{
             case .failure(let error):
                 RequestErrorHandle(error)
             }
+        }
+    }
+    
+    func loadMovieDetail(movieId: Int, group: DispatchGroup){
+        let urlStr = getMovieDetailsUrl(movieId: String(movieId))
+        
+        guard let url = URL(string: urlStr) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        NetworkService().executeUrlRequest(request){ (result: Result<MovieDetails, RequestError>) in
             
+            switch result {
+            case .success(let value):
+                self.movieDetails = value
+            case .failure(let error):
+                RequestErrorHandle(error)
+            }
             
+            group.leave()
         }
     }
     

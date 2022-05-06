@@ -5,6 +5,8 @@ class MainInfoView: UIView{
     
     var bgImage: UIImageView!
     
+    var infoView: UIView!
+    
     var scorePercentage: UILabel!
     var scoreText: UILabel!
     
@@ -27,8 +29,54 @@ class MainInfoView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func reloadData(movie: MovieDetails){
+        let url = URL(string: IMAGES_BASE_URL + movie.backdrop_path)
+        guard let url=url else {
+//            fatalError()
+            backgroundColor = .lightGray
+            print("movie cell image failed to load")
+            return
+        }
+        load(url: url)
+        
+        textTitle.text = movie.original_title
+        textTitleYear.text = movie.release_date.components(separatedBy: "-")[0]
+        textDate.text = movie.release_date.replacingOccurrences(of: "-", with: "/")
+        
+        var genresText = ""
+        for g in movie.genres{
+            if genresText == ""{
+                genresText.append(g.name)
+            }
+            else{
+                genresText.append(", ")
+                genresText.append(g.name)
+            }
+        }
+        textGenre.text = genresText
+        
+        let durationMinutes = movie.runtime
+        let durationHours: Int = durationMinutes / 60
+        let durationText = String(durationHours) + "h " + String(durationMinutes - durationHours * 60) + "m"
+        textDuration.text = durationText
+
+    }
+    
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.bgImage.image = image
+                    }
+                }
+            }
+        }
+    }
+    
     func buildViews(){
-        bgImage = UIImageView(image: UIImage(named: "avatar.jpeg"))
+        bgImage = UIImageView(image: UIImage())
+        infoView = UIView()
         scorePercentage = UILabel()
         scoreText = UILabel()
         textTitle = UILabel()
@@ -40,23 +88,24 @@ class MainInfoView: UIView{
         
         bgImage.contentMode = .scaleAspectFill
         bgImage.clipsToBounds = true
-        addSubview(bgImage)
+        
                 
         scorePercentage.text = "86%"
         scorePercentage.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         scoreText.text = "User Score"
         scoreText.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
 
-        textTitle.text = "Avatar"
         textTitle.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        textTitleYear.text = "(2009)"
         textTitleYear.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        textDate.text = "18/12/2009 (US)"
         textDate.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        textGenre.text = "Adventure, Action, Fantasy, Sci-fi"
         textGenre.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        textDuration.text = "2h 42m"
         textDuration.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        
+        infoView.layer.shadowColor = UIColor.black.cgColor
+        infoView.layer.shadowRadius = 8.0
+        infoView.layer.shadowOpacity = 1.0
+        infoView.layer.shadowOffset = .zero //CGSize(width: 200, height: 200)
+        infoView.layer.masksToBounds = false
         
         scorePercentage.textColor = .white
         scoreText.textColor = .white
@@ -66,16 +115,19 @@ class MainInfoView: UIView{
         textGenre.textColor = .white
         textDuration.textColor = .white
         
-        addSubview(scorePercentage)
-        addSubview(scoreText)
+        addSubview(bgImage)
         
-        addSubview(textTitle)
-        addSubview(textTitleYear)
-        addSubview(textDate)
-        addSubview(textGenre)
-        addSubview(textDuration)
+        infoView.addSubview(scorePercentage)
+        infoView.addSubview(scoreText)
+        infoView.addSubview(textTitle)
+        infoView.addSubview(textTitleYear)
+        infoView.addSubview(textDate)
+        infoView.addSubview(textGenre)
+        infoView.addSubview(textDuration)
+        infoView.addSubview(starImage)
+        addSubview(infoView)
         
-        addSubview(starImage)
+        
     }
     
     func addConstraints() {
@@ -83,6 +135,9 @@ class MainInfoView: UIView{
             $0.top.bottom.trailing.leading.equalToSuperview()
         }
         
+        infoView.snp.makeConstraints{
+            $0.top.bottom.trailing.leading.equalToSuperview()
+        }
         
         scorePercentage.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(30)

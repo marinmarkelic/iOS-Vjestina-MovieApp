@@ -2,13 +2,16 @@ import UIKit
 
 class MovieTabBarController: UITabBarController{
     
-    
+    var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
+        
     var movieListViewController: MovieListViewController!
     var favouritesController: FavouritesController!
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
+    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+        self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
         
+        super.init(nibName: nil, bundle: nil)
+                
         buildViews()
         addConstraints()
     }
@@ -20,7 +23,7 @@ class MovieTabBarController: UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        movieListViewController = MovieListViewController()
+        movieListViewController = MovieListViewController(topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         favouritesController = FavouritesController()
         viewControllers = [movieListViewController, favouritesController]
     }

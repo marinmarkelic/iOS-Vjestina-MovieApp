@@ -8,11 +8,13 @@ class MovieListAllViewController: UIViewController{
     var collectionView: UICollectionView!
     var networkService: NetworkService!
     var dataLoader: DataLoaderProtocol!
+    var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
     
-    init(dataLoader: DataLoaderProtocol) {
+    init(dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
         super.init(nibName: nil, bundle: nil)
         
         self.dataLoader = dataLoader
+        self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
     }
     
     required init?(coder: NSCoder) {
@@ -126,7 +128,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
             fatalError()
         }
                 
-        cell.set(movieGroup: allCategories()[indexPath.row], dataLoader: dataLoader)
+        cell.set(movieGroup: allCategories()[indexPath.row], dataLoader: dataLoader, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         
         return cell
     }

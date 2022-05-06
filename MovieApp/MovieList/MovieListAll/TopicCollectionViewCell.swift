@@ -87,10 +87,11 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.delegate = self
     }
     
-    func set(movieGroup: Category, dataLoader: DataLoaderProtocol) {
+    func set(movieGroup: Category, dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
         cellMovieGroup = movieGroup
         
         genres = dataLoader.genres
+        delegate = topicCollectionViewCellDelegate
         
         switch movieGroup {
         case .popular:
@@ -188,7 +189,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             return
         }
         
-        delegate.movieSelected(movie: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row])
+        delegate.movieSelected(movieId: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -236,5 +237,5 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
 }
 
 protocol TopicCollectionViewDelegate{
-    func movieSelected(movie: MovieResult)
+    func movieSelected(movieId: Int)
 }
