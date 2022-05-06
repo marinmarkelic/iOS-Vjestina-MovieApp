@@ -8,6 +8,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
     var cellCategory: Category!
     var genres: [Genre]!
+    var genre: Genre!
     var movies: [MovieResult] = []
     
     var dataLoader: DataLoaderProtocol!
@@ -112,6 +113,11 @@ class TopicCollectionViewCell: UICollectionViewCell{
                 cell.delegate = self
                 buttonStackView.addArrangedSubview(cell)
             }
+        
+        if genres.count > 0{
+            genre = genres[0]
+        }
+        
 
         print("topic cell view reload")
         movieCollectionView.reloadData()
@@ -187,7 +193,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             return
         }
         
-        delegate.movieSelected(movieId: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
+        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -195,7 +201,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movies.count
+        movies.filter({ $0.genre_ids.contains(genre.id) }).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -206,14 +212,15 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             fatalError()
         }
         
-        let movie = movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
+        let movie = movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
         
         cell.set(movie: movie)
         
         if movies.count > 0{
             if let dataLoader=dataLoader{
+                
+                //  If the image is already fetched get it from moviePosterImages else fetch it and store it in moviePosterImages
                 if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: nil)){
-//                    dataLoader.moviePosterImages.firstIndex(MoviePosterImage(id: movie.id, image: UIImage())
                     if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: UIImage())){
                         cell.imageView.image = dataLoader.moviePosterImages[index].image
                     }
@@ -240,8 +247,7 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
             //            buttonStackView.removeArrangedSubview(view)
         }
         
-//        let titleList = cellMovieGroup.filters
-        
+        genre = clickedButton
         
         for g in genres {
             let cell = ButtonCell()
@@ -251,6 +257,7 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
             buttonStackView.addArrangedSubview(cell)
         }
         
+        movieCollectionView.reloadData()
     }
 }
 

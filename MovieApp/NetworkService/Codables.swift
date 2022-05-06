@@ -8,6 +8,7 @@ struct MovieResult: Codable{
     let overview: String
     let poster_path: String
     let release_date: String
+    let genre_ids: [Int]
 }
 
 struct MovieDetails: Codable{
