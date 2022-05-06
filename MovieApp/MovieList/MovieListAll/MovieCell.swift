@@ -48,18 +48,6 @@ class MovieCell: UICollectionViewCell{
         heartViewHolder.addSubview(heartView)
     }
     
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.imageView.image = image
-                    }
-                }
-            }
-        }
-    }
-    
     func set(movie: MovieResult){
         self.movie = movie
     }

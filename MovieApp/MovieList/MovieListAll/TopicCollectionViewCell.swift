@@ -3,13 +3,10 @@ import SnapKit
 import MovieAppData
 
 
-//  Rename movieGroup to cellCategory
-
-
 class TopicCollectionViewCell: UICollectionViewCell{
     
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
-    var cellMovieGroup: Category!
+    var cellCategory: Category!
     var genres: [Genre]!
     var movies: [MovieResult] = []
     
@@ -88,7 +85,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     }
     
     func set(movieGroup: Category, dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
-        cellMovieGroup = movieGroup
+        cellCategory = movieGroup
         
         genres = dataLoader.genres
         self.dataLoader = dataLoader
@@ -105,7 +102,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
             movies = dataLoader.recommendedMovies
         }
         
-        title.text = categoryToString(cellMovieGroup)
+        title.text = categoryToString(cellCategory)
         
 
             for g in genres {

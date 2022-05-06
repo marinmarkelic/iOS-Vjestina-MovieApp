@@ -32,7 +32,6 @@ class MainInfoView: UIView{
     func reloadData(movie: MovieDetails){
         textTitle.text = movie.original_title
         textTitleYear.text = movie.release_date.components(separatedBy: "-")[0]
-        textDate.text = movie.release_date.replacingOccurrences(of: "-", with: "/")
         
         var genresText = ""
         for g in movie.genres{
@@ -46,11 +45,25 @@ class MainInfoView: UIView{
         }
         textGenre.text = genresText
         
+        var languagesText = ""
+        for l in movie.production_countries{
+            if languagesText == ""{
+                languagesText.append(l.iso_3166_1)
+            }
+            else{
+                languagesText.append(", ")
+                languagesText.append(l.iso_3166_1)
+            }
+        }
+        let dateText = movie.release_date.components(separatedBy: "-").reversed()
+        
+        textDate.text = dateText.joined(separator: "/") + " (" + languagesText + ")"
+        
+        
         let durationMinutes = movie.runtime
         let durationHours: Int = durationMinutes / 60
         let durationText = String(durationHours) + "h " + String(durationMinutes - durationHours * 60) + "m"
         textDuration.text = durationText
-
     }
     
     func buildViews(){
