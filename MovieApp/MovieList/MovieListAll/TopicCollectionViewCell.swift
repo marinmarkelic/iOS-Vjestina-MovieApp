@@ -212,10 +212,10 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         if movies.count > 0{
             if let dataLoader=dataLoader{
-                if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: UIImage())){
+                if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: nil)){
 //                    dataLoader.moviePosterImages.firstIndex(MoviePosterImage(id: movie.id, image: UIImage())
                     if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: UIImage())){
-                        cell.imageView.image = dataLoader.moviePosterImages[index ].image
+                        cell.imageView.image = dataLoader.moviePosterImages[index].image
                     }
                 }
                 
