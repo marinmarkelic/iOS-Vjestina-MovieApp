@@ -218,12 +218,13 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
                         cell.imageView.image = dataLoader.moviePosterImages[index].image
                     }
                 }
-                
-                dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
-                    cell.imageView.image = image
-                    
-                    dataLoader.addmoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
-                })
+                else{
+                    dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+                        cell.imageView.image = image
+                        
+                        dataLoader.addmoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
+                    })
+                }
             }
         }
                 
