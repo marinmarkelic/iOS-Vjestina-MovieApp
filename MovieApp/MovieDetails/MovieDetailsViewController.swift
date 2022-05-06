@@ -38,6 +38,10 @@ class MovieDetailsViewController: UIViewController {
             
             self.overview.reloadData(movie: movieDetails)
             self.mainInfo.reloadData(movie: movieDetails)
+            
+            self.dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
+                self.mainInfo.bgImage.image = image
+            })
         }
         
         buildViews()

@@ -91,6 +91,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         cellMovieGroup = movieGroup
         
         genres = dataLoader.genres
+        self.dataLoader = dataLoader
         delegate = topicCollectionViewCellDelegate
         
         switch movieGroup {
@@ -208,7 +209,17 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             fatalError()
         }
         
-        cell.set(movie: movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row])
+        let movie = movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
+        
+        cell.set(movie: movie)
+        
+        if movies.count > 0{
+            if let dataLoader=dataLoader{
+                dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+                    cell.imageView.image = image
+                })
+            }
+        }
                 
         return cell
     }

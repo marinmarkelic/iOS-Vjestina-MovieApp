@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 // use case?
 class DataLoader: DataLoaderProtocol{
     
@@ -128,6 +129,25 @@ class DataLoader: DataLoaderProtocol{
         }
     }
     
+    func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void) {
+        let url = URL(string: urlStr)
+        guard let url=url else {
+//            fatalError()
+            print("Image failed to load")
+            return
+        }
+        
+        DispatchQueue.global().async { 
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        completionHandler(image)
+                    }
+                }
+            }
+        }
+    }
+    
     
 }
 
@@ -142,4 +162,5 @@ protocol DataLoaderProtocol{
     func loadMovies(category: Category, group: DispatchGroup)
     func loadGenres(group: DispatchGroup)
     func loadData(superGroup: DispatchGroup)
+    func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void)
 }

@@ -62,16 +62,6 @@ class MovieCell: UICollectionViewCell{
     
     func set(movie: MovieResult){
         self.movie = movie
-        
-        //        title.text = movie.title
-        let url = URL(string: "https://image.tmdb.org/t/p/original" + movie.poster_path)
-        guard let url=url else {
-//            fatalError()
-            backgroundColor = .lightGray
-            print("movie cell image failed to load")
-            return
-        }
-        load(url: url)
     }
     
     func addConstraints(){

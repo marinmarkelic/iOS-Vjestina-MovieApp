@@ -30,15 +30,6 @@ class MainInfoView: UIView{
     }
     
     func reloadData(movie: MovieDetails){
-        let url = URL(string: IMAGES_BASE_URL + movie.backdrop_path)
-        guard let url=url else {
-//            fatalError()
-            backgroundColor = .lightGray
-            print("movie cell image failed to load")
-            return
-        }
-        load(url: url)
-        
         textTitle.text = movie.original_title
         textTitleYear.text = movie.release_date.components(separatedBy: "-")[0]
         textDate.text = movie.release_date.replacingOccurrences(of: "-", with: "/")
@@ -60,18 +51,6 @@ class MainInfoView: UIView{
         let durationText = String(durationHours) + "h " + String(durationMinutes - durationHours * 60) + "m"
         textDuration.text = durationText
 
-    }
-    
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.bgImage.image = image
-                    }
-                }
-            }
-        }
     }
     
     func buildViews(){
