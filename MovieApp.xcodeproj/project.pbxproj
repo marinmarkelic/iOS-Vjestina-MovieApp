@@ -36,6 +36,7 @@
 		9C840F6227EFC0D4007452F3 /* testController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6127EFC0D4007452F3 /* testController.swift */; };
 		9C840F6627EFCE2A007452F3 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6527EFCE2A007452F3 /* OverviewView.swift */; };
 		9C840F6827EFD3F5007452F3 /* MainInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C840F6727EFD3F5007452F3 /* MainInfoView.swift */; };
+		9CDAAF742825D3CD004FA51B /* MoviePosterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDAAF732825D3CD004FA51B /* MoviePosterImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		9C840F6127EFC0D4007452F3 /* testController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testController.swift; sourceTree = "<group>"; };
 		9C840F6527EFCE2A007452F3 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		9C840F6727EFD3F5007452F3 /* MainInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoView.swift; sourceTree = "<group>"; };
+		9CDAAF732825D3CD004FA51B /* MoviePosterImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				9C21CF962822D57900DBA707 /* Categories.swift */,
 				9C21CF9C282403E900DBA707 /* Constants.swift */,
 				9C21CF9E282406AB00DBA707 /* DataLoader.swift */,
+				9CDAAF732825D3CD004FA51B /* MoviePosterImage.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				9C21CF9F282406AB00DBA707 /* DataLoader.swift in Sources */,
 				9C2EF883281D45E800F9E379 /* Result.swift in Sources */,
 				9C335BAE280568B5003B1E42 /* TopicCollectionViewCell.swift in Sources */,
+				9CDAAF742825D3CD004FA51B /* MoviePosterImage.swift in Sources */,
 				9C840F6227EFC0D4007452F3 /* testController.swift in Sources */,
 				9C21CF9D282403E900DBA707 /* Constants.swift in Sources */,
 			);

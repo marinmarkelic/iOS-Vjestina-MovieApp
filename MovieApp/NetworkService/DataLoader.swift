@@ -8,9 +8,10 @@ class DataLoader: DataLoaderProtocol{
     var topRatedMovies: [MovieResult]!
     var recommendedMovies: [MovieResult]!
     
-    public var genres: [Genre]!
+    var genres: [Genre]!
+    var movieDetails: MovieDetails? = nil
     
-    public var movieDetails: MovieDetails? = nil
+    var moviePosterImages: [MoviePosterImage] = []
     
     init() {
         popularMovies = []
@@ -148,6 +149,12 @@ class DataLoader: DataLoaderProtocol{
         }
     }
     
+    func addmoviePosterImage(moviePosterImage: MoviePosterImage){
+        if !(moviePosterImages.contains(moviePosterImage)){
+            moviePosterImages.append(moviePosterImage)
+        }
+    }
+    
     
 }
 
@@ -159,8 +166,11 @@ protocol DataLoaderProtocol{
     
     var genres: [Genre]! { get }
     
+    var moviePosterImages: [MoviePosterImage] { get }
+    
     func loadMovies(category: Category, group: DispatchGroup)
     func loadGenres(group: DispatchGroup)
     func loadData(superGroup: DispatchGroup)
     func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void)
+    func addmoviePosterImage(moviePosterImage: MoviePosterImage)
 }
