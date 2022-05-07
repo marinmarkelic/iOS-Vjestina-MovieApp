@@ -28,20 +28,11 @@ class MovieListAllViewController: UIViewController{
                 
         buildViews()
         addConstraints()
-//        fetchGenres()
         configureCollectionView()
-        loadData()
     }
     
-    func loadData(){
-        let group = DispatchGroup()
-        
-        group.enter()
-        dataLoader.loadData(superGroup: group)
-        
-        group.notify(queue: .main) {
-            self.collectionView.reloadData()
-        }
+    func dataLoaded(){
+        collectionView.reloadData()
     }
     
     func buildViews(){

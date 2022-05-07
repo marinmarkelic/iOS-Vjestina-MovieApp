@@ -36,6 +36,8 @@ class OverviewView: UIView{
     }
     
     func buildViews(){
+        backgroundColor = .white
+        
         mainText = UIView()
         persons = UIView()
         mainTextTitle = UILabel()

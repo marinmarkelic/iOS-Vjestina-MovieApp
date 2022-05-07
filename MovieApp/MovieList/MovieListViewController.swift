@@ -28,11 +28,24 @@ class MovieListViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         dataLoader = DataLoader()
         
         buildViewControllers()
         buildViews()
         addConstraints()
+        loadData()
+    }
+    
+    func loadData(){
+        let group = DispatchGroup()
+        
+        group.enter()
+        dataLoader.loadData(superGroup: group)
+        
+        group.notify(queue: .main) {
+            self.movieListAllViewController.dataLoaded()
+        }
     }
     
     

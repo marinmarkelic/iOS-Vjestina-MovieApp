@@ -67,6 +67,8 @@ class MainInfoView: UIView{
     }
     
     func buildViews(){
+        backgroundColor = .black
+        
         bgImage = UIImageView(image: UIImage())
         infoView = UIView()
         scorePercentage = UILabel()

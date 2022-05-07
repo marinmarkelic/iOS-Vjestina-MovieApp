@@ -23,8 +23,17 @@ class MovieTabBarController: UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(red: 11.0/256.0, green: 37.0/256.0, blue: 63.0/256.0, alpha: 1.0)
+        
+        tabBar.backgroundColor = .white
+        
+        
         movieListViewController = MovieListViewController(topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         favouritesController = FavouritesController()
+        
+        movieListViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: nil)
+        favouritesController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart"), selectedImage: nil)
+        
         viewControllers = [movieListViewController, favouritesController]
     }
     

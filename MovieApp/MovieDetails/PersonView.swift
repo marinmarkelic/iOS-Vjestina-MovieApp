@@ -22,9 +22,7 @@ class PersonView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func buildViews(){
-        
-        
+    func buildViews(){        
         name.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
 //        name.numberOfLines = 0
         name.adjustsFontSizeToFitWidth = true
