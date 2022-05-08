@@ -46,7 +46,6 @@ class DataLoader: DataLoaderProtocol{
         
         guard let url = URL(string: urlStr) else { return }
         
-        //        print("sending request to " + urlStr)
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -71,7 +70,6 @@ class DataLoader: DataLoaderProtocol{
                 RequestErrorHandle(error)
             }
             
-            
             group.leave()
         }
     }
@@ -90,6 +88,8 @@ class DataLoader: DataLoaderProtocol{
     }
     
     func loadGenres(group: DispatchGroup){
+        group.enter()
+        
         let urlStr = GENRE_REQUEST_URL
         
         guard let url = URL(string: urlStr) else { return }
@@ -106,6 +106,8 @@ class DataLoader: DataLoaderProtocol{
             case .failure(let error):
                 RequestErrorHandle(error)
             }
+            
+            group.leave()
         }
     }
     
