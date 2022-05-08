@@ -2,19 +2,19 @@ import UIKit
 class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     private let navigationController: UINavigationController!
     private var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
+    private var dataLoader: DataLoader!
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
+        
+        dataLoader = DataLoader()
         
         setupNavigationController()
     }
     
     func setStartScreen(in window: UIWindow?){
 //        let vc = MovieListViewController()
-        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self)
-        
-        
-//        movieTabBarController.movieTabBardelegate = self
+        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self, dataLoader: dataLoader)
         
 
         navigationController.pushViewController(movieTabBarController, animated: false)
@@ -28,7 +28,7 @@ class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     }
     
     func pushMovieDetails(movieId: Int){
-        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId)
+        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId, dataLoader: dataLoader)
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
     

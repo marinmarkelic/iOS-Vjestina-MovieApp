@@ -7,8 +7,11 @@ class MovieTabBarController: UITabBarController{
     var movieListViewController: MovieListViewController!
     var favouritesController: FavouritesController!
     
-    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    var dataLoader: DataLoaderProtocol!
+    
+    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate, dataLoader: DataLoaderProtocol) {
         self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
+        self.dataLoader = dataLoader
         
         super.init(nibName: nil, bundle: nil)
                 
@@ -28,7 +31,7 @@ class MovieTabBarController: UITabBarController{
         tabBar.backgroundColor = .white
         
         
-        movieListViewController = MovieListViewController(topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
+        movieListViewController = MovieListViewController(topicCollectionViewCellDelegate: topicCollectionViewCellDelegate, dataLoader: dataLoader)
         favouritesController = FavouritesController()
         
         movieListViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: nil)

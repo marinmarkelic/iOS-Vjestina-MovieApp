@@ -5,7 +5,7 @@ class MovieListViewController: UIViewController{
     
     var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
 
-    var dataLoader: DataLoader!
+    var dataLoader: DataLoaderProtocol!
     
     var mainView: UIView!
     var searchBar: SearchBarView!
@@ -15,8 +15,9 @@ class MovieListViewController: UIViewController{
     var movieListSearchingViewController: MovieListSearchingViewController!
     
     
-    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate, dataLoader: DataLoaderProtocol) {
         self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
+        self.dataLoader = dataLoader
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,10 +28,7 @@ class MovieListViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        dataLoader = DataLoader()
-        
+                
         buildViewControllers()
         buildViews()
         addConstraints()

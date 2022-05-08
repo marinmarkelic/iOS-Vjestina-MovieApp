@@ -5,7 +5,7 @@ class MovieDetailsViewController: UIViewController {
     
     var movieId: Int
     
-    var dataLoader: DataLoader!
+    var dataLoader: DataLoaderProtocol!
     
     var scrollView: UIScrollView!
     var contentView: UIView!
@@ -13,11 +13,10 @@ class MovieDetailsViewController: UIViewController {
     var overview: OverviewView!
     
     
-    init(movieId: Int){
+    init(movieId: Int, dataLoader: DataLoaderProtocol){
         self.movieId = movieId
-        
-        dataLoader = DataLoader()
-        
+        self.dataLoader = dataLoader
+                
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,9 +38,20 @@ class MovieDetailsViewController: UIViewController {
             self.overview.reloadData(movie: movieDetails)
             self.mainInfo.reloadData(movie: movieDetails)
             
-            self.dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
-                self.mainInfo.bgImage.image = image
-            })
+            if self.dataLoader.movieBackdropImages.contains(MovieBackdropImage(id: self.movieId, image: nil)){
+                if let index = self.dataLoader.movieBackdropImages.firstIndex(of: MovieBackdropImage(id: self.movieId, image: nil)){
+                    self.mainInfo.bgImage.image = self.dataLoader.movieBackdropImages[index].image
+                }
+            }
+            else{
+                self.dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
+                    self.mainInfo.bgImage.image = image
+                    
+                    self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
+                    
+                    
+                })
+            }
         }
         
         buildViews()

@@ -221,7 +221,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
                 
                 //  If the image is already fetched get it from moviePosterImages else fetch it and store it in moviePosterImages
                 if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: nil)){
-                    if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: UIImage())){
+                    if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: nil)){
                         cell.imageView.image = dataLoader.moviePosterImages[index].image
                     }
                 }
@@ -229,7 +229,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
                     dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
                         cell.imageView.image = image
                         
-                        dataLoader.addmoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
+                        dataLoader.addMoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
                     })
                 }
             }

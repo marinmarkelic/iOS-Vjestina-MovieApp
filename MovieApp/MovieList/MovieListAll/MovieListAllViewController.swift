@@ -24,6 +24,10 @@ class MovieListAllViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
+//        imageView.image = UIImage(named: "tmdbLogo.svg")
+//        navigationItem.titleView = imageView
+        
         networkService = NetworkService()
                 
         buildViews()
