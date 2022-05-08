@@ -13,9 +13,9 @@ class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     }
     
     func setStartScreen(in window: UIWindow?){
-//        let vc = MovieListViewController()
-        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self, dataLoader: dataLoader)
         
+        
+        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self, dataLoader: dataLoader)
 
         navigationController.pushViewController(movieTabBarController, animated: false)
                 

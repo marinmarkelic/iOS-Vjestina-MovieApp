@@ -1,7 +1,24 @@
-//b6430e3b7d34547084b0acc97fe5b8a5
-
 import Foundation
+import Network
+
 class NetworkService: NetworkServiceProtocol{
+    func hasConnection(completionHandler: @escaping (Bool) -> Void) -> Void{
+        let monitor = NWPathMonitor()
+
+        monitor.pathUpdateHandler = { path in
+           if path.status == .satisfied {
+//               print("yes")
+               completionHandler(true)
+           } else {
+//               print("no")
+               completionHandler(false)
+           }
+        }
+        
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
+    }
+    
     func executeUrlRequest<T: Decodable>(_ request: URLRequest, completionHandler: @escaping (Result<T, RequestError>) -> Void){
         
         let dataTask = URLSession.shared.dataTask(with: request, completionHandler: {data, response, err in

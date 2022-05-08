@@ -33,6 +33,20 @@ class MovieListAllViewController: UIViewController{
         buildViews()
         addConstraints()
         configureCollectionView()
+        
+        networkService.hasConnection(completionHandler: {
+            if !$0{
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "No internet connection", message: nil, preferredStyle: UIAlertController.Style.alert)
+                    
+                    // add an action (button)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    
+                    // show the alert
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        })
     }
     
     func dataLoaded(){

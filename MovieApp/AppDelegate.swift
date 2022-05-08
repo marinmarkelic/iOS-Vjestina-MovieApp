@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         
         router.setStartScreen(in: window)
-        
+                
         return true
     }
 }

@@ -29,6 +29,8 @@ class MovieListViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        
+        
         buildViewControllers()
         buildViews()
         addConstraints()
