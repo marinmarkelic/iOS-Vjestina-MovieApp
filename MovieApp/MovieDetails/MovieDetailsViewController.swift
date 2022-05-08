@@ -27,12 +27,8 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let group = DispatchGroup()
-        
-        group.enter()
-        dataLoader.loadMovieDetail(movieId: movieId, group: group)
-        
-        group.notify(queue: .main) {
+
+        dataLoader.loadMovieDetail(movieId: movieId, completionHandler: {
             guard let movieDetails = self.dataLoader.movieDetails else { return }
             
             self.overview.reloadData(movie: movieDetails)
@@ -48,11 +44,11 @@ class MovieDetailsViewController: UIViewController {
                     self.mainInfo.bgImage.image = image
                     
                     self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
-                    
-                    
+       
                 })
             }
-        }
+        })
+
         
         buildViews()
         addConstraints()

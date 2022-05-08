@@ -23,7 +23,7 @@ class DataLoader: DataLoaderProtocol{
         genres = []
     }
     
-    func loadData(superGroup: DispatchGroup){
+    func loadData(completionHandler: @escaping () -> Void){
         let group = DispatchGroup()
         
         loadMovies(category: .popular, group: group)
@@ -35,7 +35,7 @@ class DataLoader: DataLoaderProtocol{
         
         group.notify(queue: .main) {
             print("Finished loading movies and genres")
-            superGroup.leave()
+            completionHandler()
         }
     }
     
@@ -109,7 +109,7 @@ class DataLoader: DataLoaderProtocol{
         }
     }
     
-    func loadMovieDetail(movieId: Int, group: DispatchGroup){
+    func loadMovieDetail(movieId: Int, completionHandler: @escaping () -> Void){
         let urlStr = getMovieDetailsUrl(movieId: String(movieId))
         
         guard let url = URL(string: urlStr) else { return }
@@ -127,7 +127,7 @@ class DataLoader: DataLoaderProtocol{
                 RequestErrorHandle(error)
             }
             
-            group.leave()
+            completionHandler()
         }
     }
     
@@ -178,9 +178,9 @@ protocol DataLoaderProtocol{
     var moviePosterImages: [MoviePosterImage] { get }
     var movieBackdropImages: [MovieBackdropImage] { get }
     
-    func loadData(superGroup: DispatchGroup)
+    func loadData(completionHandler: @escaping () -> Void)
     func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void)
-    func loadMovieDetail(movieId: Int, group: DispatchGroup)
+    func loadMovieDetail(movieId: Int, completionHandler: @escaping () -> Void)
     
     func addMoviePosterImage(moviePosterImage: MoviePosterImage)
     func addMovieBackdropImage(movieBackdropImage: MovieBackdropImage)

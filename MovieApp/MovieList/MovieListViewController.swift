@@ -36,14 +36,9 @@ class MovieListViewController: UIViewController{
     }
     
     func loadData(){
-        let group = DispatchGroup()
-        
-        group.enter()
-        dataLoader.loadData(superGroup: group)
-        
-        group.notify(queue: .main) {
+        dataLoader.loadData(completionHandler: {
             self.movieListAllViewController.dataLoaded()
-        }
+        })
     }
     
     
