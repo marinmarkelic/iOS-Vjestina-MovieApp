@@ -7,6 +7,8 @@ class MovieListViewController: UIViewController{
 
     var dataLoader: DataLoaderProtocol!
     
+    var moviesRepository: MoviesRepository!
+    
     var mainView: UIView!
     var searchBar: SearchBarView!
     
@@ -18,6 +20,8 @@ class MovieListViewController: UIViewController{
     init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate, dataLoader: DataLoaderProtocol) {
         self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
         self.dataLoader = dataLoader
+        
+        moviesRepository = MoviesRepository()
         
         super.init(nibName: nil, bundle: nil)
     }

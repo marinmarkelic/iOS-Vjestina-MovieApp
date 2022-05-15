@@ -45,6 +45,20 @@ class MoviesDatabaseDataSource{
         try? managedContext.save()
     }
     
+    func fetchMovies() -> [Movie]{
+        let fetchRequest = Movie.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        do{
+            return try managedContext.fetch(fetchRequest)
+        }
+        catch let error as NSError{
+            print("Error \(error), Info: \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
     func fetchMovies(group: Group) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
         
@@ -68,8 +82,9 @@ class MoviesDatabaseDataSource{
         }
         catch let error as NSError{
             print("Error \(error), Info: \(error.userInfo)")
-            return []
         }
+        
+        return []
     }
     
     
@@ -102,6 +117,20 @@ class MoviesDatabaseDataSource{
         }
         
         try? managedContext.save()
+    }
+    
+    func fetchGenres() -> [MovieGenre]{
+        let fetchRequest = MovieGenre.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        do{
+            return try managedContext.fetch(fetchRequest)
+        }
+        catch let error as NSError{
+            print("Error \(error), Info: \(error.userInfo)")
+        }
+        
+        return []
     }
     
     
@@ -137,8 +166,9 @@ class MoviesDatabaseDataSource{
         }
         catch let error as NSError{
             print("Error \(error), Info: \(error.userInfo)")
-            return []
         }
+        
+        return []
     }
     
     func groupToMovieGroup(group: Group) -> MovieGroup{

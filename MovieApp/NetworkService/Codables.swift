@@ -42,4 +42,10 @@ struct Genres: Codable{
 struct Genre: Codable{
     let id: Int
     let name: String
+    
+//    remove
+    init(genre: MovieGenreViewModel) {
+        self.id = genre.id
+        self.name = genre.name ?? ""
+    }
 }
