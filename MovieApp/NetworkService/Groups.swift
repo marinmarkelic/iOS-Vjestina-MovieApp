@@ -1,16 +1,16 @@
-enum Category{
+enum Group{
     case popular
     case trending
     case topRated
     case recommended
 }
 
-func allCategories() -> [Category] {
+func allGroups() -> [Group] {
     [.popular, .trending, .topRated, .recommended]
 }
 
-func categoryToString(_ category: Category) -> String {
-    switch category {
+func groupToString(_ group: Group) -> String {
+    switch group {
     case .popular:
         return "Popular"
     case .trending:

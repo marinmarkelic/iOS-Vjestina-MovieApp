@@ -39,7 +39,7 @@ class DataLoader: DataLoaderProtocol{
         }
     }
     
-    func loadMovies(category: Category, group: DispatchGroup){
+    func loadMovies(category: Group, group: DispatchGroup){
         group.enter()
         
         let urlStr = urlForCategory(category)
@@ -58,23 +58,32 @@ class DataLoader: DataLoaderProtocol{
                 switch category {
                 case .popular:
                     self.popularMovies = value.results
+                    
+//                    MoviesDatabaseDataSource().addMovies(group: .popular, movieResults: value.results)
                 case .trending:
                     self.trendingMovies = value.results
+                    
+//                    MoviesDatabaseDataSource().addMovies(group: .trending, movieResults: value.results)
                 case .topRated:
                     self.topRatedMovies = value.results
+                    
+//                    MoviesDatabaseDataSource().addMovies(group: .topRated, movieResults: value.results)
                 case .recommended:
                     self.recommendedMovies = value.results
+                    
+//                    MoviesDatabaseDataSource().addMovies(group: .recommended, movieResults: value.results)
                 }
                 
             case .failure(let error):
                 RequestErrorHandle(error)
             }
             
+            
             group.leave()
         }
     }
     
-    func urlForCategory(_ c: Category) -> String{
+    func urlForCategory(_ c: Group) -> String{
         switch c {
         case .popular:
             return POPULAR_REQUEST_URL

@@ -1,5 +1,6 @@
 import UIKit
 import MovieAppData
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         
         router.setStartScreen(in: window)
-                
+        
+        MoviesRepository()
+        
         return true
     }
 }
-

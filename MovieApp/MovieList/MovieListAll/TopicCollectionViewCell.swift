@@ -6,7 +6,7 @@ import MovieAppData
 class TopicCollectionViewCell: UICollectionViewCell{
     
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
-    var cellCategory: Category!
+    var cellCategory: Group!
     var genres: [Genre]!
     var genre: Genre!
     var movies: [MovieResult] = []
@@ -85,7 +85,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.delegate = self
     }
     
-    func set(movieGroup: Category, dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    func set(movieGroup: Group, dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
         cellCategory = movieGroup
         
         genres = dataLoader.genres
@@ -103,7 +103,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
             movies = dataLoader.recommendedMovies
         }
         
-        title.text = categoryToString(cellCategory)
+        title.text = groupToString(cellCategory)
         
 
             for g in genres {

@@ -127,7 +127,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allCategories().count
+        return allGroups().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -137,7 +137,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
             fatalError()
         }
                 
-        cell.set(movieGroup: allCategories()[indexPath.row], dataLoader: dataLoader, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
+        cell.set(movieGroup: allGroups()[indexPath.row], dataLoader: dataLoader, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         
         return cell
     }
