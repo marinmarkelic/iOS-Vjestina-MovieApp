@@ -2,7 +2,7 @@
 //  Movie+CoreDataProperties.swift
 //  MovieApp
 //
-//  Created by Marin on 14.05.2022..
+//  Created by Marin on 15.05.2022..
 //
 //
 
@@ -18,7 +18,7 @@ extension Movie {
 
     @NSManaged public var adult: Bool
     @NSManaged public var backdrop_path: String?
-    @NSManaged public var genre_ids: [Int32]?
+    @NSManaged public var genre_ids: [Int16]?
     @NSManaged public var id: Int32
     @NSManaged public var original_language: String?
     @NSManaged public var original_title: String?

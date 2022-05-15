@@ -10,7 +10,7 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         
         moviesNetworkDataSource.delegate = self
         
-        moviesDatabaseDataSource.del()
+//        moviesDatabaseDataSource.del()
         fetchData()
     }
     
@@ -21,23 +21,24 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
     }
     
     
-    func getLoadedMovies(group: Group){
+    func getLoadedMovies(group: Group) -> [MovieViewModel]{
         let movies = moviesDatabaseDataSource.fetchMovies(group: group)
         
-        print("movies:")
-        print(movies.count)
+        return movies.map{ MovieViewModel(movie: $0) }
     }
     
     
     func storeLoadedMovies(group: Group, movies: [MovieResult]){
         print("storing loaded movies")
         moviesDatabaseDataSource.addMovies(group: group, movieResults: movies)
-        
-        getLoadedMovies(group: group)
     }
     
     func storeLoadedGenres(genres: [Genre]){
         print("storing loaded genres")
         moviesDatabaseDataSource.addGenres(genres: genres)
     }
+}
+
+protocol MoviesRepositoryDelegate{
+    
 }

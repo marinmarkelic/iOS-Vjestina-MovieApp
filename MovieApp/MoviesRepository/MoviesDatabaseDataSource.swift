@@ -24,7 +24,7 @@ class MoviesDatabaseDataSource{
             
             movie.adult = m.adult
             movie.backdrop_path = m.backdrop_path
-            movie.genre_ids = m.genre_ids.map({ Int32($0) })
+            movie.genre_ids = m.genre_ids.map({ Int16($0) })
             movie.id = Int32(m.id)
             movie.original_language = m.original_language
             movie.original_title = m.original_title
@@ -47,34 +47,23 @@ class MoviesDatabaseDataSource{
     
     func fetchMovies(group: Group) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
-//        let fetchRequest: NSFetchRequest<Movie> = Movie.fetchRequest()
-//
-//        let entity = NSEntityDescription.entity(forEntityName: "MovieGroup", in: managedContext)!
-//        let movieGroup = MovieGroup(entity: entity, insertInto: managedContext)
-//        movieGroup.name = groupToString(group)
-//
-//        let predicate = NSPredicate(format: "%@ IN groups", "\(movieGroup)")
         
         let fetchRequest = MovieGroup.fetchRequest()
         let predicate = NSPredicate(format: "name = %@", "\(groupToString(group))")
+        
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
         
         do{
-            let group = try managedContext.fetch(fetchRequest).first //should be length 1
+            let group = try managedContext.fetch(fetchRequest).first
             
-            guard let group=group else{
+            guard let group=group,
+                  let set=group.value(forKey: "movies") as? NSSet,
+                  let movies=set.allObjects as? [Movie] else{
                 return []
             }
-            
-            guard let set=group.value(forKey: "movies") as? NSSet else{
-                return []
-            }
-            
-            guard let movies=set.allObjects as? [Movie] else{
-                return []
-            }
+
             return movies
         }
         catch let error as NSError{
@@ -95,19 +84,21 @@ class MoviesDatabaseDataSource{
             movieGenre.name = g.name
             movieGenre.id = Int16(g.id)
             
-//            for e in allGroups(){
-//                let movies = fetchMovies(group: e)
-//
-//                for m in movies{
-//                    guard let mGenres=m.genres else{
-//                        continue
-//                    }
-//                    if(mGenres.allObjects.contains(where: { $0 as? Int32 == Int32(g.id) })){
-//                        print("adding genre ------")
-//                        m.addToGenres(movieGenre)
-//                    }
-//                }
-//            }
+            for e in allGroups(){
+                let movies = fetchMovies(group: e)
+                for m in movies{
+                    guard let nsArray=m.value(forKey: "genre_ids") as? NSArray,
+                          let genresArray=nsArray as? [Int16]
+                           else{
+                               print("cont")
+                        continue
+                    }
+
+                    if(genresArray.contains(Int16(g.id))){
+                        m.addToGenres(movieGenre)
+                    }
+                }
+            }
         }
         
         try? managedContext.save()
@@ -159,36 +150,36 @@ class MoviesDatabaseDataSource{
         return movieGroup
     }
     
-    func del(){
-        managedContext.reset()
-        
-        var fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Movie")
-        var deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try managedContext.execute(deleteRequest)
-        } catch _ as NSError {
-            // TODO: handle the error
-        }
-
-        fetchRequest = NSFetchRequest(entityName: "MovieGroup")
-        deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try managedContext.execute(deleteRequest)
-        } catch _ as NSError {
-            // TODO: handle the error
-        }
-
-        fetchRequest = NSFetchRequest(entityName: "MovieGenre")
-        deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try managedContext.execute(deleteRequest)
-        } catch _ as NSError {
-            // TODO: handle the error
-        }
-
-        try? managedContext.save()
-    }
+//    func del(){
+//        managedContext.reset()
+//
+//        var fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Movie")
+//        var deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//        do {
+//            try managedContext.execute(deleteRequest)
+//        } catch _ as NSError {
+//            // TODO: handle the error
+//        }
+//
+//        fetchRequest = NSFetchRequest(entityName: "MovieGroup")
+//        deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//        do {
+//            try managedContext.execute(deleteRequest)
+//        } catch _ as NSError {
+//            // TODO: handle the error
+//        }
+//
+//        fetchRequest = NSFetchRequest(entityName: "MovieGenre")
+//        deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//        do {
+//            try managedContext.execute(deleteRequest)
+//        } catch _ as NSError {
+//            // TODO: handle the error
+//        }
+//
+//        try? managedContext.save()
+//    }
 }
