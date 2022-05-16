@@ -85,27 +85,32 @@ class MovieListSearchingCell: UICollectionViewCell{
     
     func set(movie: MovieViewModel){
         self.movie = movie
-        title.text = movie.title + " (" + movie.release_date + ")"
+        let year = movie.release_date.components(separatedBy: "-").first ?? ""
+        title.text = movie.title + " (" + year + ")"
         movieDescription.text = movie.overview
         
-        let url = URL(string: movie.poster_path)
-        guard let url=url else {
-            fatalError()
-        }
-        load(url: url)
+        DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+            self.imageView.image = image
+        })
+        
+//        let url = URL(string: movie.poster_path)
+//        guard let url=url else {
+//            fatalError()
+//        }
+//        load(url: url)
     }
     
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.imageView.image = image
-                    }
-                }
-            }
-        }
-    }
+//    func load(url: URL) {
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: url) {
+//                if let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self?.imageView.image = image
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 
