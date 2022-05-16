@@ -5,7 +5,7 @@ import MovieAppData
 class MovieListSearchingCell: UICollectionViewCell{
     static let reuseIdentifier = String(describing: MovieListSearchingViewController.self)
     
-    var movie: MovieModel!
+    var movie: MovieViewModel!
     
     var mainView: UIView!
     
@@ -83,12 +83,12 @@ class MovieListSearchingCell: UICollectionViewCell{
         }
     }
     
-    func set(movie: MovieModel){
+    func set(movie: MovieViewModel){
         self.movie = movie
-        title.text = movie.title + " (" + String(movie.year) + ")"
-        movieDescription.text = movie.description
+        title.text = movie.title + " (" + movie.release_date + ")"
+        movieDescription.text = movie.overview
         
-        let url = URL(string: movie.imageUrl)
+        let url = URL(string: movie.poster_path)
         guard let url=url else {
             fatalError()
         }

@@ -10,7 +10,11 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
     
     var searchBarText = ""
     
+    var repo: MoviesRepository!
+    
     init() {
+        repo = MoviesRepository()
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -107,15 +111,17 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let movies = Movies.all()
+//        let movies = Movies.all()
+//
+//        return movies.filter({
+//            if searchBarText.isEmpty{
+//                return true
+//            }
+//
+//            return $0.title.lowercased().contains(searchBarText.lowercased())
+//        }).count
         
-        return movies.filter({
-            if searchBarText.isEmpty{
-                return true
-            }
-            
-            return $0.title.lowercased().contains(searchBarText.lowercased())
-        }).count
+        repo.getLoadedMovies().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,7 +130,7 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
         else {
             fatalError()
         }
-        let movies = Movies.all()
+        let movies = repo.getLoadedMovies()
         
         let movie = movies.filter({
             if searchBarText.isEmpty{

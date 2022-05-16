@@ -29,6 +29,12 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         return movies.map{ MovieViewModel(movie: $0) }
     }
     
+    func getLoadedMovies() -> [MovieViewModel]{
+        let movies = moviesDatabaseDataSource.fetchMovies()
+        print("getting all movies, count: \(movies.count)")
+        return movies.map{ MovieViewModel(movie: $0) }
+    }
+    
     func getLoadedGenres() -> [MovieGenreViewModel]{
         let genres = moviesDatabaseDataSource.fetchGenres()
         
