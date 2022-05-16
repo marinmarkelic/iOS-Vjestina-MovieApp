@@ -87,6 +87,22 @@ class MoviesDatabaseDataSource{
         return []
     }
     
+    func fetchMovies(withText: String) -> [Movie]{
+        let fetchRequest = Movie.fetchRequest()
+        let predicate = NSPredicate(format: "original_title CONTAINS[c] %@", "\(withText)")
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.predicate = predicate
+        
+        do{
+            return try managedContext.fetch(fetchRequest)
+        }
+        catch let error as NSError{
+            print("Error \(error), Info: \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
     func fetchMovies(group: Group) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
         
@@ -113,6 +129,16 @@ class MoviesDatabaseDataSource{
         }
         
         return []
+    }
+    
+    func toggleFavourite(id: Int){        
+        guard let movie = fetchMovie(id: id) else{
+            print("Failed to toggle favourite, movie doesnt exist")
+            return
+        }
+        
+        movie.isFavourite = !movie.isFavourite
+        try? managedContext.save()
     }
     
     

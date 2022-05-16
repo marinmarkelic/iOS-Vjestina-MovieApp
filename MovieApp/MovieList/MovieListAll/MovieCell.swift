@@ -10,6 +10,7 @@ class MovieCell: UICollectionViewCell{
     var heartView: UIImageView!
     var imageView: UIImageView!
     
+    var moviesRepository: MoviesRepository!
     
     var movie: MovieViewModel!
     
@@ -29,27 +30,42 @@ class MovieCell: UICollectionViewCell{
         layer.masksToBounds = true
         
         
-        
-        let heart = UIImage(named: "heart")
-        
+                
         heartViewHolder = UIView()
         heartViewHolder.backgroundColor = UIColor(red: 11.0/255.0, green: 37.0/255.0, blue: 63.0/255.0, alpha: 0.6)
         heartViewHolder.layer.masksToBounds = true
         heartViewHolder.layer.cornerRadius = 32/2
         
         
-        heartView = UIImageView(image: heart)
+        heartView = UIImageView(image: nil)
         heartView.contentMode = .scaleToFill
         
         imageView = UIImageView(image: nil)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFavourite))
+        heartViewHolder.isUserInteractionEnabled = true
+        heartViewHolder.addGestureRecognizer(tapGestureRecognizer)
         
         addSubview(imageView)
         addSubview(heartViewHolder)
         heartViewHolder.addSubview(heartView)
     }
     
-    func set(movie: MovieViewModel){
+    @objc
+    func toggleFavourite(){
+        moviesRepository.toggleFavourite(movieId: movie.id)
+        
+    }
+    
+    func set(movie: MovieViewModel, moviesRepository: MoviesRepository){
         self.movie = movie
+        self.moviesRepository = moviesRepository
+        
+        if movie.isFavourite == true{
+            heartView.image = UIImage(systemName: "heart.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        }
+        else{
+            heartView.image = UIImage(systemName: "heart")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        }
         
         DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
             self.imageView.image = image

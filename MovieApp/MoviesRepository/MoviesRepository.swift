@@ -39,6 +39,12 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         return movies.map{ MovieViewModel(movie: $0) }
     }
     
+    func getLoadedMovies(withText: String) -> [MovieViewModel]{
+        let movies = moviesDatabaseDataSource.fetchMovies(withText: withText)
+        print("getting filtered movies, count: \(movies.count)")
+        return movies.map{ MovieViewModel(movie: $0) }
+    }
+    
     func getLoadedGenres() -> [MovieGenreViewModel]{
         let genres = moviesDatabaseDataSource.fetchGenres()
         
@@ -56,6 +62,12 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
     func storeLoadedGenres(genres: [Genre]){
         print("storing loaded genres")
         moviesDatabaseDataSource.addGenres(genres: genres)
+        
+        delegate.reloadData()
+    }
+    
+    func toggleFavourite(movieId: Int){
+        moviesDatabaseDataSource.toggleFavourite(id: movieId)
         
         delegate.reloadData()
     }

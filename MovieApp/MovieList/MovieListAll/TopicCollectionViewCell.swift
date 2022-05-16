@@ -202,7 +202,6 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("isus \(moviesRepository.getLoadedMovies(group: cellCategory).count) \(cellCategory)")
         return movies.filter({ $0.genre_ids.contains(genre.id) }).count
     }
     
@@ -216,7 +215,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         let movie = movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
         
-        cell.set(movie: movie)
+        cell.set(movie: movie, moviesRepository: moviesRepository)
         
 //        if movies.count > 0{
 //            if let dataLoader=dataLoader{

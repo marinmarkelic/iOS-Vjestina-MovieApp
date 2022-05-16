@@ -125,8 +125,12 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
 //
 //            return $0.title.lowercased().contains(searchBarText.lowercased())
 //        }).count
+
+        if searchBarText.isEmpty{
+            return repo.getLoadedMovies().count
+        }
         
-        repo.getLoadedMovies().count
+        return repo.getLoadedMovies(withText: searchBarText).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -135,15 +139,23 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
         else {
             fatalError()
         }
-        let movies = repo.getLoadedMovies()
+//        let movies = repo.getLoadedMovies()
+//
+//        let movie = movies.filter({
+//            if searchBarText.isEmpty{
+//                return true
+//            }
+//
+//            return $0.title.lowercased().contains(searchBarText.lowercased())
+//        }).sorted(by: {$0.title > $1.title})[indexPath.row]
         
-        let movie = movies.filter({
-            if searchBarText.isEmpty{
-                return true
-            }
-            
-            return $0.title.lowercased().contains(searchBarText.lowercased())
-        }).sorted(by: {$0.title > $1.title})[indexPath.row]
+        let movie: MovieViewModel
+        if searchBarText.isEmpty{
+            movie = repo.getLoadedMovies()[indexPath.row]
+        }
+        else{
+            movie = repo.getLoadedMovies(withText: searchBarText)[indexPath.row]
+        }
         
         cell.set(movie: movie)
         
