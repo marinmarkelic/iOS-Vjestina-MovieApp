@@ -54,22 +54,33 @@ class MovieCell: UICollectionViewCell{
     func toggleFavourite(){
         moviesRepository.toggleFavourite(movieId: movie.id)
         
+        movie = moviesRepository.getMovie(id: movie.id)
+        print(movie.favourite)
+        adjustHeartView()
     }
     
     func set(movie: MovieViewModel, moviesRepository: MoviesRepository){
         self.movie = movie
         self.moviesRepository = moviesRepository
         
-        if movie.isFavourite == true{
+        adjustHeartView()
+        
+        DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+            self.imageView.image = image
+        })
+        
+        if movie.favourite == true{
+            print("isus")
+        }
+    }
+    
+    func adjustHeartView(){
+        if movie.favourite == true{
             heartView.image = UIImage(systemName: "heart.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         }
         else{
             heartView.image = UIImage(systemName: "heart")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         }
-        
-        DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
-            self.imageView.image = image
-        })
     }
     
     func addConstraints(){

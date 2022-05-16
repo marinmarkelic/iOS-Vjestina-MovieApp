@@ -29,7 +29,7 @@ class MoviesDatabaseDataSource{
             if fetchMovie(id: m.id) == nil{
                 let entity = NSEntityDescription.entity(forEntityName: "Movie", in: managedContext)!
                 movie = Movie(entity: entity, insertInto: managedContext)
-                movie.isFavourite = false
+                movie.favourite = false
             }
             else{
                 movie = fetchMovie(id: m.id)!
@@ -109,6 +109,7 @@ class MoviesDatabaseDataSource{
         return []
     }
     
+//    fix, have to predicate by moviegroup
     func fetchMovies(group: Group) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
         
@@ -137,13 +138,33 @@ class MoviesDatabaseDataSource{
         return []
     }
     
+    func fetchFavouriteMovies() -> [Movie]{
+        let fetchRequest = Movie.fetchRequest()
+        let predicate = NSPredicate(format: "favourite = YES", "")
+        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
+        
+        fetchRequest.sortDescriptors = [fullNameSort]
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.predicate = predicate
+        
+        do{
+            return try managedContext.fetch(fetchRequest)
+        }
+        catch let error as NSError{
+            print("Error \(error), Info: \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
     func toggleFavourite(id: Int){        
         guard let movie = fetchMovie(id: id) else{
             print("Failed to toggle favourite, movie doesnt exist")
             return
         }
         
-        movie.isFavourite = !movie.isFavourite
+        movie.favourite = !movie.favourite
+        print("toggle \(movie.favourite)")
         try? managedContext.save()
     }
     

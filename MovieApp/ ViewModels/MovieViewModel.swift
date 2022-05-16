@@ -14,7 +14,7 @@ struct MovieViewModel{
     let video: Bool
     let vote_average: Float
     let vote_count: Int
-    let isFavourite: Bool
+    let favourite: Bool
     
     init(movie: Movie){
         self.adult = movie.adult
@@ -37,6 +37,6 @@ struct MovieViewModel{
         self.video = movie.video
         self.vote_average = movie.vote_average
         self.vote_count = Int(movie.vote_count)
-        self.isFavourite = false
+        self.favourite = movie.favourite
     }
 }

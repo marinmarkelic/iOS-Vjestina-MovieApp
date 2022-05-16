@@ -188,13 +188,15 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     
 //  onClick for collection view cells
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
+//        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
         
         guard let delegate = delegate else{
             return
         }
         
-        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
+//        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
+        delegate.movieSelected(movieId: movies[indexPath.row].id)
+
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -202,7 +204,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.filter({ $0.genre_ids.contains(genre.id) }).count
+        return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -213,7 +215,9 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             fatalError()
         }
         
-        let movie = movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
+//        let movie = movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
+        let movie = movies[indexPath.row]
+
         
         cell.set(movie: movie, moviesRepository: moviesRepository)
         

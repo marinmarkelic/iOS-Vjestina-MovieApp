@@ -13,6 +13,8 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         moviesNetworkDataSource.delegate = self
         
 //        moviesDatabaseDataSource.del()
+        
+        print("favs \(moviesDatabaseDataSource.fetchFavouriteMovies().count)")
     }
     
 //    Normal:       Fetch data from the internet, refresh database and show the data
@@ -45,11 +47,29 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         return movies.map{ MovieViewModel(movie: $0) }
     }
     
+    
+    func getFavouriteMovies() -> [MovieViewModel]{
+        let movies = moviesDatabaseDataSource.fetchFavouriteMovies()
+        print("getting \(movies.count) favourites")
+        return movies.map{ MovieViewModel(movie: $0) }
+    }
+    
+    func getMovie(id: Int) -> MovieViewModel?{
+        print("get movie")
+        guard let movie = moviesDatabaseDataSource.fetchMovie(id: id) else{
+            return nil
+        }
+        
+        return MovieViewModel(movie: movie)
+    }
+    
     func getLoadedGenres() -> [MovieGenreViewModel]{
         let genres = moviesDatabaseDataSource.fetchGenres()
         
         return genres.map{ MovieGenreViewModel(movieGenre: $0) }
     }
+    
+    
     
     
     func storeLoadedMovies(group: Group, movies: [MovieResult]){
@@ -69,7 +89,7 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
     func toggleFavourite(movieId: Int){
         moviesDatabaseDataSource.toggleFavourite(id: movieId)
         
-        delegate.reloadData()
+//        delegate.reloadData()
     }
 }
 
