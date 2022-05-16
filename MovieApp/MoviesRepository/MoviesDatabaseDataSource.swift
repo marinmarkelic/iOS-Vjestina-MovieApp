@@ -75,6 +75,9 @@ class MoviesDatabaseDataSource{
     
     func fetchMovies() -> [Movie]{
         let fetchRequest = Movie.fetchRequest()
+        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
+        
+        fetchRequest.sortDescriptors = [fullNameSort]
         fetchRequest.returnsObjectsAsFaults = false
         
         do{
@@ -90,6 +93,9 @@ class MoviesDatabaseDataSource{
     func fetchMovies(withText: String) -> [Movie]{
         let fetchRequest = Movie.fetchRequest()
         let predicate = NSPredicate(format: "original_title CONTAINS[c] %@", "\(withText)")
+        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
+        
+        fetchRequest.sortDescriptors = [fullNameSort]
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.predicate = predicate
         
@@ -197,6 +203,8 @@ class MoviesDatabaseDataSource{
     
     func fetchGenres() -> [MovieGenre]{
         let fetchRequest = MovieGenre.fetchRequest()
+        let fullNameSort = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [fullNameSort]
         fetchRequest.returnsObjectsAsFaults = false
         
         do{
@@ -214,9 +222,6 @@ class MoviesDatabaseDataSource{
     func addMovieGroups(){
         let fetchRequest = MovieGroup.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
-
-        let isus = try? managedContext.count(for: fetchRequest)
-        print("---\(isus)")
         
         // If movie groups are already saved return.
         guard let count = try? managedContext.count(for: fetchRequest),
