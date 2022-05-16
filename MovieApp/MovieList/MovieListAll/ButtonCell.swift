@@ -4,7 +4,7 @@ import MovieAppData
 
 class ButtonCell: UIView{
     
-    var genre: Genre!
+    var genre: MovieGenreViewModel!
     
     var delegate: ButtonCellDelegate!
     
@@ -43,7 +43,7 @@ class ButtonCell: UIView{
         button.addSubview(buttonUnderLine)
     }
     
-    func set(genre: Genre, isSelected: Bool){
+    func set(genre: MovieGenreViewModel, isSelected: Bool){
         self.genre = genre
         button.setTitle(genre.name, for: .selected)
         button.setTitle(genre.name, for: .normal)
@@ -130,7 +130,7 @@ class ButtonCell: UIView{
 
 protocol ButtonCellDelegate{
     
-    func changeButtonStates(clickedButton: Genre)
+    func changeButtonStates(clickedButton: MovieGenreViewModel)
     
     
 }

@@ -11,7 +11,7 @@ class MovieCell: UICollectionViewCell{
     var imageView: UIImageView!
     
     
-    var movie: MovieResult!
+    var movie: MovieViewModel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,8 +48,12 @@ class MovieCell: UICollectionViewCell{
         heartViewHolder.addSubview(heartView)
     }
     
-    func set(movie: MovieResult){
+    func set(movie: MovieViewModel){
         self.movie = movie
+        
+        DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+            self.imageView.image = image
+        })
     }
     
     func addConstraints(){

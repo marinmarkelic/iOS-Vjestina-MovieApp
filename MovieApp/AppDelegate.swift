@@ -20,9 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         
         router.setStartScreen(in: window)
-        
-        MoviesRepository()
-        
+                
         return true
     }
 }

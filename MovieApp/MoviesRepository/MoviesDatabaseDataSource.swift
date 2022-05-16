@@ -16,7 +16,11 @@ class MoviesDatabaseDataSource{
     func addMovies(group: Group, movieResults: [MovieResult]){
         
         print("adding \(movieResults.count) movies to \(groupToString(group))")
-        let movieGroup = groupToMovieGroup(group: group)
+        let movieGroupName = groupToString(group)
+        guard let movieGroup = fetchMovieGroup(name: movieGroupName) else{
+            print("Movie group doesnt exist")
+            return
+        }
         
         for m in movieResults{
             
@@ -93,15 +97,15 @@ class MoviesDatabaseDataSource{
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
         
-        do{
+        do{            
             let group = try managedContext.fetch(fetchRequest).first
-            
             guard let group=group,
                   let set=group.value(forKey: "movies") as? NSSet,
                   let movies=set.allObjects as? [Movie] else{
+                      
                 return []
             }
-
+            
             return movies
         }
         catch let error as NSError{
@@ -184,23 +188,50 @@ class MoviesDatabaseDataSource{
     func addMovieGroups(){
         let fetchRequest = MovieGroup.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
+
+        let isus = try? managedContext.count(for: fetchRequest)
+        print("---\(isus)")
         
         // If movie groups are already saved return.
         guard let count = try? managedContext.count(for: fetchRequest),
               count == 0
         else{
+            print("---not adding more groups")
             return
         }
         
+        print("---Adding more groups")
         
         for g in allGroups(){
-            let entity = NSEntityDescription.entity(forEntityName: "MovieGroup", in: managedContext)!
-            let movieGroup = MovieGroup(entity: entity, insertInto: managedContext)
+            var movieGenre: MovieGroup
+            if fetchMovieGroup(name: groupToString(g)) == nil{
+                let entity = NSEntityDescription.entity(forEntityName: "MovieGroup", in: managedContext)!
+                movieGenre = MovieGroup(entity: entity, insertInto: managedContext)
+            }
+            else{
+                movieGenre = fetchMovieGroup(name: groupToString(g))!
+            }
             
-            movieGroup.name = groupToString(g)
+            movieGenre.name = groupToString(g)
         }
         
         try? managedContext.save()
+    }
+    
+    func fetchMovieGroup(name: String) -> MovieGroup?{
+        let fetchRequest = MovieGroup.fetchRequest()
+        let predicate = NSPredicate(format: "name = %@", "\(name)")
+        
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        
+        do{
+            return try managedContext.fetch(fetchRequest).first
+        }catch let error as NSError{
+            print("Error \(error), Info: \(error.userInfo)")
+            return nil
+        }
     }
     
     func fetchMovieGroups() -> [MovieGroup]{

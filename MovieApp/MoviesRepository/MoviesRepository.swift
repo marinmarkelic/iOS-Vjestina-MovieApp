@@ -13,19 +13,23 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         moviesNetworkDataSource.delegate = self
         
 //        moviesDatabaseDataSource.del()
-        fetchData()
     }
     
 //    Normal:       Fetch data from the internet, refresh database and show the data
 //    No Internet:  Load data from database and show it
-    func fetchData(){
-        moviesNetworkDataSource.loadData()
+    func fetchData(completionHandler: @escaping () -> Void){
+        let group = DispatchGroup()
+        moviesNetworkDataSource.loadData(group: group)
+        
+        group.notify(queue: .main) {
+            completionHandler()
+        }
     }
     
     
     func getLoadedMovies(group: Group) -> [MovieViewModel]{
         let movies = moviesDatabaseDataSource.fetchMovies(group: group)
-        
+        print("getting movies, count: \(movies.count)")
         return movies.map{ MovieViewModel(movie: $0) }
     }
     
@@ -43,17 +47,17 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
     
     
     func storeLoadedMovies(group: Group, movies: [MovieResult]){
-        print("storing loaded movies")
+        print("storing loaded movies \(movies.count)")
         moviesDatabaseDataSource.addMovies(group: group, movieResults: movies)
         
-//        delegate.reloadData()
+        delegate.reloadData()
     }
     
     func storeLoadedGenres(genres: [Genre]){
         print("storing loaded genres")
         moviesDatabaseDataSource.addGenres(genres: genres)
         
-//        delegate.reloadData()
+        delegate.reloadData()
     }
 }
 

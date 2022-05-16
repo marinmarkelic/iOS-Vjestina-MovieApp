@@ -1,3 +1,5 @@
+import UIKit
+
 class MoviesNetworkDataSource{
     var networkService: NetworkService!
     var dataLoader: DataLoader!
@@ -9,7 +11,8 @@ class MoviesNetworkDataSource{
         dataLoader = DataLoader()
     }
     
-    func loadData(){
+    func loadData(group: DispatchGroup){
+        group.enter()
         dataLoader.loadData {
             self.delegate.storeLoadedGenres(genres: self.dataLoader.genres)
             
@@ -25,6 +28,8 @@ class MoviesNetworkDataSource{
                     self.delegate.storeLoadedMovies(group: .recommended, movies: self.dataLoader.recommendedMovies)
                 }
             }
+            
+            group.leave()
         }
     }
     

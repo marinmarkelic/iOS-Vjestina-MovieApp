@@ -2,18 +2,25 @@ import UIKit
 import SnapKit
 import MovieAppData
 
-class MovieListAllViewController: UIViewController{
+class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
     
     var collectionViewLayout: UICollectionViewFlowLayout!
     var collectionView: UICollectionView!
     var networkService: NetworkService!
-    var dataLoader: DataLoaderProtocol!
     var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
     
-    init(dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    var moviesRepository: MoviesRepository!
+    
+    init(moviesRepository: MoviesRepository, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
         super.init(nibName: nil, bundle: nil)
         
-        self.dataLoader = dataLoader
+        self.moviesRepository = moviesRepository
+        moviesRepository.delegate = self
+        
+        moviesRepository.fetchData(completionHandler: {
+            self.dataLoaded()
+        })
+        
         self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
     }
     
@@ -89,6 +96,11 @@ class MovieListAllViewController: UIViewController{
             completion: { _ in }
         )
     }
+    
+    func reloadData(){
+        print("delegate reloading")
+        collectionView.reloadData()
+    }
 }
 
 extension MovieListAllViewController: UICollectionViewDelegate{
@@ -137,7 +149,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
             fatalError()
         }
                 
-        cell.set(movieGroup: allGroups()[indexPath.row], dataLoader: dataLoader, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
+        cell.set(movieGroup: allGroups()[indexPath.row], moviesRepository: moviesRepository, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         
         return cell
     }

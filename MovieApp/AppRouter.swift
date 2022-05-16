@@ -6,16 +6,14 @@ class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        
-        dataLoader = DataLoader()
-        
+                
         setupNavigationController()
     }
     
     func setStartScreen(in window: UIWindow?){
         
         
-        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self, dataLoader: dataLoader)
+        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self)
 
         navigationController.pushViewController(movieTabBarController, animated: false)
                 
@@ -28,7 +26,7 @@ class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     }
     
     func pushMovieDetails(movieId: Int){
-        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId, dataLoader: dataLoader)
+        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId)
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
     

@@ -7,13 +7,13 @@ class TopicCollectionViewCell: UICollectionViewCell{
     
     static let reuseIdentifier = String(describing: TopicCollectionViewCell.self)
     var cellCategory: Group!
-    var genres: [Genre]!
-    var genre: Genre!
-    var movies: [MovieResult] = []
-    
-    var dataLoader: DataLoaderProtocol!
-    
+    var genres: [MovieGenreViewModel]!
+    var genre: MovieGenreViewModel!
+    var movies: [MovieViewModel] = []
+        
     var delegate: TopicCollectionViewDelegate!
+    
+    var moviesRepository: MoviesRepository!
         
     var mainView: UIView!
     var title: UILabel!
@@ -85,22 +85,23 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.delegate = self
     }
     
-    func set(movieGroup: Group, dataLoader: DataLoaderProtocol, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    func set(movieGroup: Group, moviesRepository: MoviesRepository, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
         cellCategory = movieGroup
         
-        genres = dataLoader.genres
-        self.dataLoader = dataLoader
+        self.moviesRepository = moviesRepository
+        genres = moviesRepository.getLoadedGenres()
+        
         delegate = topicCollectionViewCellDelegate
         
         switch movieGroup {
         case .popular:
-            movies = dataLoader.popularMovies
+            movies = moviesRepository.getLoadedMovies(group: movieGroup)
         case .trending:
-            movies = dataLoader.trendingMovies
+            movies = moviesRepository.getLoadedMovies(group: movieGroup)
         case .topRated:
-            movies = dataLoader.topRatedMovies
+            movies = moviesRepository.getLoadedMovies(group: movieGroup)
         case .recommended:
-            movies = dataLoader.recommendedMovies
+            movies = moviesRepository.getLoadedMovies(group: movieGroup)
         }
         
         title.text = groupToString(cellCategory)
@@ -201,7 +202,8 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movies.filter({ $0.genre_ids.contains(genre.id) }).count
+        print("isus \(moviesRepository.getLoadedMovies(group: cellCategory).count) \(cellCategory)")
+        return movies.filter({ $0.genre_ids.contains(genre.id) }).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -216,24 +218,24 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         cell.set(movie: movie)
         
-        if movies.count > 0{
-            if let dataLoader=dataLoader{
-                
-                //  If the image is already fetched get it from moviePosterImages else fetch it and store it in moviePosterImages
-                if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: nil)){
-                    if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: nil)){
-                        cell.imageView.image = dataLoader.moviePosterImages[index].image
-                    }
-                }
-                else{
-                    dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
-                        cell.imageView.image = image
-                        
-                        dataLoader.addMoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
-                    })
-                }
-            }
-        }
+//        if movies.count > 0{
+//            if let dataLoader=dataLoader{
+//
+//                //  If the image is already fetched get it from moviePosterImages else fetch it and store it in moviePosterImages
+//                if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: nil)){
+//                    if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: nil)){
+//                        cell.imageView.image = dataLoader.moviePosterImages[index].image
+//                    }
+//                }
+//                else{
+//                    dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+//                        cell.imageView.image = image
+//
+//                        dataLoader.addMoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
+//                    })
+//                }
+//            }
+//        }
                 
         return cell
     }
@@ -241,7 +243,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
 
 extension TopicCollectionViewCell: ButtonCellDelegate{
     
-    func changeButtonStates(clickedButton: Genre) {
+    func changeButtonStates(clickedButton: MovieGenreViewModel) {
         for view in buttonStackView.subviews {
             view.removeFromSuperview()
             //            buttonStackView.removeArrangedSubview(view)

@@ -2,7 +2,11 @@ import UIKit
 import SnapKit
 import MovieAppData
 
-class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate{
+class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate, MoviesRepositoryDelegate{
+    func reloadData() {
+        
+    }
+    
     
     
     var collectionViewLayout: UICollectionViewFlowLayout!
@@ -13,9 +17,10 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
     var repo: MoviesRepository!
     
     init() {
-        repo = MoviesRepository()
-        
         super.init(nibName: nil, bundle: nil)
+        
+        repo = MoviesRepository()
+        repo.delegate = self
     }
     
     required init?(coder: NSCoder) {

@@ -5,7 +5,7 @@ class MovieDetailsViewController: UIViewController {
     
     var movieId: Int
     
-    var dataLoader: DataLoaderProtocol!
+    var dataLoader: DataLoaderProtocol = DataLoader()
     
     var scrollView: UIScrollView!
     var contentView: UIView!
@@ -13,9 +13,8 @@ class MovieDetailsViewController: UIViewController {
     var overview: OverviewView!
     
     
-    init(movieId: Int, dataLoader: DataLoaderProtocol){
+    init(movieId: Int){
         self.movieId = movieId
-        self.dataLoader = dataLoader
                 
         super.init(nibName: nil, bundle: nil)
     }
