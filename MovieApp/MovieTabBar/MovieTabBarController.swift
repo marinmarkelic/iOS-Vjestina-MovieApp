@@ -27,7 +27,6 @@ class MovieTabBarController: UITabBarController{
         
         tabBar.backgroundColor = .white
         
-        
         movieListViewController = MovieListViewController(topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
         favouritesController = FavouritesController()
         

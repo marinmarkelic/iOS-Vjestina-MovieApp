@@ -68,10 +68,6 @@ class MovieCell: UICollectionViewCell{
         DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
             self.imageView.image = image
         })
-        
-        if movie.favourite == true{
-            print("isus")
-        }
     }
     
     func adjustHeartView(){
