@@ -93,17 +93,6 @@ class TopicCollectionViewCell: UICollectionViewCell{
         
         delegate = topicCollectionViewCellDelegate
         
-        switch movieGroup {
-        case .popular:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup)
-        case .trending:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup)
-        case .topRated:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup)
-        case .recommended:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup)
-        }
-        
         title.text = groupToString(cellCategory)
         
 
@@ -117,6 +106,17 @@ class TopicCollectionViewCell: UICollectionViewCell{
         
         if genres.count > 0{
             genre = genres[0]
+        }
+        
+        switch movieGroup {
+        case .popular:
+            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
+        case .trending:
+            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
+        case .topRated:
+            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
+        case .recommended:
+            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
         }
         
 

@@ -17,10 +17,11 @@ class MoviesDatabaseDataSource{
         
         print("adding \(movieResults.count) movies to \(groupToString(group))")
         let movieGroupName = groupToString(group)
-        guard let movieGroup = fetchMovieGroup(name: movieGroupName) else{
-            print("Movie group doesnt exist")
-            return
-        }
+//        guard let movieGroup = fetchMovieGroup(name: movieGroupName) else{
+//            print("Movie group doesnt exist")
+//            return
+//        }
+        let movieGroup = groupToMovieGroup(group: group)
         
         for m in movieResults{
             
@@ -52,6 +53,7 @@ class MoviesDatabaseDataSource{
             
                         
             movieGroup.addToMovies(movie)
+            movie.addToGroups(movieGroup)
         }
         
         try? managedContext.save()
@@ -110,32 +112,54 @@ class MoviesDatabaseDataSource{
     }
     
 //    fix, have to predicate by moviegroup
-    func fetchMovies(group: Group) -> [Movie]{
+    func fetchMovies(group: Group, genreId: Int) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
         
-        let fetchRequest = MovieGroup.fetchRequest()
-        let predicate = NSPredicate(format: "name = %@", "\(groupToString(group))")
-        
+        let fetchRequest = Movie.fetchRequest()
+//        let predicate = NSPredicate(format: "ANY groups.name contains %@", "P")
+//        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(Int16(18))")
+
+//        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
+
+//        fetchRequest.sortDescriptors = [fullNameSort]
         fetchRequest.returnsObjectsAsFaults = false
-        fetchRequest.predicate = predicate
-        fetchRequest.fetchLimit = 1
-        
-        do{            
-            let group = try managedContext.fetch(fetchRequest).first
-            guard let group=group,
-                  let set=group.value(forKey: "movies") as? NSSet,
-                  let movies=set.allObjects as? [Movie] else{
-                      
-                return []
-            }
-            
-            return movies
+//        fetchRequest.predicate = predicate
+
+        do{
+            let a = try managedContext.fetch(fetchRequest)
+            print("---- \(a.count)")
+            return a
         }
         catch let error as NSError{
             print("Error \(error), Info: \(error.userInfo)")
         }
-        
+
         return []
+        
+//      name = %@ AND 
+//        let fetchRequest = MovieGroup.fetchRequest()
+//        let predicate = NSPredicate(format: "ANY movies.genre_ids CONTAINS 28", "") //"\(groupToString(group))", "\(Int16(genreId))"
+//
+//        fetchRequest.returnsObjectsAsFaults = false
+//        fetchRequest.predicate = predicate
+//        fetchRequest.fetchLimit = 1
+//
+//        do{
+//            let group = try managedContext.fetch(fetchRequest).first
+//            guard let group=group,
+//                  let set=group.value(forKey: "movies") as? NSSet,
+//                  let movies=set.allObjects as? [Movie] else{
+//
+//                return []
+//            }
+//
+//            return movies
+//        }
+//        catch let error as NSError{
+//            print("Error \(error), Info: \(error.userInfo)")
+//        }
+//
+//        return []
     }
     
     func fetchFavouriteMovies() -> [Movie]{
@@ -186,21 +210,35 @@ class MoviesDatabaseDataSource{
             movieGenre.name = g.name
             movieGenre.id = Int16(g.id)
             
-            for e in allGroups(){
-                let movies = fetchMovies(group: e)
-                for m in movies{
-                    guard let nsArray=m.value(forKey: "genre_ids") as? NSArray,
-                          let genresArray=nsArray as? [Int16]
-                           else{
-                               print("cont")
-                        continue
-                    }
-
-                    if(genresArray.contains(Int16(g.id))){
-                        m.addToGenres(movieGenre)
-                    }
+            for m in fetchMovies(){
+                guard let nsArray=m.value(forKey: "genre_ids") as? NSArray,
+                      let genresArray=nsArray as? [Int16]
+                else{
+                    print("cont")
+                    continue
+                }
+                
+                if(genresArray.contains(Int16(g.id))){
+                    m.addToGenres(movieGenre)
+                    movieGenre.addToMovies(m)
                 }
             }
+//            for e in allGroups(){
+//                let movies = fetchMovies(group: e, genreId: g.id)
+//                for m in movies{
+//                    guard let nsArray=m.value(forKey: "genre_ids") as? NSArray,
+//                          let genresArray=nsArray as? [Int16]
+//                           else{
+//                               print("cont")
+//                        continue
+//                    }
+//
+//                    if(genresArray.contains(Int16(g.id))){
+//                        m.addToGenres(movieGenre)
+//                        movieGenre.addToMovies(m)
+//                    }
+//                }
+//            }
         }
         
         try? managedContext.save()
@@ -301,10 +339,15 @@ class MoviesDatabaseDataSource{
     }
     
     func groupToMovieGroup(group: Group) -> MovieGroup{
-        let entity = NSEntityDescription.entity(forEntityName: "MovieGroup", in: managedContext)!
-        let movieGroup = MovieGroup(entity: entity, insertInto: managedContext)
-        
-        movieGroup.name = groupToString(group)
+        var movieGroup: MovieGroup
+        if fetchMovieGroup(name: groupToString(group)) == nil{
+            let entity = NSEntityDescription.entity(forEntityName: "MovieGroup", in: managedContext)!
+            movieGroup = MovieGroup(entity: entity, insertInto: managedContext)
+            movieGroup.name = groupToString(group)
+        }
+        else{
+            movieGroup = fetchMovieGroup(name: groupToString(group))!
+        }
         
         return movieGroup
     }
