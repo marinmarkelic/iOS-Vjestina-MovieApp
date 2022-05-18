@@ -96,32 +96,38 @@ class TopicCollectionViewCell: UICollectionViewCell{
         title.text = groupToString(cellCategory)
         
 
-            for g in genres {
-                let cell = ButtonCell()
-                //  highlight only first cell at the beginning
-                cell.set(genre: g, isSelected: genres[0].name == g.name)
-                cell.delegate = self
-                buttonStackView.addArrangedSubview(cell)
-            }
+        for g in genres {
+            let cell = ButtonCell()
+            //  highlight only first cell at the beginning
+            cell.set(genre: g, isSelected: genres[0].name == g.name)
+            cell.delegate = self
+            buttonStackView.addArrangedSubview(cell)
+        }
         
         if genres.count > 0{
             genre = genres[0]
         }
         
-        switch movieGroup {
-        case .popular:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
-        case .trending:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
-        case .topRated:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
-        case .recommended:
-            movies = moviesRepository.getLoadedMovies(group: movieGroup, genreId: genre.id)
-        }
+        loadMovies()
         
 
         print("topic cell view reload")
         movieCollectionView.reloadData()
+    }
+    
+    func loadMovies(){
+        switch cellCategory {
+        case .popular:
+            movies = moviesRepository.getLoadedMovies(group: cellCategory, genreId: genre.id)
+        case .trending:
+            movies = moviesRepository.getLoadedMovies(group: cellCategory, genreId: genre.id)
+        case .topRated:
+            movies = moviesRepository.getLoadedMovies(group: cellCategory, genreId: genre.id)
+        case .recommended:
+            movies = moviesRepository.getLoadedMovies(group: cellCategory, genreId: genre.id)
+        case .none:
+            movies = []
+        }
     }
 
     
@@ -221,6 +227,8 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         
         cell.set(movie: movie, moviesRepository: moviesRepository)
         
+//        print("mov: \(movies[indexPath.row])")
+        
 //        if movies.count > 0{
 //            if let dataLoader=dataLoader{
 //
@@ -253,6 +261,7 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
         }
         
         genre = clickedButton
+        print("--\(genre.id)")
         
         for g in genres {
             let cell = ButtonCell()
@@ -262,6 +271,7 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
             buttonStackView.addArrangedSubview(cell)
         }
         
+        loadMovies()
         movieCollectionView.reloadData()
     }
 }

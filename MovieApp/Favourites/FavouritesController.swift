@@ -1,8 +1,8 @@
 import UIKit
 import SnapKit
 
-class FavouritesController: UIViewController{
-    
+class FavouritesController: UIViewController, MoviesRepositoryDelegate{
+
     var mainView: UIView!
     
     var label: UILabel!
@@ -20,6 +20,11 @@ class FavouritesController: UIViewController{
         super.init(nibName: nil, bundle: nil)
         
         moviesRepository = MoviesRepository()
+        moviesRepository.delegate = self
+    }
+    
+    func reloadData() {
+        movieCollectionView.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -28,7 +33,7 @@ class FavouritesController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+                                
         buildViews()
         addConstraints()
         configureCollectionView()
@@ -47,20 +52,22 @@ class FavouritesController: UIViewController{
         collectionViewContainer.backgroundColor = .yellow
         
         movieCollectionViewLayout = UICollectionViewFlowLayout()
-        movieCollectionViewLayout.scrollDirection = .horizontal
+        movieCollectionViewLayout.scrollDirection = .vertical
+        
         movieCollectionView = UICollectionView(frame: .zero, collectionViewLayout: movieCollectionViewLayout)
+        movieCollectionView.showsHorizontalScrollIndicator = false
+        movieCollectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseIdentifier)
+        movieCollectionView.dataSource = self
+        movieCollectionView.delegate = self
         
         view.addSubview(mainView)
         mainView.addSubview(label)
         mainView.addSubview(collectionViewContainer)
+        collectionViewContainer.addSubview(movieCollectionView)
     }
     
     func configureCollectionView() {
-        movieCollectionView.showsHorizontalScrollIndicator = false
         
-        movieCollectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseIdentifier)
-        movieCollectionView.dataSource = self
-        movieCollectionView.delegate = self
     }
     
     func addConstraints(){
@@ -69,14 +76,20 @@ class FavouritesController: UIViewController{
         }
         
         label.snp.makeConstraints{
-            $0.leading.top.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.top.equalToSuperview().offset(30)
+            $0.leading.equalToSuperview().offset(18)
+            $0.trailing.equalToSuperview().offset(-18)
             $0.height.equalTo(50)
         }
         
         collectionViewContainer.snp.makeConstraints{
-            $0.top.equalTo(label).offset(50)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(label.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(18)
+            $0.trailing.bottom.equalToSuperview().offset(-18)
+        }
+        
+        movieCollectionView.snp.makeConstraints{
+            $0.edges.equalToSuperview()
         }
     }
 }
@@ -96,7 +109,8 @@ extension FavouritesController: UICollectionViewDelegateFlowLayout {
         
         let collectionViewWidth = collectionView.frame.width
         let itemWidth = (collectionViewWidth - 2 * 10) / 3
-        let itemHeight = CGFloat(collectionViewContainer.frame.height / 1.4)
+//        let itemHeight = CGFloat(collectionViewContainer.frame.height / 1.4)
+        let itemHeight = itemWidth * 1.4
         
         return CGSize(width: itemWidth, height: itemHeight)
     }
@@ -122,6 +136,7 @@ extension FavouritesController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("numofitems")
         return moviesRepository.getFavouriteMovies().count
     }
     
@@ -137,6 +152,8 @@ extension FavouritesController: UICollectionViewDataSource {
 
         
         cell.set(movie: movie, moviesRepository: moviesRepository)
+        
+        print("favorite: \(movie)")
                 
         return cell
     }

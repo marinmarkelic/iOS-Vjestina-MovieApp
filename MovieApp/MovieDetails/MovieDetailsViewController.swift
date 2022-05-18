@@ -27,25 +27,32 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         
 
-        dataLoader.loadMovieDetail(movieId: movieId, completionHandler: {
-            guard let movieDetails = self.dataLoader.movieDetails else { return }
+        MoviesRepository().getMovieDetails(movieId: movieId, completionHandler: {details in
+            let movieDetails = details
             
             self.overview.reloadData(movie: movieDetails)
             self.mainInfo.reloadData(movie: movieDetails)
             
-            if self.dataLoader.movieBackdropImages.contains(MovieBackdropImage(id: self.movieId, image: nil)){
-                if let index = self.dataLoader.movieBackdropImages.firstIndex(of: MovieBackdropImage(id: self.movieId, image: nil)){
-                    self.mainInfo.bgImage.image = self.dataLoader.movieBackdropImages[index].image
-                }
-            }
-            else{
-                self.dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
-                    self.mainInfo.bgImage.image = image
-                    
-                    self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
-       
-                })
-            }
+            MoviesRepository().loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
+                self.mainInfo.bgImage.image = image
+                
+                self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
+                
+            })
+            
+//            if self.dataLoader.movieBackdropImages.contains(MovieBackdropImage(id: self.movieId, image: nil)){
+//                if let index = self.dataLoader.movieBackdropImages.firstIndex(of: MovieBackdropImage(id: self.movieId, image: nil)){
+//                    self.mainInfo.bgImage.image = self.dataLoader.movieBackdropImages[index].image
+//                }
+//            }
+//            else{
+//                self.dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
+//                    self.mainInfo.bgImage.image = image
+//
+//                    self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
+//
+//                })
+//            }
         })
 
         

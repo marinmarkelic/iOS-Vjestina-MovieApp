@@ -33,6 +33,22 @@ class MoviesNetworkDataSource{
         }
     }
     
+    func loadMovieDetails(movieId: Int, completionHandler: @escaping (_ movieDetails: MovieDetails) -> Void){
+        dataLoader.loadMovieDetail(movieId: movieId, completionHandler: {movieDetails in
+            guard let movieDetails = movieDetails else {
+                print("failed to load movie details")
+                return
+            }
+
+            completionHandler(movieDetails)
+            
+        })
+    }
+    
+    func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void){
+        dataLoader.loadImage(urlStr: urlStr, completionHandler: completionHandler)
+    }
+    
 }
 
 protocol MoviesNetworkDataSourceDelegate{

@@ -55,7 +55,6 @@ class MovieCell: UICollectionViewCell{
         moviesRepository.toggleFavourite(movieId: movie.id)
         
         movie = moviesRepository.getMovie(id: movie.id)
-        print(movie.favourite)
         adjustHeartView()
     }
     
@@ -64,8 +63,9 @@ class MovieCell: UICollectionViewCell{
         self.moviesRepository = moviesRepository
         
         adjustHeartView()
+//        print("ref \(self.movie.id) \(self.movie.favourite)")
         
-        DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+        moviesRepository.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
             self.imageView.image = image
         })
     }

@@ -92,7 +92,15 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
     func toggleFavourite(movieId: Int){
         moviesDatabaseDataSource.toggleFavourite(id: movieId)
         
-//        delegate.reloadData()
+        delegate.reloadData()
+    }
+    
+    func getMovieDetails(movieId: Int, completionHandler: @escaping (MovieDetails) -> Void){
+        moviesNetworkDataSource.loadMovieDetails(movieId: movieId, completionHandler: completionHandler)
+    }
+    
+    func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void){
+        moviesNetworkDataSource.loadImage(urlStr: urlStr, completionHandler: completionHandler)
     }
 }
 

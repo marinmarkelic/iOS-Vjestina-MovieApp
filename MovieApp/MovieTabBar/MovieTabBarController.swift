@@ -1,6 +1,6 @@
 import UIKit
 
-class MovieTabBarController: UITabBarController{
+class MovieTabBarController: UITabBarController, UITabBarControllerDelegate{
     
     var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
         
@@ -11,6 +11,8 @@ class MovieTabBarController: UITabBarController{
         self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.delegate = self
                 
         buildViews()
         addConstraints()
@@ -34,6 +36,17 @@ class MovieTabBarController: UITabBarController{
         favouritesController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart"), selectedImage: nil)
         
         viewControllers = [movieListViewController, favouritesController]
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
+        if let vc = viewController as? MovieListViewController {
+            print("click")
+            vc.reloadData()
+        } else if let vc = viewController as? FavouritesController {
+            print("click")
+            vc.reloadData()
+        }
     }
     
     func buildViews(){

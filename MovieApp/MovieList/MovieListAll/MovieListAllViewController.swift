@@ -98,7 +98,6 @@ class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
     }
     
     func reloadData(){
-        print("delegate reloading")
         collectionView.reloadData()
     }
 }

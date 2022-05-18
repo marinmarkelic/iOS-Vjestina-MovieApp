@@ -79,7 +79,7 @@ class MovieListSearchingCell: UICollectionViewCell{
             $0.trailing.equalToSuperview()
             $0.leading.equalToSuperview().offset(15)
             $0.top.equalTo(title.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(-20)
+//            $0.bottom.equalToSuperview().offset(-20)
         }
     }
     

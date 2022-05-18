@@ -120,7 +120,7 @@ class DataLoader: DataLoaderProtocol{
         }
     }
     
-    func loadMovieDetail(movieId: Int, completionHandler: @escaping () -> Void){
+    func loadMovieDetail(movieId: Int, completionHandler: @escaping (_ movieDetails: MovieDetails?) -> Void){
         let urlStr = getMovieDetailsUrl(movieId: String(movieId))
         
         guard let url = URL(string: urlStr) else { return }
@@ -134,11 +134,12 @@ class DataLoader: DataLoaderProtocol{
             switch result {
             case .success(let value):
                 self.movieDetails = value
+                completionHandler(value)
             case .failure(let error):
                 RequestErrorHandle(error)
             }
             
-            completionHandler()
+            completionHandler(nil)
         }
     }
     
@@ -191,7 +192,7 @@ protocol DataLoaderProtocol{
     
     func loadData(completionHandler: @escaping () -> Void)
     func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void)
-    func loadMovieDetail(movieId: Int, completionHandler: @escaping () -> Void)
+    func loadMovieDetail(movieId: Int, completionHandler: @escaping (_ movieDetails: MovieDetails?) -> Void)
     
     func addMoviePosterImage(moviePosterImage: MoviePosterImage)
     func addMovieBackdropImage(movieBackdropImage: MovieBackdropImage)

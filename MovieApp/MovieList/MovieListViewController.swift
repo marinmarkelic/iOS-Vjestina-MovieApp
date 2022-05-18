@@ -39,11 +39,9 @@ class MovieListViewController: UIViewController{
         addConstraints()
     }
     
-    func loadData(){
-        
+    func reloadData(){
+        movieListAllViewController.reloadData()
     }
-    
-    
     
     func buildViewControllers(){
         movieListAllViewController = MovieListAllViewController(moviesRepository: moviesRepository, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)

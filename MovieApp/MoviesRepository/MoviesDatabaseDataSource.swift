@@ -115,25 +115,52 @@ class MoviesDatabaseDataSource{
     func fetchMovies(group: Group, genreId: Int) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
         
-        let fetchRequest = Movie.fetchRequest()
+//        let fetchRequest = Movie.fetchRequest()
 //        let predicate = NSPredicate(format: "ANY groups.name contains %@", "P")
 //        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(Int16(18))")
 
 //        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
 
 //        fetchRequest.sortDescriptors = [fullNameSort]
-        fetchRequest.returnsObjectsAsFaults = false
+//        fetchRequest.returnsObjectsAsFaults = false
 //        fetchRequest.predicate = predicate
 
+//        do{
+//            let a = try managedContext.fetch(fetchRequest)
+//            print("---- \(a.count)")
+//            return a
+//        }
+//        catch let error as NSError{
+//            print("Error \(error), Info: \(error.userInfo)")
+//        }
+//
+//        return []
+        
+        let fetchRequest = MovieGroup.fetchRequest()
+        let predicate = NSPredicate(format: "name == %@", "\(groupToString(group))")
+        
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        
         do{
-            let a = try managedContext.fetch(fetchRequest)
-            print("---- \(a.count)")
-            return a
+            let group = try managedContext.fetch(fetchRequest).first
+            guard let group=group,
+                  let set=group.value(forKey: "movies") as? NSSet,
+                  let movies=set.allObjects as? [Movie] else{
+                      return []
+                  }
+            
+            return movies.filter({
+//                print("\(genreId) \($0.genre_ids) \($0.genre_ids!.contains(Int16(genreId)))")
+                return $0.genre_ids!.contains(Int16(genreId))
+                
+            })
         }
         catch let error as NSError{
             print("Error \(error), Info: \(error.userInfo)")
         }
-
+        
         return []
         
 //      name = %@ AND 
