@@ -52,7 +52,6 @@ class MoviesDatabaseDataSource{
             movie.vote_count = Int32(m.vote_count)
             
                         
-            movieGroup.addToMovies(movie)
             movie.addToGroups(movieGroup)
         }
         
@@ -127,8 +126,9 @@ class MoviesDatabaseDataSource{
 //        let predicate = NSPredicate(format: "%@ in groups.name", "\(groupToString(group))")       //Radi
 //        let predicate = NSPredicate(format: "ANY groups.name = %@", "\(groupToString(group))")    //Radi
 
-//        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(28))")            //Crasha app
-        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(NSNumber(28))")             //Vraca 0 elemenata
+        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(value: Int16(18)))")            //Crasha app
+//        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(NSNumber(28))")              //Vraca 0 elemenata
+
 
 
 
@@ -237,7 +237,6 @@ class MoviesDatabaseDataSource{
                 }
                 
                 if(genresArray.contains(Int16(g.id))){
-                    m.addToGenres(movieGenre)
                     movieGenre.addToMovies(m)
                 }
             }
