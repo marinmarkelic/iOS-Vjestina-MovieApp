@@ -114,58 +114,41 @@ class MoviesDatabaseDataSource{
 //    fix, have to predicate by moviegroup
     func fetchMovies(group: Group, genreId: Int) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
-        
-//        let fetchRequest = Movie.fetchRequest()
-//        let predicate = NSPredicate(format: "ANY groups.name contains %@", "P")
-//        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(Int16(18))")
+        try? managedContext.fetch(Movie.fetchRequest()).forEach{
+            print("Genres for \($0.original_title!): \($0.genre_ids!)")
+        }
+
+        let fetchRequest = Movie.fetchRequest()
+//        let predicate = NSPredicate(format: "%@ in self.groups.name", "\(groupToString(group))")
+//        let predicate = NSPredicate(format: "ANY groups.name = %@", "\(groupToString(group))")
+
+//        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(28))")
+        let predicate = NSPredicate(format: "ANY genre_ids = nil", "\(NSNumber(28))")
+
+
 
 //        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
-
-//        fetchRequest.sortDescriptors = [fullNameSort]
-//        fetchRequest.returnsObjectsAsFaults = false
-//        fetchRequest.predicate = predicate
-
-//        do{
-//            let a = try managedContext.fetch(fetchRequest)
-//            print("---- \(a.count)")
-//            return a
-//        }
-//        catch let error as NSError{
-//            print("Error \(error), Info: \(error.userInfo)")
-//        }
 //
-//        return []
-        
-        let fetchRequest = MovieGroup.fetchRequest()
-        let predicate = NSPredicate(format: "name == %@", "\(groupToString(group))")
-        
+//        fetchRequest.sortDescriptors = [fullNameSort]
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.predicate = predicate
-        fetchRequest.fetchLimit = 1
-        
+
         do{
-            let group = try managedContext.fetch(fetchRequest).first
-            guard let group=group,
-                  let set=group.value(forKey: "movies") as? NSSet,
-                  let movies=set.allObjects as? [Movie] else{
-                      return []
-                  }
-            
-            return movies.filter({
-//                print("\(genreId) \($0.genre_ids) \($0.genre_ids!.contains(Int16(genreId)))")
-                return $0.genre_ids!.contains(Int16(genreId))
-                
+            let a = try managedContext.fetch(fetchRequest)
+            a.forEach({
+                print($0.genre_ids)
             })
+            print("\(a.count) results for \(groupToString(group))")
+            return a
         }
         catch let error as NSError{
             print("Error \(error), Info: \(error.userInfo)")
         }
-        
+
         return []
         
-//      name = %@ AND 
 //        let fetchRequest = MovieGroup.fetchRequest()
-//        let predicate = NSPredicate(format: "ANY movies.genre_ids CONTAINS 28", "") //"\(groupToString(group))", "\(Int16(genreId))"
+//        let predicate = NSPredicate(format: "name == %@", "\(groupToString(group))")
 //
 //        fetchRequest.returnsObjectsAsFaults = false
 //        fetchRequest.predicate = predicate
@@ -176,11 +159,14 @@ class MoviesDatabaseDataSource{
 //            guard let group=group,
 //                  let set=group.value(forKey: "movies") as? NSSet,
 //                  let movies=set.allObjects as? [Movie] else{
+//                      return []
+//                  }
 //
-//                return []
-//            }
+//            return movies.filter({
+//               print("\(genreId) \($0.genre_ids) \($0.genre_ids!.contains(Int16(genreId)))")
+//                return $0.genre_ids!.contains(Int16(genreId))
 //
-//            return movies
+//            })
 //        }
 //        catch let error as NSError{
 //            print("Error \(error), Info: \(error.userInfo)")

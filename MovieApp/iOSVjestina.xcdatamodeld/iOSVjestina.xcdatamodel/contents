@@ -17,22 +17,22 @@
         <attribute name="video" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="vote_average" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="vote_count" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MovieGenre"/>
-        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MovieGroup"/>
+        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MovieGenre" inverseName="movies" inverseEntity="MovieGenre"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MovieGroup" inverseName="movies" inverseEntity="MovieGroup"/>
     </entity>
     <entity name="MovieGenre" representedClassName="MovieGenre" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="movies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Movie"/>
+        <relationship name="movies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Movie" inverseName="genres" inverseEntity="Movie"/>
     </entity>
     <entity name="MovieGroup" representedClassName="MovieGroup" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="movies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Movie"/>
+        <relationship name="movies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Movie" inverseName="groups" inverseEntity="Movie"/>
     </entity>
     <elements>
         <element name="Entity" positionX="378.4144287109375" positionY="-65.1495361328125" width="128" height="29"/>
-        <element name="Movie" positionX="-190.6221923828125" positionY="-66.7818603515625" width="104.18408203125" height="284"/>
-        <element name="MovieGenre" positionX="205.700927734375" positionY="22.47393798828125" width="128" height="88"/>
-        <element name="MovieGroup" positionX="111.154052734375" positionY="-133.4954223632812" width="128" height="73"/>
+        <element name="Movie" positionX="-271.9635620117188" positionY="-111.1645050048828" width="104.18408203125" height="298"/>
+        <element name="MovieGenre" positionX="-300.4255981445312" positionY="278.5140380859375" width="128" height="88"/>
+        <element name="MovieGroup" positionX="118.7767333984375" positionY="-9.496383666992131" width="128" height="73"/>
     </elements>
 </model>

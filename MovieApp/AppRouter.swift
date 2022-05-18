@@ -25,13 +25,13 @@ class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
         navigationController?.navigationBar.backgroundColor = UIColor(red: 11.0/256.0, green: 37.0/256.0, blue: 63.0/256.0, alpha: 1.0)
     }
     
-    func pushMovieDetails(movieId: Int){
-        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId)
+    func pushMovieDetails(movieId: Int, favourite: Bool){
+        let movieDetailsViewController = MovieDetailsViewController(movieId: movieId, favourite: favourite)
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
     
-    func movieSelected(movieId: Int) {
-        pushMovieDetails(movieId: movieId)
+    func movieSelected(movieId: Int, favourite: Bool) {
+        pushMovieDetails(movieId: movieId, favourite: favourite)
     }
     
 }

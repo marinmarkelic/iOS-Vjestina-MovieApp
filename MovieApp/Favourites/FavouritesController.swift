@@ -127,7 +127,7 @@ extension FavouritesController: UICollectionViewDataSource {
         }
         
 //        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
-        delegate.movieSelected(movieId: moviesRepository.getFavouriteMovies()[indexPath.row].id)
+        delegate.movieSelected(movieId: moviesRepository.getFavouriteMovies()[indexPath.row].id, favourite: moviesRepository.getFavouriteMovies()[indexPath.row].favourite)
 
     }
     

@@ -2,7 +2,7 @@
 //  MovieGenre+CoreDataProperties.swift
 //  MovieApp
 //
-//  Created by Marin on 14.05.2022..
+//  Created by Marin on 18.05.2022..
 //
 //
 
@@ -16,8 +16,8 @@ extension MovieGenre {
         return NSFetchRequest<MovieGenre>(entityName: "MovieGenre")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var id: Int16
+    @NSManaged public var name: String?
     @NSManaged public var movies: NSSet?
 
 }

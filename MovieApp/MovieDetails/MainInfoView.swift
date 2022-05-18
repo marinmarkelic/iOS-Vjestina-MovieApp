@@ -3,6 +3,9 @@ import SnapKit
 
 class MainInfoView: UIView{
     
+    var favourite: Bool
+    var movieId: Int
+    
     var bgImage: UIImageView!
     
     var infoView: UIView!
@@ -18,8 +21,12 @@ class MainInfoView: UIView{
     
     var starImage: UIImageView!
     
-    init(){
+    init(movieId: Int,favourite: Bool){
+        self.favourite = favourite
+        self.movieId = movieId
+        
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
         
         buildViews()
         addConstraints()
@@ -78,7 +85,10 @@ class MainInfoView: UIView{
         textDate = UILabel()
         textGenre = UILabel()
         textDuration = UILabel()
-        starImage = UIImageView(image: UIImage(named: "star"))
+        
+        adjustImageView()
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFavourite))
+//        starImage.addGestureRecognizer(tapGestureRecognizer)
         
         bgImage.contentMode = .scaleAspectFill
         bgImage.clipsToBounds = true
@@ -122,6 +132,30 @@ class MainInfoView: UIView{
         addSubview(infoView)
         
         
+    }
+    
+    func adjustImageView(){
+        let image: UIImage
+        if favourite == true{
+            image = UIImage(systemName: "star.fill")!.withTintColor(.white, renderingMode: .alwaysOriginal)
+        }
+        else{
+            image = UIImage(systemName: "star")!.withTintColor(.white, renderingMode: .alwaysOriginal)
+        }
+        starImage = UIImageView(image: image)
+    }
+    
+    @objc
+    func toggleFavourite(){
+        MoviesRepository().toggleFavourite(movieId: movieId)
+        
+        let movie = MoviesRepository().getMovie(id: movieId)
+        self.movieId = movie?.id ?? 0
+        guard let fav=movie?.favourite else{
+            return
+        }
+        favourite = fav
+        adjustImageView()
     }
     
     func addConstraints() {
@@ -175,8 +209,8 @@ class MainInfoView: UIView{
         starImage.snp.makeConstraints{
             $0.bottom.equalToSuperview().offset(-25)
             $0.leading.equalTo(textGenre.snp.leading)
-            $0.width.equalTo(35)
-            $0.height.equalTo(35)
+            $0.width.equalTo(20)
+            $0.height.equalTo(18)
         }
     }
     

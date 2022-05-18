@@ -116,6 +116,10 @@ class TopicCollectionViewCell: UICollectionViewCell{
     }
     
     func loadMovies(){
+        guard let genre=genre else{
+            return
+        }
+        
         switch cellCategory {
         case .popular:
             movies = moviesRepository.getLoadedMovies(group: cellCategory, genreId: genre.id)
@@ -201,7 +205,7 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
         }
         
 //        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
-        delegate.movieSelected(movieId: movies[indexPath.row].id)
+        delegate.movieSelected(movieId: movies[indexPath.row].id, favourite: movies[indexPath.row].favourite)
 
     }
     
@@ -277,5 +281,5 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
 }
 
 protocol TopicCollectionViewDelegate{
-    func movieSelected(movieId: Int)
+    func movieSelected(movieId: Int, favourite: Bool)
 }

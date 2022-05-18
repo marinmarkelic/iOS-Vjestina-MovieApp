@@ -4,6 +4,7 @@ import SnapKit
 class MovieDetailsViewController: UIViewController {
     
     var movieId: Int
+    var favourite: Bool
     
     var dataLoader: DataLoaderProtocol = DataLoader()
     
@@ -13,8 +14,9 @@ class MovieDetailsViewController: UIViewController {
     var overview: OverviewView!
     
     
-    init(movieId: Int){
+    init(movieId: Int, favourite: Bool){
         self.movieId = movieId
+        self.favourite = favourite
                 
         super.init(nibName: nil, bundle: nil)
     }
@@ -67,7 +69,7 @@ class MovieDetailsViewController: UIViewController {
         contentView = UIView()
         
         
-        mainInfo = MainInfoView()
+        mainInfo = MainInfoView(movieId: movieId, favourite: favourite)
         overview = OverviewView()
         
         
