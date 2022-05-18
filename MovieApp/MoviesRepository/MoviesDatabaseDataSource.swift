@@ -111,7 +111,12 @@ class MoviesDatabaseDataSource{
         return []
     }
     
-//    fix, have to predicate by moviegroup
+//    U ovom dijelu za određenu grupu i zanr vracam filmove.
+    
+//    Iz nekog razloga ne zeli filtrirati po genre_ids. Dva predikata za groups.name rade dok jedan
+//    predikat za genre_ids vraca 0 elemenata, a drugi crasha aplikaciju. Napravio sam ispis svih filmova i njihovih genre_ids
+//    po cemu vidimo da su id-ovi spremljeni.
+//
     func fetchMovies(group: Group, genreId: Int) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
         try? managedContext.fetch(Movie.fetchRequest()).forEach{
@@ -119,11 +124,11 @@ class MoviesDatabaseDataSource{
         }
 
         let fetchRequest = Movie.fetchRequest()
-//        let predicate = NSPredicate(format: "%@ in self.groups.name", "\(groupToString(group))")
-//        let predicate = NSPredicate(format: "ANY groups.name = %@", "\(groupToString(group))")
+//        let predicate = NSPredicate(format: "%@ in groups.name", "\(groupToString(group))")       //Radi
+//        let predicate = NSPredicate(format: "ANY groups.name = %@", "\(groupToString(group))")    //Radi
 
-//        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(28))")
-        let predicate = NSPredicate(format: "ANY genre_ids = nil", "\(NSNumber(28))")
+//        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(28))")            //Crasha app
+        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(NSNumber(28))")             //Vraca 0 elemenata
 
 
 
@@ -135,9 +140,9 @@ class MoviesDatabaseDataSource{
 
         do{
             let a = try managedContext.fetch(fetchRequest)
-            a.forEach({
-                print($0.genre_ids)
-            })
+//            a.forEach({
+//                print($0.genre_ids)
+//            })
             print("\(a.count) results for \(groupToString(group))")
             return a
         }
