@@ -37,7 +37,7 @@ class MovieCell: UICollectionViewCell{
         heartViewHolder.layer.cornerRadius = 32/2
         
         
-        heartView = UIImageView(image: nil)
+        heartView = UIImageView(image: UIImage(named: "white"))
         heartView.contentMode = .scaleToFill
         
         imageView = UIImageView(image: nil)
@@ -64,10 +64,13 @@ class MovieCell: UICollectionViewCell{
         
         adjustHeartView()
 //        print("ref \(self.movie.id) \(self.movie.favourite)")
+        DispatchQueue.global().async {
+            moviesRepository.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
+                self.imageView.image = image
+            })
+        }
         
-        moviesRepository.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
-            self.imageView.image = image
-        })
+        
     }
     
     func adjustHeartView(){

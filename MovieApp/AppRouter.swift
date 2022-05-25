@@ -1,7 +1,6 @@
 import UIKit
-class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
+class AppRouter: AppRouterProtocol, MovieSelectedDelegate{
     private let navigationController: UINavigationController!
-    private var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
     private var dataLoader: DataLoader!
     
     init(navigationController: UINavigationController){
@@ -13,7 +12,7 @@ class AppRouter: AppRouterProtocol, TopicCollectionViewDelegate{
     func setStartScreen(in window: UIWindow?){
         
         
-        let movieTabBarController = MovieTabBarController(topicCollectionViewCellDelegate: self)
+        let movieTabBarController = MovieTabBarController(movieSelectedDelegate: self)
 
         navigationController.pushViewController(movieTabBarController, animated: false)
                 

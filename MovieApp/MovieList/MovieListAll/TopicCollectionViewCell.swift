@@ -11,7 +11,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     var genre: MovieGenreViewModel!
     var movies: [MovieViewModel] = []
         
-    var delegate: TopicCollectionViewDelegate!
+    var delegate: MovieSelectedDelegate!
     
     var moviesRepository: MoviesRepository!
         
@@ -85,13 +85,13 @@ class TopicCollectionViewCell: UICollectionViewCell{
         movieCollectionView.delegate = self
     }
     
-    func set(movieGroup: Group, moviesRepository: MoviesRepository, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    func set(movieGroup: Group, moviesRepository: MoviesRepository, movieSelectedDelegate: MovieSelectedDelegate) {
         cellCategory = movieGroup
         
         self.moviesRepository = moviesRepository
         genres = moviesRepository.getLoadedGenres()
         
-        delegate = topicCollectionViewCellDelegate
+        delegate = movieSelectedDelegate
         
         title.text = groupToString(cellCategory)
         
@@ -278,8 +278,4 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
         loadMovies()
         movieCollectionView.reloadData()
     }
-}
-
-protocol TopicCollectionViewDelegate{
-    func movieSelected(movieId: Int, favourite: Bool)
 }

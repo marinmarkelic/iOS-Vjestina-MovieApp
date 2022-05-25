@@ -122,6 +122,7 @@ class SearchBarView: UIView{
     }
 }
 
+
 extension SearchBarView: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print("Begin typing")
@@ -155,3 +156,5 @@ protocol SearchBarInputDelegate{
 protocol SearchBarDelegate{
     func replaceViewControllers()
 }
+
+

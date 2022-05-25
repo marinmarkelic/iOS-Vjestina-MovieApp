@@ -2,13 +2,13 @@ import UIKit
 
 class MovieTabBarController: UITabBarController, UITabBarControllerDelegate{
     
-    var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
+    var movieSelectedDelegate: MovieSelectedDelegate!
         
     var movieListViewController: MovieListViewController!
     var favouritesController: FavouritesController!
         
-    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
-        self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
+    init(movieSelectedDelegate: MovieSelectedDelegate) {
+        self.movieSelectedDelegate = movieSelectedDelegate
         
         super.init(nibName: nil, bundle: nil)
         
@@ -29,8 +29,8 @@ class MovieTabBarController: UITabBarController, UITabBarControllerDelegate{
         
         tabBar.backgroundColor = .white
         
-        movieListViewController = MovieListViewController(topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
-        favouritesController = FavouritesController()
+        movieListViewController = MovieListViewController(movieSelectedDelegate: movieSelectedDelegate)
+        favouritesController = FavouritesController(movieSelectedDelegate: movieSelectedDelegate)
         
         movieListViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: nil)
         favouritesController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart"), selectedImage: nil)

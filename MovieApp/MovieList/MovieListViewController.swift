@@ -3,7 +3,7 @@ import SnapKit
 
 class MovieListViewController: UIViewController{
     
-    var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
+    var movieSelectedDelegate: MovieSelectedDelegate!
     
     var moviesRepository: MoviesRepository!
     
@@ -15,8 +15,8 @@ class MovieListViewController: UIViewController{
     var movieListSearchingViewController: MovieListSearchingViewController!
     
     
-    init(topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
-        self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
+    init(movieSelectedDelegate: MovieSelectedDelegate) {
+        self.movieSelectedDelegate = movieSelectedDelegate
         
         moviesRepository = MoviesRepository()
         
@@ -44,8 +44,8 @@ class MovieListViewController: UIViewController{
     }
     
     func buildViewControllers(){
-        movieListAllViewController = MovieListAllViewController(moviesRepository: moviesRepository, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
-        movieListSearchingViewController = MovieListSearchingViewController()
+        movieListAllViewController = MovieListAllViewController(moviesRepository: moviesRepository, movieSelectedDelegate: movieSelectedDelegate)
+        movieListSearchingViewController = MovieListSearchingViewController(movieSelectedDelegate: movieSelectedDelegate, movieListSearchingViewControllerDelegate: self)
         
         movieListSearchingViewController.view.isHidden = true
         
@@ -108,5 +108,11 @@ extension MovieListViewController: SearchBarDelegate{
             movieListAllViewController.view.isHidden = true
             movieListSearchingViewController.view.isHidden = false
         }
+    }
+}
+
+extension MovieListViewController: MovieListSearchingViewControllerDelegate{
+    func selectedMovie() {
+        searchBar.clickedCancelButton()
     }
 }

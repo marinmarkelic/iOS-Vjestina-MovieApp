@@ -7,7 +7,7 @@ class FavouritesController: UIViewController, MoviesRepositoryDelegate{
     
     var label: UILabel!
     
-    var delegate: TopicCollectionViewDelegate!
+    var delegate: MovieSelectedDelegate!
     
     var moviesRepository: MoviesRepository!
     
@@ -16,8 +16,10 @@ class FavouritesController: UIViewController, MoviesRepositoryDelegate{
     var movieCollectionView: UICollectionView!
 
 
-    init() {
+    init(movieSelectedDelegate: MovieSelectedDelegate) {
         super.init(nibName: nil, bundle: nil)
+        
+        delegate = movieSelectedDelegate
         
         moviesRepository = MoviesRepository()
         moviesRepository.delegate = self
@@ -123,10 +125,12 @@ extension FavouritesController: UICollectionViewDataSource {
 //        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
         
         guard let delegate = delegate else{
+            print("nil")
             return
         }
         
 //        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
+        print("click")
         delegate.movieSelected(movieId: moviesRepository.getFavouriteMovies()[indexPath.row].id, favourite: moviesRepository.getFavouriteMovies()[indexPath.row].favourite)
 
     }

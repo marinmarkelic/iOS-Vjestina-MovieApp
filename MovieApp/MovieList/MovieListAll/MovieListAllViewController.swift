@@ -7,11 +7,11 @@ class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
     var collectionViewLayout: UICollectionViewFlowLayout!
     var collectionView: UICollectionView!
     var networkService: NetworkService!
-    var topicCollectionViewCellDelegate: TopicCollectionViewDelegate!
+    var movieSelectedDelegate: MovieSelectedDelegate!
     
     var moviesRepository: MoviesRepository!
     
-    init(moviesRepository: MoviesRepository, topicCollectionViewCellDelegate: TopicCollectionViewDelegate) {
+    init(moviesRepository: MoviesRepository, movieSelectedDelegate: MovieSelectedDelegate) {
         super.init(nibName: nil, bundle: nil)
         
         self.moviesRepository = moviesRepository
@@ -21,7 +21,7 @@ class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
             self.dataLoaded()
         })
         
-        self.topicCollectionViewCellDelegate = topicCollectionViewCellDelegate
+        self.movieSelectedDelegate = movieSelectedDelegate
     }
     
     required init?(coder: NSCoder) {
@@ -148,7 +148,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
             fatalError()
         }
                 
-        cell.set(movieGroup: allGroups()[indexPath.row], moviesRepository: moviesRepository, topicCollectionViewCellDelegate: topicCollectionViewCellDelegate)
+        cell.set(movieGroup: allGroups()[indexPath.row], moviesRepository: moviesRepository, movieSelectedDelegate: movieSelectedDelegate)
         
         return cell
     }

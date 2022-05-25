@@ -123,28 +123,32 @@ class MoviesDatabaseDataSource{
         }
 
         let fetchRequest = Movie.fetchRequest()
-//        let predicate = NSPredicate(format: "%@ in groups.name", "\(groupToString(group))")       //Radi
+        let predicate = NSPredicate(format: "%@ in groups.name", "\(groupToString(group))")       //Radi
 //        let predicate = NSPredicate(format: "ANY groups.name = %@", "\(groupToString(group))")    //Radi
 
-        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(value: Int16(18)))")            //Crasha app
+//        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(value: Int16(18)))")            //Crasha app
 //        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(NSNumber(28))")              //Vraca 0 elemenata
 
 
 
 
-//        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
-//
-//        fetchRequest.sortDescriptors = [fullNameSort]
+        let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
+
+        fetchRequest.sortDescriptors = [fullNameSort]
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.predicate = predicate
 
         do{
             let a = try managedContext.fetch(fetchRequest)
-//            a.forEach({
-//                print($0.genre_ids)
-//            })
-            print("\(a.count) results for \(groupToString(group))")
-            return a
+
+            return a.filter{
+                guard let val = $0.genre_ids?.contains(Int16(genreId)) else{
+                    return false
+                }
+                
+                return val
+            }
+            
         }
         catch let error as NSError{
             print("Error \(error), Info: \(error.userInfo)")

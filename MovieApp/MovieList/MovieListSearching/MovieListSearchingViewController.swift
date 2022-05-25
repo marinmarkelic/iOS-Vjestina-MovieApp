@@ -7,7 +7,8 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
         
     }
     
-    
+    var movieListSearchingViewControllerDelegate: MovieListSearchingViewControllerDelegate!
+    var movieSelectedDelegate: MovieSelectedDelegate!
     
     var collectionViewLayout: UICollectionViewFlowLayout!
     var collectionView: UICollectionView!
@@ -16,8 +17,11 @@ class MovieListSearchingViewController: UIViewController, SearchBarInputDelegate
     
     var repo: MoviesRepository!
     
-    init() {
+    init(movieSelectedDelegate: MovieSelectedDelegate, movieListSearchingViewControllerDelegate: MovieListSearchingViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
+        
+        self.movieSelectedDelegate = movieSelectedDelegate
+        self.movieListSearchingViewControllerDelegate = movieListSearchingViewControllerDelegate
         
         repo = MoviesRepository()
         repo.delegate = self
@@ -111,6 +115,28 @@ extension MovieListSearchingViewController: UICollectionViewDelegateFlowLayout {
 
 extension MovieListSearchingViewController: UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
+        
+        guard let movieSelectedDelegate = movieSelectedDelegate,
+              let movieListSearchingViewControllerDelegate = movieListSearchingViewControllerDelegate else{
+            return
+        }
+        
+        let movies: [MovieViewModel]
+        
+        if searchBarText.isEmpty{
+            movies = repo.getLoadedMovies()
+        }
+        else{
+            movies = repo.getLoadedMovies(withText: searchBarText)
+        }
+        
+        movieSelectedDelegate.movieSelected(movieId: movies[indexPath.row].id, favourite: movies[indexPath.row].favourite)
+        movieListSearchingViewControllerDelegate.selectedMovie()
+
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
@@ -163,6 +189,7 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
     }
 }
 
-//extension SearchBarInputDelegate{
-//
-//}
+protocol MovieListSearchingViewControllerDelegate{
+//    resets search bar when we click on a movie
+    func selectedMovie()
+}
