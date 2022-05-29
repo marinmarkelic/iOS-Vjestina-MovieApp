@@ -31,12 +31,8 @@ class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
-//        imageView.image = UIImage(named: "tmdbLogo.svg")
-//        navigationItem.titleView = imageView
-        
         networkService = NetworkService()
-                
+        
         buildViews()
         addConstraints()
         configureCollectionView()
@@ -98,6 +94,7 @@ class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
     }
     
     func reloadData(){
+        print("all reload data")
         collectionView.reloadData()
     }
 }
@@ -147,7 +144,7 @@ extension MovieListAllViewController: UICollectionViewDataSource {
         else {
             fatalError()
         }
-                
+        
         cell.set(movieGroup: allGroups()[indexPath.row], moviesRepository: moviesRepository, movieSelectedDelegate: movieSelectedDelegate)
         
         return cell

@@ -116,12 +116,11 @@ extension MovieListSearchingViewController: UICollectionViewDelegateFlowLayout {
 extension MovieListSearchingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
         
         guard let movieSelectedDelegate = movieSelectedDelegate,
               let movieListSearchingViewControllerDelegate = movieListSearchingViewControllerDelegate else{
-            return
-        }
+                  return
+              }
         
         let movies: [MovieViewModel]
         
@@ -134,7 +133,7 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
         
         movieSelectedDelegate.movieSelected(movieId: movies[indexPath.row].id, favourite: movies[indexPath.row].favourite)
         movieListSearchingViewControllerDelegate.selectedMovie()
-
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -142,16 +141,7 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        let movies = Movies.all()
-//
-//        return movies.filter({
-//            if searchBarText.isEmpty{
-//                return true
-//            }
-//
-//            return $0.title.lowercased().contains(searchBarText.lowercased())
-//        }).count
-
+        
         if searchBarText.isEmpty{
             return repo.getLoadedMovies().count
         }
@@ -165,15 +155,6 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
         else {
             fatalError()
         }
-//        let movies = repo.getLoadedMovies()
-//
-//        let movie = movies.filter({
-//            if searchBarText.isEmpty{
-//                return true
-//            }
-//
-//            return $0.title.lowercased().contains(searchBarText.lowercased())
-//        }).sorted(by: {$0.title > $1.title})[indexPath.row]
         
         let movie: MovieViewModel
         if searchBarText.isEmpty{
@@ -190,6 +171,6 @@ extension MovieListSearchingViewController: UICollectionViewDataSource {
 }
 
 protocol MovieListSearchingViewControllerDelegate{
-//    resets search bar when we click on a movie
+    //    resets search bar when we click on a movie
     func selectedMovie()
 }

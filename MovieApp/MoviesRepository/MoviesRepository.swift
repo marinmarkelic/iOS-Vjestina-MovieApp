@@ -13,13 +13,6 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         moviesNetworkDataSource.delegate = self
         
         print(moviesDatabaseDataSource.fetchGenres())
-        
-//        moviesDatabaseDataSource.del()
-        
-//        print("favs \(moviesDatabaseDataSource.fetchFavouriteMovies().count)")
-//        let genres = moviesDatabaseDataSource.fetchMovies()[2].value(forKey: "genre_ids") as? NSArray
-//        let arr = genres as? [Int16]
-//        print(arr)
     }
     
 //    Normal:       Fetch data from the internet, refresh database and show the data

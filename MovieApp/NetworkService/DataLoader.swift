@@ -58,20 +58,13 @@ class DataLoader: DataLoaderProtocol{
                 switch category {
                 case .popular:
                     self.popularMovies = value.results
-                    
-//                    MoviesDatabaseDataSource().addMovies(group: .popular, movieResults: value.results)
                 case .trending:
                     self.trendingMovies = value.results
-                    
-//                    MoviesDatabaseDataSource().addMovies(group: .trending, movieResults: value.results)
                 case .topRated:
                     self.topRatedMovies = value.results
-                    
-//                    MoviesDatabaseDataSource().addMovies(group: .topRated, movieResults: value.results)
                 case .recommended:
                     self.recommendedMovies = value.results
                     
-//                    MoviesDatabaseDataSource().addMovies(group: .recommended, movieResults: value.results)
                 }
                 
             case .failure(let error):
@@ -146,7 +139,6 @@ class DataLoader: DataLoaderProtocol{
     func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void) {
         let url = URL(string: urlStr)
         guard let url=url else {
-//            fatalError()
             print("Image failed to load")
             return
         }

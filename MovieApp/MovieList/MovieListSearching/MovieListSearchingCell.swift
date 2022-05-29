@@ -79,7 +79,6 @@ class MovieListSearchingCell: UICollectionViewCell{
             $0.trailing.equalToSuperview()
             $0.leading.equalToSuperview().offset(15)
             $0.top.equalTo(title.snp.bottom).offset(10)
-//            $0.bottom.equalToSuperview().offset(-20)
         }
     }
     
@@ -92,25 +91,8 @@ class MovieListSearchingCell: UICollectionViewCell{
         DataLoader().loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
             self.imageView.image = image
         })
-        
-//        let url = URL(string: movie.poster_path)
-//        guard let url=url else {
-//            fatalError()
-//        }
-//        load(url: url)
     }
     
-//    func load(url: URL) {
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: url) {
-//                if let image = UIImage(data: data) {
-//                    DispatchQueue.main.async {
-//                        self?.imageView.image = image
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 

@@ -4,15 +4,13 @@ import Network
 class NetworkService: NetworkServiceProtocol{
     func hasConnection(completionHandler: @escaping (Bool) -> Void) -> Void{
         let monitor = NWPathMonitor()
-
+        
         monitor.pathUpdateHandler = { path in
-           if path.status == .satisfied {
-//               print("yes")
-               completionHandler(true)
-           } else {
-//               print("no")
-               completionHandler(false)
-           }
+            if path.status == .satisfied {
+                completionHandler(true)
+            } else {
+                completionHandler(false)
+            }
         }
         
         let queue = DispatchQueue(label: "Monitor")

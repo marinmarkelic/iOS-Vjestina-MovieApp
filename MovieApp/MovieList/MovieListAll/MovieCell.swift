@@ -30,7 +30,7 @@ class MovieCell: UICollectionViewCell{
         layer.masksToBounds = true
         
         
-                
+        
         heartViewHolder = UIView()
         heartViewHolder.backgroundColor = UIColor(red: 11.0/255.0, green: 37.0/255.0, blue: 63.0/255.0, alpha: 0.6)
         heartViewHolder.layer.masksToBounds = true
@@ -63,7 +63,6 @@ class MovieCell: UICollectionViewCell{
         self.moviesRepository = moviesRepository
         
         adjustHeartView()
-//        print("ref \(self.movie.id) \(self.movie.favourite)")
         DispatchQueue.global().async {
             moviesRepository.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
                 self.imageView.image = image

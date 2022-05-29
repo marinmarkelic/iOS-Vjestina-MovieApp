@@ -22,7 +22,7 @@ class MovieListViewController: UIViewController{
         
         super.init(nibName: nil, bundle: nil)
         
-
+        
     }
     
     required init?(coder: NSCoder) {
@@ -31,7 +31,7 @@ class MovieListViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         
         
         buildViewControllers()

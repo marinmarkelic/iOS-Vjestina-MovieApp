@@ -3,19 +3,16 @@ import UIKit
 class MovieTabBarController: UITabBarController, UITabBarControllerDelegate{
     
     var movieSelectedDelegate: MovieSelectedDelegate!
-        
+    
     var movieListViewController: MovieListViewController!
     var favouritesController: FavouritesController!
-        
+    
     init(movieSelectedDelegate: MovieSelectedDelegate) {
         self.movieSelectedDelegate = movieSelectedDelegate
         
         super.init(nibName: nil, bundle: nil)
         
         self.delegate = self
-                
-        buildViews()
-        addConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -47,12 +44,5 @@ class MovieTabBarController: UITabBarController, UITabBarControllerDelegate{
             print("click")
             vc.reloadData()
         }
-    }
-    
-    func buildViews(){
-            }
-    
-    func addConstraints(){
-        
     }
 }

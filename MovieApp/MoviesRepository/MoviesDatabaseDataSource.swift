@@ -16,11 +16,6 @@ class MoviesDatabaseDataSource{
     func addMovies(group: Group, movieResults: [MovieResult]){
         
         print("adding \(movieResults.count) movies to \(groupToString(group))")
-        let movieGroupName = groupToString(group)
-//        guard let movieGroup = fetchMovieGroup(name: movieGroupName) else{
-//            print("Movie group doesnt exist")
-//            return
-//        }
         let movieGroup = groupToMovieGroup(group: group)
         
         for m in movieResults{
@@ -110,28 +105,11 @@ class MoviesDatabaseDataSource{
         return []
     }
     
-//    U ovom dijelu za određenu grupu i zanr vracam filmove.
-    
-//    Iz nekog razloga ne zeli filtrirati po genre_ids. Dva predikata za groups.name rade dok jedan
-//    predikat za genre_ids vraca 0 elemenata, a drugi crasha aplikaciju. Napravio sam ispis svih filmova i njihovih genre_ids
-//    po cemu vidimo da su id-ovi spremljeni.
-//
     func fetchMovies(group: Group, genreId: Int) -> [Movie]{
         print("fetching movies for \(groupToString(group))")
-        try? managedContext.fetch(Movie.fetchRequest()).forEach{
-            print("Genres for \($0.original_title!): \($0.genre_ids!)")
-        }
 
         let fetchRequest = Movie.fetchRequest()
-        let predicate = NSPredicate(format: "%@ in groups.name", "\(groupToString(group))")       //Radi
-//        let predicate = NSPredicate(format: "ANY groups.name = %@", "\(groupToString(group))")    //Radi
-
-//        let predicate = NSPredicate(format: "%@ IN self.genre_ids", "\(NSNumber(value: Int16(18)))")            //Crasha app
-//        let predicate = NSPredicate(format: "ANY genre_ids = %@", "\(NSNumber(28))")              //Vraca 0 elemenata
-
-
-
-
+        let predicate = NSPredicate(format: "%@ in groups.name", "\(groupToString(group))")
         let fullNameSort = NSSortDescriptor(key: "original_title", ascending: true)
 
         fetchRequest.sortDescriptors = [fullNameSort]
@@ -155,33 +133,6 @@ class MoviesDatabaseDataSource{
         }
 
         return []
-        
-//        let fetchRequest = MovieGroup.fetchRequest()
-//        let predicate = NSPredicate(format: "name == %@", "\(groupToString(group))")
-//
-//        fetchRequest.returnsObjectsAsFaults = false
-//        fetchRequest.predicate = predicate
-//        fetchRequest.fetchLimit = 1
-//
-//        do{
-//            let group = try managedContext.fetch(fetchRequest).first
-//            guard let group=group,
-//                  let set=group.value(forKey: "movies") as? NSSet,
-//                  let movies=set.allObjects as? [Movie] else{
-//                      return []
-//                  }
-//
-//            return movies.filter({
-//               print("\(genreId) \($0.genre_ids) \($0.genre_ids!.contains(Int16(genreId)))")
-//                return $0.genre_ids!.contains(Int16(genreId))
-//
-//            })
-//        }
-//        catch let error as NSError{
-//            print("Error \(error), Info: \(error.userInfo)")
-//        }
-//
-//        return []
     }
     
     func fetchFavouriteMovies() -> [Movie]{
@@ -244,22 +195,6 @@ class MoviesDatabaseDataSource{
                     movieGenre.addToMovies(m)
                 }
             }
-//            for e in allGroups(){
-//                let movies = fetchMovies(group: e, genreId: g.id)
-//                for m in movies{
-//                    guard let nsArray=m.value(forKey: "genre_ids") as? NSArray,
-//                          let genresArray=nsArray as? [Int16]
-//                           else{
-//                               print("cont")
-//                        continue
-//                    }
-//
-//                    if(genresArray.contains(Int16(g.id))){
-//                        m.addToGenres(movieGenre)
-//                        movieGenre.addToMovies(m)
-//                    }
-//                }
-//            }
         }
         
         try? managedContext.save()

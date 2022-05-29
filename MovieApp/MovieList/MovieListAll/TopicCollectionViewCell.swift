@@ -10,15 +10,14 @@ class TopicCollectionViewCell: UICollectionViewCell{
     var genres: [MovieGenreViewModel]!
     var genre: MovieGenreViewModel!
     var movies: [MovieViewModel] = []
-        
+    
     var delegate: MovieSelectedDelegate!
     
     var moviesRepository: MoviesRepository!
-        
+    
     var mainView: UIView!
     var title: UILabel!
     
-    //    var buttonCollectionView: UICollectionView!
     var collectionViewsContainer: UIView!
     
     var buttonStackViewScrollView: UIScrollView!
@@ -31,7 +30,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-                
+        
         buildViews()
         addConstraints()
         configureCollectionView()
@@ -95,7 +94,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         
         title.text = groupToString(cellCategory)
         
-
+        
         for g in genres {
             let cell = ButtonCell()
             //  highlight only first cell at the beginning
@@ -110,7 +109,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
         
         loadMovies()
         
-
+        
         print("topic cell view reload")
         movieCollectionView.reloadData()
     }
@@ -133,7 +132,7 @@ class TopicCollectionViewCell: UICollectionViewCell{
             movies = []
         }
     }
-
+    
     
     
     func addConstraints() {
@@ -196,17 +195,14 @@ extension TopicCollectionViewCell: UICollectionViewDelegateFlowLayout {
 
 extension TopicCollectionViewCell: UICollectionViewDataSource {
     
-//  onClick for collection view cells
+    //  onClick for collection view cells
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print(movies.sorted(by: {$0.original_title > $1.original_title})[indexPath.row].original_title)
-        
         guard let delegate = delegate else{
             return
         }
         
-//        delegate.movieSelected(movieId: movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row].id)
         delegate.movieSelected(movieId: movies[indexPath.row].id, favourite: movies[indexPath.row].favourite)
-
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -225,33 +221,11 @@ extension TopicCollectionViewCell: UICollectionViewDataSource {
             fatalError()
         }
         
-//        let movie = movies.filter({ $0.genre_ids.contains(genre.id) }).sorted(by: {$0.original_title > $1.original_title})[indexPath.row]
         let movie = movies[indexPath.row]
-
+        
         
         cell.set(movie: movie, moviesRepository: moviesRepository)
         
-//        print("mov: \(movies[indexPath.row])")
-        
-//        if movies.count > 0{
-//            if let dataLoader=dataLoader{
-//
-//                //  If the image is already fetched get it from moviePosterImages else fetch it and store it in moviePosterImages
-//                if dataLoader.moviePosterImages.contains(MoviePosterImage(id: movie.id, image: nil)){
-//                    if let index = dataLoader.moviePosterImages.firstIndex(of: MoviePosterImage(id: movie.id, image: nil)){
-//                        cell.imageView.image = dataLoader.moviePosterImages[index].image
-//                    }
-//                }
-//                else{
-//                    dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movie.poster_path, completionHandler: {image in
-//                        cell.imageView.image = image
-//
-//                        dataLoader.addMoviePosterImage(moviePosterImage: MoviePosterImage(id: movie.id, image: image))
-//                    })
-//                }
-//            }
-//        }
-                
         return cell
     }
 }
@@ -261,7 +235,6 @@ extension TopicCollectionViewCell: ButtonCellDelegate{
     func changeButtonStates(clickedButton: MovieGenreViewModel) {
         for view in buttonStackView.subviews {
             view.removeFromSuperview()
-            //            buttonStackView.removeArrangedSubview(view)
         }
         
         genre = clickedButton
