@@ -11,8 +11,6 @@ class MoviesRepository: MoviesNetworkDataSourceDelegate{
         moviesNetworkDataSource = MoviesNetworkDataSource()
         
         moviesNetworkDataSource.delegate = self
-        
-        print(moviesDatabaseDataSource.fetchGenres())
     }
     
 //    Normal:       Fetch data from the internet, refresh database and show the data

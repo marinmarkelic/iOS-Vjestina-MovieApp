@@ -170,7 +170,7 @@ class MoviesDatabaseDataSource{
     func addGenres(genres: [Genre]){
         for g in genres{
             
-//            Edits the existing movie info if it is already saved
+//            Edits the existing genre info if it is already saved
             var movieGenre: MovieGenre
             if fetchMovieGenre(id: g.id) == nil{
                 let entity = NSEntityDescription.entity(forEntityName: "MovieGenre", in: managedContext)!
@@ -187,7 +187,6 @@ class MoviesDatabaseDataSource{
                 guard let nsArray=m.value(forKey: "genre_ids") as? NSArray,
                       let genresArray=nsArray as? [Int16]
                 else{
-                    print("cont")
                     continue
                 }
                 

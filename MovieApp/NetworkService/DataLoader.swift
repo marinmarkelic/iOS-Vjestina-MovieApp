@@ -11,9 +11,6 @@ class DataLoader: DataLoaderProtocol{
     var genres: [Genre]!
     var movieDetails: MovieDetails? = nil
     
-    var moviePosterImages: [MoviePosterImage] = []
-    var movieBackdropImages: [MovieBackdropImage] = []
-    
     init() {
         popularMovies = []
         trendingMovies = []
@@ -153,19 +150,6 @@ class DataLoader: DataLoaderProtocol{
             }
         }
     }
-    
-    func addMoviePosterImage(moviePosterImage: MoviePosterImage){
-        if !(moviePosterImages.contains(moviePosterImage)){
-            moviePosterImages.append(moviePosterImage)
-        }
-    }
-    
-    func addMovieBackdropImage(movieBackdropImage: MovieBackdropImage){
-        if !(movieBackdropImages.contains(movieBackdropImage)){
-            movieBackdropImages.append(movieBackdropImage)
-        }
-    }
-    
 }
 
 protocol DataLoaderProtocol{
@@ -178,14 +162,7 @@ protocol DataLoaderProtocol{
     
     var movieDetails: MovieDetails? { get }
     
-    //  Stores images that were fetched so that we dont have to fetch them more than once
-    var moviePosterImages: [MoviePosterImage] { get }
-    var movieBackdropImages: [MovieBackdropImage] { get }
-    
     func loadData(completionHandler: @escaping () -> Void)
     func loadImage(urlStr: String, completionHandler: @escaping (UIImage) -> Void)
     func loadMovieDetail(movieId: Int, completionHandler: @escaping (_ movieDetails: MovieDetails?) -> Void)
-    
-    func addMoviePosterImage(moviePosterImage: MoviePosterImage)
-    func addMovieBackdropImage(movieBackdropImage: MovieBackdropImage)
 }

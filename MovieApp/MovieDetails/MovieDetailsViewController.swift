@@ -37,26 +37,9 @@ class MovieDetailsViewController: UIViewController {
             
             MoviesRepository().loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
                 self.mainInfo.bgImage.image = image
-                
-                self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
-                
             })
-            
-//            if self.dataLoader.movieBackdropImages.contains(MovieBackdropImage(id: self.movieId, image: nil)){
-//                if let index = self.dataLoader.movieBackdropImages.firstIndex(of: MovieBackdropImage(id: self.movieId, image: nil)){
-//                    self.mainInfo.bgImage.image = self.dataLoader.movieBackdropImages[index].image
-//                }
-//            }
-//            else{
-//                self.dataLoader.loadImage(urlStr: IMAGES_BASE_URL + movieDetails.backdrop_path, completionHandler: { image in
-//                    self.mainInfo.bgImage.image = image
-//
-//                    self.dataLoader.addMovieBackdropImage(movieBackdropImage: MovieBackdropImage(id: self.movieId, image: image))
-//
-//                })
-//            }
         })
-
+        
         
         buildViews()
         addConstraints()
