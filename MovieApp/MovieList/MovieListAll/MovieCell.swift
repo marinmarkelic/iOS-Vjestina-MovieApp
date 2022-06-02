@@ -25,6 +25,12 @@ class MovieCell: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        //hide or reset anything you want hereafter, for example
+        imageView.image = nil
+    }
+    
     func buildViews(){
         layer.cornerRadius = 10
         layer.masksToBounds = true

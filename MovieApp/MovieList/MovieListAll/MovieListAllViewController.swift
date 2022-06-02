@@ -9,7 +9,7 @@ class MovieListAllViewController: UIViewController, MoviesRepositoryDelegate{
     var networkService: NetworkService!
     var movieSelectedDelegate: MovieSelectedDelegate!
     
-    var moviesRepository: MoviesRepository!
+    weak var moviesRepository: MoviesRepository!
     
     init(moviesRepository: MoviesRepository, movieSelectedDelegate: MovieSelectedDelegate) {
         super.init(nibName: nil, bundle: nil)

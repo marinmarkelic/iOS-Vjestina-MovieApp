@@ -144,9 +144,7 @@ extension SearchBarView: UITextFieldDelegate{
         }
         
         return true
-    }
-    
-    
+    }  
 }
 
 protocol SearchBarInputDelegate{
