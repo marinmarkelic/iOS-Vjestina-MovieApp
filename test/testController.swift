@@ -3,37 +3,86 @@ import SnapKit
 
 class testController: UIViewController{
     
-    let p: PersonView
-    let o: OverviewView
+    var mainView: UIView!
+    
+    var search: SearchBarView!
+    
+//    var grayView: UIView!
+//    var searchImage: UIImageView!
+//    var searchText: UITextField!
+//    var deleteButton: UIButton!
+//    var cancelButton: UIButton!
     
     init(){
-        p = PersonView(name: "name", role: "role")
-        o = OverviewView()
+    super.init(nibName: nil, bundle: nil)
         
-        super.init(nibName: nil, bundle: nil)
-        
-        self.view.backgroundColor = .white
-        self.view.addSubview(p)
-        self.view.addSubview(o)
-        
-        addConstraints()
+    buildViews()
+    addConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func buildViews(){
+        mainView = UIView()
+        mainView.backgroundColor = .white
+        search = SearchBarView()
+        
+        view.addSubview(mainView)
+        mainView.addSubview(search)
+        
+//        grayView = UIView()
+//        searchImage = UIImageView()
+//        searchText = UITextField()
+//        deleteButton = UIButton()
+//        cancelButton = UIButton()
+//
+//        searchImage.image = UIImage(named: "magnifyingGlass.jpeg")
+//
+//        grayView.backgroundColor = .lightGray
+//        grayView.layer.cornerRadius = 10
+//
+//        searchText.placeholder = "Search"
+//
+//
+//        mainView.addSubview(grayView)
+//
+//        grayView.addSubview(searchImage)
+//        grayView.addSubview(searchText)
+//        grayView.addSubview(deleteButton)
+//
+//        mainView.addSubview(cancelButton)
+    }
+    
     func addConstraints(){
-        p.snp.makeConstraints{
-            $0.top.equalTo(self.view).offset(50)
-            $0.height.equalTo(40)
-            $0.width.equalTo(self.view)
+        mainView.snp.makeConstraints{
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        o.snp.makeConstraints{
-            $0.width.equalTo(self.view)
-            $0.height.equalTo(self.view).dividedBy(2)
-            $0.top.equalTo(self.view.snp.top).offset(300)
-        }
+//        grayView.snp.makeConstraints{
+//            $0.leading.top.equalToSuperview().offset(10)
+//            $0.trailing.equalToSuperview().offset(-10)
+//            $0.height.equalTo(50)
+//        }
+//        searchImage.snp.makeConstraints{
+//            $0.leading.top.equalToSuperview().offset(15)
+//            $0.width.height.equalTo(20)
+//        }
+//
+//        searchText.snp.makeConstraints{
+//            $0.top.equalToSuperview().offset(15)
+//            $0.leading.equalTo(searchImage.snp.trailing).offset(15)
+//        }
+//
+//        deleteButton.snp.makeConstraints{
+//            $0.leading.equalTo(searchText.snp.trailing)
+//            $0.top.equalToSuperview()
+//        }
+//
+//        cancelButton.snp.makeConstraints{
+//            $0.leading.equalTo(grayView.snp.trailing)
+//            $0.top.equalToSuperview()
+//        }
     }
 }

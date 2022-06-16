@@ -1,23 +1,26 @@
-//
-//  AppDelegate.swift
-//  MovieApp
-//
-//  Created by Marin on 19.03.2022..
-//
-
 import UIKit
+import MovieAppData
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    var router: AppRouter!
+    var nc: UINavigationController!
+        
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        nc = UINavigationController()
+        router = AppRouter(navigationController: nc)
+                
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = MovieDetailsViewController()
-        window.makeKeyAndVisible()
         self.window = window
+        
+        router.setStartScreen(in: window)
+                
         return true
     }
 }
-
