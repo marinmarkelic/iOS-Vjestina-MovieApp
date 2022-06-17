@@ -21,7 +21,7 @@ class MainInfoView: UIView{
     
     var starImage: UIImageView!
     
-    init(movieId: Int,favourite: Bool){
+    init(movieId: Int, favourite: Bool){
         self.favourite = favourite
         self.movieId = movieId
         
@@ -71,6 +71,36 @@ class MainInfoView: UIView{
         let durationHours: Int = durationMinutes / 60
         let durationText = String(durationHours) + "h " + String(durationMinutes - durationHours * 60) + "m"
         textDuration.text = durationText
+        
+        
+        UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
+            self.textTitle.snp.makeConstraints{
+                $0.bottom.equalTo(self.textGenre.snp.top).offset(-35)
+                $0.leading.equalToSuperview().offset(20)
+            }
+            
+            self.layoutIfNeeded()
+            self.scorePercentage.layer.removeAllAnimations()
+            self.scoreText.layer.removeAllAnimations()
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1, delay: 0.5, animations: {
+            self.textDate.snp.makeConstraints{
+                $0.bottom.equalTo(self.starImage.snp.top).offset(-40)
+                $0.leading.equalToSuperview().offset(20)
+            }
+            
+            self.layoutIfNeeded()
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1, delay: 0.75, options: .curveEaseInOut, animations: {
+            self.textGenre.snp.makeConstraints{
+                $0.top.equalTo(self.textDate.snp.bottom).offset(5)
+                $0.leading.equalToSuperview().offset(20)
+            }
+            
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
     
     func buildViews(){
@@ -182,7 +212,7 @@ class MainInfoView: UIView{
         
         textTitle.snp.makeConstraints{
             $0.bottom.equalTo(textGenre.snp.top).offset(-35)
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(UIScreen.main.bounds.width)
         }
         
         textTitleYear.snp.makeConstraints{
@@ -192,13 +222,12 @@ class MainInfoView: UIView{
         
         textDate.snp.makeConstraints{
             $0.bottom.equalTo(starImage.snp.top).offset(-40)
-            $0.leading.equalTo(textTitle.snp.leading)
+            $0.leading.equalToSuperview().offset(UIScreen.main.bounds.width)
         }
         
         textGenre.snp.makeConstraints{
             $0.top.equalTo(textDate.snp.bottom).offset(5)
-            $0.leading.equalTo(textTitle.snp.leading)
-            //$0.bottom.equalTo(starImage.snp.top).offset(30)
+            $0.leading.equalToSuperview().offset(UIScreen.main.bounds.width)
         }
         
         textDuration.snp.makeConstraints{
@@ -208,7 +237,7 @@ class MainInfoView: UIView{
         
         starImage.snp.makeConstraints{
             $0.bottom.equalToSuperview().offset(-25)
-            $0.leading.equalTo(textGenre.snp.leading)
+            $0.leading.equalToSuperview().offset(20)
             $0.width.equalTo(20)
             $0.height.equalTo(18)
         }
